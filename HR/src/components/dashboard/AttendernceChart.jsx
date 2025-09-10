@@ -13,7 +13,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 import { FaRegCalendarAlt } from "react-icons/fa"; // for calendar icon
-import { useToggle } from "../context/Toggle";
+import { useToggle } from "../../context/Toggle";
 
 const data = [
   { month: "Jan", onTime: 30, late: 15, absent: 8 },

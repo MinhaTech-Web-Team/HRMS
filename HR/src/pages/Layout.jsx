@@ -15,7 +15,7 @@ const Layout = () => {
       {isSidebarOpen ? <Sidebar /> : <SidebarCollapsed />}
 
       {/* Main Content */}
-      <div className="flex-1 p-4">
+      <div className="flex-1">
         <Outlet />
       </div>
     </div>

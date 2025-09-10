@@ -10,15 +10,22 @@ import {
   PenSquare,
 } from "lucide-react";
 
-import DashboardCards from "../components/DashboardCards";
-import AttendanceChart from "../components/AttendernceChart";
-import EmployeeApplications from "../components/EmployeeApplications";
-import ProjectListCard from "../components/ProjectListCard";
-import EmployeePerformanceChart from "../components/EmployeePerformanceCard";
+// import DashboardCards from "../components/DashboardCards";
+// import AttendanceChart from "../components/AttendernceChart";
+// import EmployeeApplications from "../components/EmployeeApplications";
+// import ProjectListCard from "../components/ProjectListCard";
+// import EmployeePerformanceChart from "../components/EmployeePerformanceCard";
 import { useToggle } from "../context/Toggle";
+import DashboardCards from "./../components/dashboard/DashboardCards";
+import AttendanceChart from "../components/dashboard/AttendernceChart";
+import EmployeeApplications from "./../components/dashboard/EmployeeApplications";
+import ProjectListCard from "./../components/dashboard/ProjectListCard";
+import EmployeePerformanceChart from "./../components/dashboard/EmployeePerformanceCard";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const { toggleSidebar } = useToggle();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen p-6 flex flex-col gap-5">
@@ -49,7 +56,11 @@ const Dashboard = () => {
             />
           </div>
           <div className="bg-gray-100 h-12 w-12 flex items-center justify-center rounded-lg cursor-pointer hover:bg-gray-200 transition-colors">
-            <Bell className="text-gray-500" size={22} />
+            <Bell
+              onClick={() => navigate("/notifications")}
+              className="text-gray-500"
+              size={22}
+            />
           </div>
         </div>
       </div>
