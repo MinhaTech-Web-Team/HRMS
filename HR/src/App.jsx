@@ -6,6 +6,9 @@ import Login from "./pages/Login";
 import Notifications from "./pages/Notifications";
 import EmployeeManagement from "./pages/EmployeeManagement";
 import AddEmployee from "./pages/AddEmployees";
+import ViewEmployee from "./pages/ViewEmployee";
+import EditEmployee from "./pages/EditEmployee";
+import AttendanceManagement from "./pages/AttendenceManagement";
 
 const App = () => {
   return (
@@ -17,6 +20,9 @@ const App = () => {
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/employees" element={<EmployeeManagement />} />
         <Route path="/addemployee" element={<AddEmployee />} />
+        <Route path="/viewemployee/:id" element={<ViewEmployee />} />
+        <Route path="/editemployee/:id" element={<EditEmployee />} />
+        <Route path="/attendance" element={<AttendanceManagement />} />
       </Route>
     </Routes>
   );
