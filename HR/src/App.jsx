@@ -4,11 +4,15 @@ import Dashboard from "./pages/Dashboard";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import Notifications from "./pages/Notifications";
-import EmployeeManagement from "./pages/EmployeeManagement";
-import AddEmployee from "./pages/AddEmployees";
-import ViewEmployee from "./pages/ViewEmployee";
-import EditEmployee from "./pages/EditEmployee";
-import AttendanceManagement from "./pages/AttendenceManagement";
+import EmployeeManagement from "./pages/EmployeeModule/EmployeeManagement";
+import AddEmployee from "./pages/EmployeeModule/AddEmployees";
+import ViewEmployee from "./pages/EmployeeModule/ViewEmployee";
+import EditEmployee from "./pages/EmployeeModule/EditEmployee";
+import AttendanceManagement from "./pages/AttendenceModule/AttendenceManagement";
+import AllEmployees from "./pages/AttendenceModule/AllEmployees";
+import ViewAttendence from "./pages/AttendenceModule/ViewAttendence";
+import EditAttendence from "./pages/AttendenceModule/EditAttendence";
+import ExportAttendence from "./pages/AttendenceModule/ExportAttendence";
 
 const App = () => {
   return (
@@ -23,6 +27,10 @@ const App = () => {
         <Route path="/viewemployee/:id" element={<ViewEmployee />} />
         <Route path="/editemployee/:id" element={<EditEmployee />} />
         <Route path="/attendance" element={<AttendanceManagement />} />
+        <Route path="/allemployees" element={<AllEmployees />} />
+        <Route path="/view-attendance/:id" element={<ViewAttendence />} />
+        <Route path="/edit-attendance/:id" element={<EditAttendence />} />
+        <Route path="/export-attendance/:id" element={<ExportAttendence />} />
       </Route>
     </Routes>
   );

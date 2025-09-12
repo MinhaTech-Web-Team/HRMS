@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { dummyEmployees } from "../assets/assets";
+import { dummyEmployees } from "../../assets/assets";
 
 // Icons
 import { User, Briefcase, FileText, Lock } from "lucide-react";
-import PersonalInfo from "../components/employee/editEmployee/PersonalInfo";
-import ProfessionalInfo from "../components/employee/editEmployee/ProfessionalInfo";
-import Documents from "../components/employee/editEmployee/Documents";
-import AccountAccess from "../components/employee/editEmployee/AccountAccess";
+import PersonalInfo from "../../components/employee/editEmployee/PersonalInfo";
+import ProfessionalInfo from "../../components/employee/editEmployee/ProfessionalInfo";
+import Documents from "../../components/employee/editEmployee/Documents";
+import AccountAccess from "../../components/employee/editEmployee/AccountAccess";
 
 const EditEmployee = () => {
   const { id } = useParams();

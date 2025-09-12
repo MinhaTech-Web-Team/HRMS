@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Subcomponents
-import PersonalInfo from "../components/employee/PersonalInfo";
-import ProfessionalInfo from "../components/employee/ProfessionalInfo";
-import Documents from "../components/employee/Documents";
-import AccountAccess from "../components/employee/AccountAccess";
+import PersonalInfo from "../../components/employee/PersonalInfo";
+import ProfessionalInfo from "../../components/employee/ProfessionalInfo";
+import Documents from "../../components/employee/Documents";
+import AccountAccess from "../../components/employee/AccountAccess";
 
 // Icons
 import { User, Briefcase, FileText, Lock } from "lucide-react";

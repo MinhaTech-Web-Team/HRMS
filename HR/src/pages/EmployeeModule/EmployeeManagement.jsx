@@ -9,11 +9,11 @@ import {
   Trash2,
   Upload,
 } from "lucide-react";
-import { dummyEmployees } from "../assets/assets";
+import { dummyEmployees } from "../../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { BiExport } from "react-icons/bi";
-import FilterModal from "../components/employee/FilterModal";
-import { useToggle } from "../context/Toggle";
+import FilterModal from "../../components/employee/FilterModal";
+import { useToggle } from "../../context/Toggle";
 
 const EmployeeManagement = () => {
   const [OpenFilter, setOpenFilter] = useState(false);

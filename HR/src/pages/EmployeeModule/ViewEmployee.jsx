@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { dummyEmployees } from "./../assets/assets";
+import { dummyEmployees } from "../../assets/assets";
 import { Briefcase, FileText, Handbag, Lock, Pencil, User } from "lucide-react";
 import { TfiEmail } from "react-icons/tfi";
-import PersonalInfo from "../components/employee/viewEmployee/PersonalInfo";
-import ProfessionalInfo from "../components/employee/viewEmployee/ProfessionalInfo";
-import Documents from "../components/employee/viewEmployee/Documents";
-import AccountAccess from "../components/employee/viewEmployee/AccountAccess";
+import PersonalInfo from "../../components/employee/viewEmployee/PersonalInfo";
+import ProfessionalInfo from "../../components/employee/viewEmployee/ProfessionalInfo";
+import Documents from "../../components/employee/viewEmployee/Documents";
+import AccountAccess from "../../components/employee/viewEmployee/AccountAccess";
 
 const ViewEmployee = () => {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
