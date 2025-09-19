@@ -13,6 +13,13 @@ import AllEmployees from "./pages/AttendenceModule/AllEmployees";
 import ViewAttendence from "./pages/AttendenceModule/ViewAttendence";
 import EditAttendence from "./pages/AttendenceModule/EditAttendence";
 import ExportAttendence from "./pages/AttendenceModule/ExportAttendence";
+import LeaveManagement from "./pages/LeaveModule/LeaveManagement";
+import LeaveApplication from "./pages/LeaveModule/LeaveApplication";
+import AllEmployeesLeaves from "./pages/LeaveModule/AllEmployeesLeaves";
+import ViewLeaves from "./pages/LeaveModule/ViewLeaves";
+import PayRollManagement from "./pages/PayrollModule/PayRollManagement";
+import AllEmployeesPayroll from "./pages/PayrollModule/AllEmployeesPayroll";
+import ViewPayroll from "./pages/PayrollModule/ViewPayroll";
 
 const App = () => {
   return (
@@ -31,6 +38,13 @@ const App = () => {
         <Route path="/view-attendance/:id" element={<ViewAttendence />} />
         <Route path="/edit-attendance/:id" element={<EditAttendence />} />
         <Route path="/export-attendance/:id" element={<ExportAttendence />} />
+        <Route path="/leaves" element={<LeaveManagement />} />
+        <Route path="/leave-application" element={<LeaveApplication />} />
+        <Route path="/leaves-allemployees" element={<AllEmployeesLeaves />} />
+        <Route path="/view-leaves/:id" element={<ViewLeaves />} />
+        <Route path="/payroll" element={<PayRollManagement />} />
+        <Route path="/payroll-allemployees" element={<AllEmployeesPayroll />} />
+        <Route path="/view-payroll/:id" element={<ViewPayroll />} />
       </Route>
     </Routes>
   );

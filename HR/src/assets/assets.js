@@ -402,4 +402,256 @@ export const dummyAttendanceRecords = {
       idleTime: "0h",
     },
   ],
+  
 };
+
+export const dummyLeaves = [
+  {
+    id: 1,
+    date: "10-09-25 to 12-09-25",
+    employeeId: "EMP001",
+    name: "Namra Sajjad",
+    department: "HR",
+    leaveType: "Casual Leave",
+    reason: "Personal commitments",
+    application: "I am writing to request a casual leave from 10th to 12th September due to personal commitments.",
+    status: "Approved"
+  },
+  {
+    id: 2,
+    date: "11-09-25",
+    employeeId: "EMP002",
+    name: "Muzna Ahmad",
+    department: "Design",
+    leaveType: "Sick Leave",
+    reason: "Health issue",
+    application: "I am not feeling well and would like to take a sick leave on 11th September.",
+    status: "Waiting"
+  },
+  {
+    id: 3,
+    date: "15-09-25 to 17-09-25",
+    employeeId: "EMP003",
+    name: "Syeda Simrah",
+    department: "Design",
+    leaveType: "Annual Leave",
+    reason: "Family event",
+    application: "Requesting annual leave for 3 days to attend a family event.",
+    status: "Waiting"
+  },
+  {
+    id: 4,
+    date: "13-09-25",
+    employeeId: "EMP004",
+    name: "Talha Tariq",
+    department: "Design",
+    leaveType: "Casual Leave",
+    reason: "Personal day off",
+    application: "Need a day off for personal reasons on the 13th of September.",
+    status: "Approved"
+  },
+  {
+    id: 5,
+    date: "09-09-25 to 10-09-25",
+    employeeId: "EMP005",
+    name: "Abdul Wasay",
+    department: "Web Development",
+    leaveType: "Sick Leave",
+    reason: "Fever and rest",
+    application: "Suffering from high fever, request leave for 2 days.",
+    status: "Approved"
+  },
+  {
+    id: 6,
+    date: "18-09-25 to 22-09-25",
+    employeeId: "EMP006",
+    name: "Areeb Shah",
+    department: "Mobile",
+    leaveType: "Annual Leave",
+    reason: "Family trip",
+    application: "Planning a family trip and would like to apply for annual leave.",
+    status: "Waiting"
+  },
+  {
+    id: 7,
+    date: "11-09-25 to 12-09-25",
+    employeeId: "EMP007",
+    name: "Hamza Parvaiz",
+    department: "Mobile",
+    leaveType: "Casual Leave",
+    reason: "Attending a wedding",
+    application: "Requesting casual leave to attend a wedding ceremony.",
+    status: "Approved"
+  }
+];
+
+export const dummyPayrollData = [
+  {
+    id: 1,
+    employeeId: "EMP001",
+    name: "Namra Sajjad",
+    designation: "HR",
+    records: [
+      {
+        date: "01-09-2025",
+        basicSalary: 60000,
+        deductions: -1000,
+        bonus: +1500,
+        total: 60500,
+      },
+      {
+        date: "01-08-2025",
+        basicSalary: 60000,
+        deductions: -1200,
+        bonus: +1300,
+        total: 60100,
+      },
+      {
+        date: "01-07-2025",
+        basicSalary: 60000,
+        deductions: -900,
+        bonus: +1000,
+        total: 60100,
+      },
+    ],
+  },
+  {
+    id: 2,
+    employeeId: "EMP002",
+    name: "Muzna Ahmad",
+    designation: "UI/UX Designer",
+    records: [
+      {
+        date: "01-09-2025",
+        basicSalary: 65000,
+        deductions: -800,
+        bonus: +1000,
+        total: 65200,
+      },
+      {
+        date: "01-08-2025",
+        basicSalary: 65000,
+        deductions: -700,
+        bonus: +1200,
+        total: 65500,
+      },
+      {
+        date: "01-07-2025",
+        basicSalary: 65000,
+        deductions: -600,
+        bonus: +1100,
+        total: 65500,
+      },
+    ],
+  },
+  {
+    id: 3,
+    employeeId: "EMP003",
+    name: "Syeda Simrah",
+    designation: "UI/UX Designer",
+    records: [
+      {
+        date: "01-09-2025",
+        basicSalary: 60000,
+        deductions: -500,
+        bonus: +700,
+        total: 60200,
+      },
+      {
+        date: "01-08-2025",
+        basicSalary: 60000,
+        deductions: -300,
+        bonus: +500,
+        total: 60200,
+      },
+    ],
+  },
+  {
+    id: 4,
+    employeeId: "EMP004",
+    name: "Talha Tariq",
+    designation: "UI/UX Designer",
+    records: [
+      {
+        date: "01-09-2025",
+        basicSalary: 70000,
+        deductions: -1000,
+        bonus: +1300,
+        total: 70300,
+      },
+      {
+        date: "01-08-2025",
+        basicSalary: 70000,
+        deductions: -1100,
+        bonus: +1400,
+        total: 70300,
+      },
+    ],
+  },
+  {
+    id: 5,
+    employeeId: "EMP005",
+    name: "Abdul Wasay",
+    designation: "Website Developer",
+    records: [
+      {
+        date: "01-09-2025",
+        basicSalary: 75000,
+        deductions: -1500,
+        bonus: +2000,
+        total: 75500,
+      },
+      {
+        date: "01-08-2025",
+        basicSalary: 75000,
+        deductions: -1000,
+        bonus: +1500,
+        total: 75500,
+      },
+    ],
+  },
+  {
+    id: 6,
+    employeeId: "EMP006",
+    name: "Areeb Shah",
+    designation: "Android Developer",
+    records: [
+      {
+        date: "01-09-2025",
+        basicSalary: 68000,
+        deductions: -1200,
+        bonus: +1500,
+        total: 68300,
+      },
+      {
+        date: "01-08-2025",
+        basicSalary: 68000,
+        deductions: -1000,
+        bonus: +1300,
+        total: 68300,
+      },
+    ],
+  },
+  {
+    id: 7,
+    employeeId: "EMP007",
+    name: "Hamza Parvaiz",
+    designation: "Android Developer",
+    records: [
+      {
+        date: "01-09-2025",
+        basicSalary: 72000,
+        deductions: -900,
+        bonus: +1100,
+        total: 72200,
+      },
+      {
+        date: "01-08-2025",
+        basicSalary: 72000,
+        deductions: -800,
+        bonus: +1300,
+        total: 72500,
+      },
+    ],
+  },
+];

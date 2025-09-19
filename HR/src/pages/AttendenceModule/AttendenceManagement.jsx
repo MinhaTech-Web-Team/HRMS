@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Search, MoreVertical, Eye, Edit, Trash2, Upload } from "lucide-react";
-import { dummyAttendanceRecords } from "../../assets/assets"; // ✅ updated import
+import { dummyAttendanceRecords } from "../../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { useToggle } from "../../context/Toggle";
 
@@ -57,92 +57,107 @@ const AttendanceManagement = () => {
       {/* Table */}
       <div className="px-[37px]">
         <div className="bg-[#E3E3E3]/15 rounded-lg p-[37px] space-y-3 overflow-x-auto">
-          {/* Header Row */}
-          <div className="grid grid-cols-10 gap-6 bg-[#EAEAEA] rounded-lg px-5 py-6 font-bold text-[#09182B] text-[16px]">
-            <div>Select</div>
-            <div>Date</div>
-            <div>Employee Name</div>
-            <div>Check In</div>
-            <div>Check Out</div>
-            <div>Break</div>
-            <div>IDLE Time</div>
-            <div>Work Hrs</div>
-            <div>Status</div>
-            <div>Action</div>
-          </div>
+          <table className="w-full min-w-[1024px] text-left text-[#09182B] text-[15px] border-separate border-spacing-y-[13px]">
+            {/* Table Head */}
+            <thead>
+              <tr className="bg-[#EAEAEA] rounded-lg text-[16px] font-bold">
+                <th className="px-5 py-6">Select</th>
+                <th className="px-5 py-6">Date</th>
+                <th className="px-5 py-6">Employee Name</th>
+                <th className="px-5 py-6">Check In</th>
+                <th className="px-5 py-6">Check Out</th>
+                <th className="px-5 py-6">Break</th>
+                <th className="px-5 py-6">IDLE Time</th>
+                <th className="px-5 py-6">Work Hrs</th>
+                <th className="px-5 py-6">Status</th>
+                <th className="px-5 py-6">Action</th>
+              </tr>
+            </thead>
 
-          {/* Rows */}
-          {dummyAttendanceRecords.records.map((att, index) => (
-            <div
-              key={att.id}
-              className={`grid grid-cols-10 gap-6 items-center rounded-lg px-[18px] py-[21px] shadow-sm text-[#09182B] text-[15px] relative ${
-                index % 2 === 1 ? "bg-[#EAEAEA]/50" : "bg-white"
-              }`}
-            >
-              <div>
-                <input type="checkbox" className="w-5 h-5" />
-              </div>
-              <div>{att.date}</div>
-              <div className="font-medium">{att.name}</div>
-              <div>{att.timeIn || "-"}</div>
-              <div>{att.timeOut || "-"}</div>
-              <div>{att.breakTime || "-"}</div>
-              <div>{att.idleTime || "-"}</div>
-              <div>{att.workHours || "-"}</div>
-              <div>
-                <span
-                  className={`px-3 py-1 rounded-md text-sm text-white ${
-                    att.status === "Late" ? "bg-[#EB0016]" : "bg-[#00B172]"
+            {/* Table Body */}
+            <tbody>
+              {dummyAttendanceRecords.records.map((att, index) => (
+                <tr
+                  key={att.id}
+                  className={`rounded-lg shadow-sm relative ${
+                    index % 2 === 1 ? "bg-[#EAEAEA]/50" : "bg-white"
                   }`}
                 >
-                  {att.status}
-                </span>
-              </div>
-              <div className="relative action-dropdown">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setOpenActionMenu(
-                      openActionMenu === att.id ? null : att.id
-                    );
-                  }}
-                  className="p-2 rounded hover:bg-gray-200"
-                >
-                  <MoreVertical size={18} />
-                </button>
+                  <td className="px-[18px] py-[21px]">
+                    <input type="checkbox" className="w-5 h-5" />
+                  </td>
+                  <td className="px-[18px] py-[21px]">{att.date}</td>
+                  <td className="px-[18px] py-[21px] font-medium">
+                    {att.name}
+                  </td>
+                  <td className="px-[18px] py-[21px]">{att.timeIn || "-"}</td>
+                  <td className="px-[18px] py-[21px]">{att.timeOut || "-"}</td>
+                  <td className="px-[18px] py-[21px]">
+                    {att.breakTime || "-"}
+                  </td>
+                  <td className="px-[18px] py-[21px]">{att.idleTime || "-"}</td>
+                  <td className="px-[18px] py-[21px]">
+                    {att.workHours || "-"}
+                  </td>
+                  <td className="px-[18px] py-[21px]">
+                    <span
+                      className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center ${
+                        att.status === "Late" ? "bg-[#EB0016]" : "bg-[#00B172]"
+                      }`}
+                    >
+                      {att.status}
+                    </span>
+                  </td>
+                  <td className="px-[18px] py-[21px] relative action-dropdown">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setOpenActionMenu(
+                          openActionMenu === att.id ? null : att.id
+                        );
+                      }}
+                      className="p-2 rounded hover:bg-gray-200"
+                    >
+                      <MoreVertical size={18} />
+                    </button>
 
-                {/* Dropdown Menu */}
-                {openActionMenu === att.id && (
-                  <div className="absolute top-full right-0 mt-2 w-30 bg-white rounded-xl shadow-xl z-50">
-                    <ul className="py-2 text-sm text-[#09182B] font-medium">
-                      <li
-                        onClick={() => navigate(`/view-attendance/${att.id}`)}
-                        className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
-                        <Eye className="w-4 h-4" />
-                        View
-                      </li>
-                      <li
-                        onClick={() => navigate(`/edit-attendance/${att.id}`)}
-                        className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
-                        <Edit className="w-4 h-4" />
-                        Edit
-                      </li>
-                      <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                        <Trash2 className="w-4 h-4" />
-                        Delete
-                      </li>
-                      <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                        <Upload className="w-4 h-4" />
-                        Export
-                      </li>
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
+                    {openActionMenu === att.id && (
+                      <div className="absolute top-full right-0 mt-2 w-30 bg-white rounded-xl shadow-xl z-50">
+                        <ul className="py-2 text-sm text-[#09182B] font-medium">
+                          <li
+                            onClick={() =>
+                              navigate(`/view-attendance/${att.id}`)
+                            }
+                            className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                          >
+                            <Eye className="w-4 h-4" />
+                            View
+                          </li>
+                          <li
+                            onClick={() =>
+                              navigate(`/edit-attendance/${att.id}`)
+                            }
+                            className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                          >
+                            <Edit className="w-4 h-4" />
+                            Edit
+                          </li>
+                          <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                            <Trash2 className="w-4 h-4" />
+                            Delete
+                          </li>
+                          <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                            <Upload className="w-4 h-4" />
+                            Export
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 
