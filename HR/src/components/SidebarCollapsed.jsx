@@ -20,7 +20,7 @@ const menuItems = [
   { icon: <Users size={20} />, path: "/employees" },
   { icon: <CalendarCheck size={20} />, path: "/attendance" },
   { icon: <CalendarDays size={20} />, path: "/leaves" },
-  { icon: <ClipboardList size={20} />, path: "/projects" },
+  { icon: <ClipboardList size={20} />, path: "/task-management" },
   { icon: <BarChart3 size={20} />, path: "/performance" },
   { icon: <Megaphone size={20} />, path: "/announcements" },
   { icon: <UserPlus size={20} />, path: "/interns" },
@@ -30,12 +30,14 @@ const menuItems = [
 
 const SidebarCollapsed = () => {
   return (
-    <div className="w-[70px] min-h-screen bg-[#0B1B2B] flex flex-col justify-between items-center py-4 ">
-      {/* Logo */}
-      <img src="/minha.png" alt="Logo" className="-mb-40" />
+    <div className="w-[70px] min-h-screen bg-[#0B1B2B] flex flex-col justify-between items-center py-4 fixed left-0 top-0">
+      {/* Top Section - Logo */}
+      <div className="flex flex-col items-center">
+        <img src="/minha.png" alt="Logo" className="w-8 h-8 mb-8" />
+      </div>
 
-      {/* Menu Icons */}
-      <nav className="flex flex-col items-center gap-6">
+      {/* Middle Section - Menu Icons */}
+      <nav className="flex flex-col items-center gap-6 flex-1 justify-center">
         {menuItems.map((item, index) => (
           <NavLink
             key={index}
@@ -53,8 +55,8 @@ const SidebarCollapsed = () => {
         ))}
       </nav>
 
-      {/* HR + Logout */}
-      <div className="flex flex-col items-center gap-6 mb-2">
+      {/* Bottom Section - HR + Logout */}
+      <div className="flex flex-col items-center gap-6">
         <img src="/HR.jpeg" alt="HR" className="w-10 h-10 rounded-xl" />
         <button className="text-white hover:text-[#0E9EE7]">
           <LogOut size={20} />

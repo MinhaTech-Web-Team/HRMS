@@ -20,6 +20,11 @@ import ViewLeaves from "./pages/LeaveModule/ViewLeaves";
 import PayRollManagement from "./pages/PayrollModule/PayRollManagement";
 import AllEmployeesPayroll from "./pages/PayrollModule/AllEmployeesPayroll";
 import ViewPayroll from "./pages/PayrollModule/ViewPayroll";
+import PerformanceReview from "./pages/PerformanceReviewModule/PerformanceReview";
+import AddFeedback from "./pages/PerformanceReviewModule/AddFeedback";
+import ViewFeedback from "./pages/PerformanceReviewModule/ViewFeedback";
+import EditFeedback from "./pages/PerformanceReviewModule/EditFeedback";
+import TaskManagement from "./pages/TaskManagement/TaskManagement";
 
 const App = () => {
   return (
@@ -45,6 +50,11 @@ const App = () => {
         <Route path="/payroll" element={<PayRollManagement />} />
         <Route path="/payroll-allemployees" element={<AllEmployeesPayroll />} />
         <Route path="/view-payroll/:id" element={<ViewPayroll />} />
+        <Route path="/performance" element={<PerformanceReview />} />
+        <Route path="/add-feedback/:id" element={<AddFeedback />} />
+        <Route path="/view-feedback/:id" element={<ViewFeedback />} />
+        <Route path="/edit-feedback/:id" element={<EditFeedback />} />
+        <Route path="/task-management" element={<TaskManagement />} />
       </Route>
     </Routes>
   );

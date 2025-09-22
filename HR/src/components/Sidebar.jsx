@@ -34,9 +34,9 @@ const Sidebar = () => {
       path: "/leaves",
     },
     {
-      label: "Project Assign",
+      label: "Task Management",
       icon: <ClipboardList size={20} />,
-      path: "/projects",
+      path: "/task-management",
     },
     {
       label: "Performance Review",
