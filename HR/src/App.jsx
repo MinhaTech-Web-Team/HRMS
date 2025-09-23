@@ -25,12 +25,16 @@ import AddFeedback from "./pages/PerformanceReviewModule/AddFeedback";
 import ViewFeedback from "./pages/PerformanceReviewModule/ViewFeedback";
 import EditFeedback from "./pages/PerformanceReviewModule/EditFeedback";
 import TaskManagement from "./pages/TaskManagement/TaskManagement";
+import Announcements from "./pages/AnnouncementBoard/Announcements";
+import EditHoliday from "./components/Announcement/Holidays/EditHoliday";
+import EditMeeting from "./components/Announcement/Meetings/EditMeeting";
+import EditEvent from "./components/Announcement/Events/EditEvent";
+import CompanyExpense from "./pages/CompanyExpense/CompanyExpense";
 
 const App = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-
       <Route path="/" element={<Layout />}>
         <Route index element={<Dashboard />} />
         <Route path="/notifications" element={<Notifications />} />
@@ -55,6 +59,11 @@ const App = () => {
         <Route path="/view-feedback/:id" element={<ViewFeedback />} />
         <Route path="/edit-feedback/:id" element={<EditFeedback />} />
         <Route path="/task-management" element={<TaskManagement />} />
+        <Route path="/announcements" element={<Announcements />} />
+        <Route path="/edit-holiday/:id" element={<EditHoliday />} />
+        <Route path="/edit-meeting/:id" element={<EditMeeting />} />
+        <Route path="/edit-event/:id" element={<EditEvent />} />
+        <Route path="/expenses" element={<CompanyExpense />} />
       </Route>
     </Routes>
   );

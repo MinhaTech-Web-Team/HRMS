@@ -872,3 +872,181 @@ export const dummyTasks = [
     status: "Pending"
   }
 ];
+
+export const holidays = [
+  {
+    id: 1,
+    date: "2025-01-01",
+    day: "Wednesday",
+    name: "New Year’s Day",
+    description: "Celebration of the New Year",
+  },
+  {
+    id: 2,
+    date: "2025-03-23",
+    day: "Sunday",
+    name: "Pakistan Day",
+    description: "Commemoration of the Lahore Resolution",
+  },
+  {
+    id: 3,
+    date: "2025-05-01",
+    day: "Thursday",
+    name: "Labour Day",
+    description: "International Workers' Day",
+  },
+];
+
+export const meetings = [
+  {
+    id: 1,
+    date: "2025-02-10",
+    day: "Monday",
+    time: "10:00 AM",
+    title: "Quarterly Review",
+    department: "Management",
+    description: "Reviewing company performance for Q1",
+    employees: ["John Doe", "Sarah Khan", "Ali Raza"], // 👈 added
+  },
+  {
+    id: 2,
+    date: "2025-03-15",
+    day: "Saturday",
+    time: "02:00 PM",
+    title: "Tech Sync",
+    department: "Development",
+    description: "Discuss upcoming sprint tasks",
+    employees: ["Fatima Sheikh", "Michael Smith", "Uzair Ahmed"], // 👈 added
+  },
+];
+
+
+export const events = [
+  {
+    id: 1,
+    date: "2025-04-01",
+    day: "Tuesday",
+    name: "Annual Sports Day",
+    organizer: "HR Department",
+    description: "Cricket and football tournaments",
+  },
+  {
+    id: 2,
+    date: "2025-06-20",
+    day: "Friday",
+    name: "Hackathon",
+    organizer: "Engineering Team",
+    description: "24-hour coding challenge",
+  },
+  {
+    id: 3,
+    date: "2025-07-10",
+    day: "Thursday",
+    name: "Company Retreat",
+    organizer: "Admin Department",
+    description: "Team-building activities",
+  },
+];
+
+export const dummyExpenses = [
+  {
+    id: 1,
+    date: "2-03-25",
+    category: "Internet Expense",
+    name: "HR Internet",
+    description: "Pay Internet expense",
+    taker: "Talha Tariq",
+    amount: 2500,
+    status: "Completed"
+  },
+  {
+    id: 2,
+    date: "2-03-25",
+    category: "Car Expense",
+    name: "Oil Change",
+    description: "Car oil and filter change",
+    taker: "Talha Tariq",
+    amount: 2500,
+    status: "Completed"
+  },
+  {
+    id: 3,
+    date: "2-03-25",
+    category: "Internet Expense",
+    name: "HR Internet",
+    description: "Monthly internet bill for HR dept",
+    taker: "Talha Tariq",
+    amount: 2500,
+    status: "Completed"
+  },
+  {
+    id: 4,
+    date: "2-03-25",
+    category: "Car Expense",
+    name: "Oil Change",
+    description: "Routine car service",
+    taker: "Talha Tariq",
+    amount: 2500,
+    status: "Completed"
+  },
+  {
+    id: 5,
+    date: "2-03-25",
+    category: "Internet Expense",
+    name: "HR Internet",
+    description: "March internet payment",
+    taker: "Talha Tariq",
+    amount: 2500,
+    status: "Pending"
+  },
+  {
+    id: 6,
+    date: "2-03-25",
+    category: "Car Expense",
+    name: "Oil Change",
+    description: "Company car service invoice",
+    taker: "Talha Tariq",
+    amount: 2500,
+    status: "Pending"
+  },
+  {
+    id: 7,
+    date: "2-03-25",
+    category: "Internet Expense",
+    name: "HR Internet",
+    description: "HR remote team internet",
+    taker: "Talha Tariq",
+    amount: 2500,
+    status: "Pending"
+  },
+  {
+    id: 8,
+    date: "2-03-25",
+    category: "Car Expense",
+    name: "Oil Change",
+    description: "Fleet car maintenance",
+    taker: "Talha Tariq",
+    amount: 2500,
+    status: "Pending"
+  },
+  {
+    id: 9,
+    date: "2-03-25",
+    category: "Office Supplies",
+    name: "Printer Ink",
+    description: "Black & color ink cartridges",
+    taker: "Talha Tariq",
+    amount: 1800,
+    status: "Completed"
+  },
+  {
+    id: 10,
+    date: "2-03-25",
+    category: "Internet Expense",
+    name: "IT Department",
+    description: "Wi-Fi subscription renewal",
+    taker: "Talha Tariq",
+    amount: 2600,
+    status: "Pending"
+  },
+];
