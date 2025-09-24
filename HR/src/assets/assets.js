@@ -1050,3 +1050,60 @@ export const dummyExpenses = [
     status: "Pending"
   },
 ];
+
+export const dummyInterns = [
+  {
+    id: 1,
+    startDate: "2025-01-05",
+    internName: "Hamza Parvaiz",
+    department: "Android Developer",
+    duration: "3 months",
+    type: "Remote",
+    image: "https://randomuser.me/api/portraits/men/1.jpg",
+  },
+  {
+    id: 2,
+    startDate: "2025-02-10",
+    internName: "Hakeem Ali",
+    department: "Web Developer",
+    duration: "6 months",
+    type: "Onsite",
+    image: "https://randomuser.me/api/portraits/men/2.jpg",
+  },
+  {
+    id: 3,
+    startDate: "2025-03-01",
+    internName: "Ayesha Khan",
+    department: "UI/UX Designer",
+    duration: "4 months",
+    type: "Remote",
+    image: "https://randomuser.me/api/portraits/women/3.jpg",
+  },
+  {
+    id: 4,
+    startDate: "2025-03-15",
+    internName: "Bilal Ahmed",
+    department: "Machine Learning",
+    duration: "5 months",
+    type: "Onsite",
+    image: "https://randomuser.me/api/portraits/men/4.jpg",
+  },
+  {
+    id: 5,
+    startDate: "2025-04-01",
+    internName: "Fatima Noor",
+    department: "QA Engineer",
+    duration: "3 months",
+    type: "Remote",
+    image: "https://randomuser.me/api/portraits/women/5.jpg",
+  },
+  {
+    id: 6,
+    startDate: "2025-04-20",
+    internName: "Usman Tariq",
+    department: "Data Analyst",
+    duration: "6 months",
+    type: "Onsite",
+    image: "https://randomuser.me/api/portraits/men/6.jpg",
+  },
+];

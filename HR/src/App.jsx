@@ -30,6 +30,13 @@ import EditHoliday from "./components/Announcement/Holidays/EditHoliday";
 import EditMeeting from "./components/Announcement/Meetings/EditMeeting";
 import EditEvent from "./components/Announcement/Events/EditEvent";
 import CompanyExpense from "./pages/CompanyExpense/CompanyExpense";
+import InternManagement from "./pages/IternManagement/InternManagement";
+import EditIntern from "./pages/IternManagement/EditIntern";
+import InternCertificate from "./pages/IternManagement/InternCertificate/InternCertificate";
+import ViewCertificate from "./pages/IternManagement/InternCertificate/ViewCertificate";
+import AddCertificate from "./pages/IternManagement/InternCertificate/AddCertificate";
+import EditCertificate from "./pages/IternManagement/InternCertificate/EditCertificate";
+import InternsProfile from "./pages/IternManagement/InternsProfile/InternsProfile";
 
 const App = () => {
   return (
@@ -64,6 +71,19 @@ const App = () => {
         <Route path="/edit-meeting/:id" element={<EditMeeting />} />
         <Route path="/edit-event/:id" element={<EditEvent />} />
         <Route path="/expenses" element={<CompanyExpense />} />
+        <Route path="/interns" element={<InternManagement />} />
+        <Route path="/edit-intern/:id" element={<EditIntern />} />
+        <Route path="/intern-certificate" element={<InternCertificate />} />
+        <Route
+          path="/intern-certificate/view/:id"
+          element={<ViewCertificate />}
+        />
+        <Route path="/intern-certificate/add" element={<AddCertificate />} />
+        <Route
+          path="/intern-certificate/edit/:id"
+          element={<EditCertificate />}
+        />
+        <Route path="/intern-profile" element={<InternsProfile />} />
       </Route>
     </Routes>
   );
