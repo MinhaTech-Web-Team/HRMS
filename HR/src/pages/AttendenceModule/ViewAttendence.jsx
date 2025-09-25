@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
-import { dummyAttendanceRecords, dummyEmployees } from "../../assets/assets";
 import {
   CalendarDays,
   Download,
@@ -10,11 +9,16 @@ import {
   MoreVertical,
   Trash2,
   Upload,
-} from "lucide-react"; // ✅ icons
+} from "lucide-react";
+import { dummyAttendanceRecords, dummyEmployees } from "../../assets/assets";
 
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
-import StatCard from "../../components/Attendence/StatCard"; // StatCard component
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+
+import StatCard from "../../components/Attendence/StatCard";
+
+import Table from "./../../components/Table";
+import Button from "../../components/Button";
 
 const ViewAttendence = () => {
   const navigate = useNavigate();
@@ -25,7 +29,6 @@ const ViewAttendence = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [openActionMenu, setOpenActionMenu] = useState(null);
 
-  // default range: today → today
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
@@ -51,10 +54,91 @@ const ViewAttendence = () => {
     getEmployeesData();
   }, [id]);
 
+  // ✅ Define table columns
+  const columns = [
+    "Select",
+    "Date",
+    "Comments",
+    "Check In",
+    "Check Out",
+    "Break",
+    "IDLE Time",
+    "Work Hrs",
+    "Status",
+    "Action",
+  ];
+
+  // ✅ Define renderRow function
+  const renderRow = (att, index) => {
+    const isLate = att.status === "Late";
+    const statusLabel = isLate ? "Late" : "On Time";
+    const statusColor = isLate ? "bg-red-600" : "bg-green-500";
+
+    return (
+      <>
+        <div>
+          <input type="checkbox" className="w-5 h-5" />
+        </div>
+        <div>{format(new Date(att.date), "yy-MM-dd")}</div>
+        <div>{att.comments || "----------"}</div>
+        <div>{att.timeIn || "-"}</div>
+        <div>{att.timeOut || "-"}</div>
+        <div>{att.breakTime || "-"}</div>
+        <div>{att.idleTime || "-"}</div>
+        <div>{att.workHours || "-"}</div>
+        <div>
+          <span
+            className={`px-3 py-1 rounded-md text-sm text-white ${statusColor}`}
+          >
+            {statusLabel}
+          </span>
+        </div>
+
+        {/* Action Menu */}
+        <div className="relative">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpenActionMenu(openActionMenu === att.id ? null : att.id);
+            }}
+            className="p-2 rounded hover:bg-gray-200"
+          >
+            <MoreVertical size={18} />
+          </button>
+
+          {openActionMenu === att.id && (
+            <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-xl shadow-xl z-50">
+              <ul className="py-2 text-sm text-[#09182B] font-medium">
+                <li
+                  onClick={() => navigate(`/edit-attendance/${att.id}`)}
+                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                >
+                  <Edit className="w-4 h-4" />
+                  Edit
+                </li>
+                <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  <Trash2 className="w-4 h-4" />
+                  Delete
+                </li>
+                <li
+                  onClick={() => navigate(`/export-attendance/${id}`)}
+                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                >
+                  <Upload className="w-4 h-4" />
+                  Export
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
+      </>
+    );
+  };
+
   return (
     <div className="flex flex-col">
       {/* Header */}
-      <div className="border-b border-gray-200 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
+      <div className="border-b border-black/30 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
         <img
           src="/notifi.png"
           alt="back"
@@ -64,9 +148,8 @@ const ViewAttendence = () => {
         <h1>Attendance</h1>
       </div>
 
-      {/* Top bar (employee info + date range + export) */}
-      <div className="pt-5 px-8 flex items-center justify-between">
-        {/* Employee info */}
+      {/* Top bar */}
+      <div className="px-[39px] pt-[26px] flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img
             src={employee?.image || "/default-avatar.png"}
@@ -81,7 +164,6 @@ const ViewAttendence = () => {
 
         {/* Date range + export */}
         <div className="flex items-center gap-3 relative">
-          {/* Date Range Picker Button */}
           <button
             className="border border-gray-300 rounded-lg px-3 py-2 text-sm flex items-center gap-2"
             onClick={() => setShowDatePicker((prev) => !prev)}
@@ -92,15 +174,11 @@ const ViewAttendence = () => {
             )}`}
             <CalendarDays size={16} />
           </button>
-
-          {/* Export Button */}
-          <button
+          <Button
+            label={"Export"}
+            icon={Upload}
             onClick={() => navigate(`/export-attendance/${id}`)}
-            className="bg-sky-500 hover:bg-sky-600 text-white text-sm font-medium rounded-lg px-4 py-2 flex items-center gap-2"
-          >
-            <Download size={16} />
-            Export
-          </button>
+          />
 
           {showDatePicker && (
             <div className="absolute top-12 right-0 z-50 shadow-lg">
@@ -115,7 +193,8 @@ const ViewAttendence = () => {
         </div>
       </div>
 
-      <div className="pt-5 px-8 flex items-center gap-2">
+      {/* Stats */}
+      <div className="px-[39px] pt-[26px] flex items-center gap-2">
         <StatCard
           title={"Absents"}
           value={dummyAttendanceRecords.summary.absents}
@@ -134,97 +213,9 @@ const ViewAttendence = () => {
         />
       </div>
 
-      {/* Table */}
-      <div className="pt-6 ">
-        <div className="bg-[#E3E3E3]/15 rounded-lg p-[37px] space-y-3 overflow-visible">
-          {/* Header Row */}
-          <div className="grid grid-cols-10 gap-6 bg-[#EAEAEA] rounded-lg px-5 py-6 font-bold text-[#09182B] text-[16px]">
-            <div>Select</div>
-            <div>Date</div>
-            <div>Comments</div>
-            <div>Check In</div>
-            <div>Check Out</div>
-            <div>Break</div>
-            <div>IDLE Time</div>
-            <div>Work Hrs</div>
-            <div>Status</div>
-            <div>Action</div>
-          </div>
-
-          {/* Rows */}
-          {attendance.map((att, index) => {
-            const isLate = att.status === "Late";
-            const statusLabel = isLate ? "Late" : "On Time";
-            const statusColor = isLate ? "bg-red-600" : "bg-green-500";
-
-            return (
-              <div
-                key={att.id}
-                className={`grid grid-cols-10 gap-6 items-center rounded-lg px-[18px] py-[21px] shadow-sm text-[#09182B] text-[15px] relative ${
-                  index % 2 === 1 ? "bg-[#EAEAEA]/50" : "bg-white"
-                }`}
-              >
-                <div>
-                  <input type="checkbox" className="w-5 h-5" />
-                </div>
-                <div>{format(new Date(att.date), "yy-MM-dd")}</div>
-                <div>{att.comments || "----------"}</div>
-                <div>{att.timeIn || "-"}</div>
-                <div>{att.timeOut || "-"}</div>
-                <div>{att.breakTime || "-"}</div>
-                <div>{att.idleTime || "-"}</div>
-                <div>{att.workHours || "-"}</div>
-                <div>
-                  <span
-                    className={`px-3 py-1 rounded-md text-sm text-white ${statusColor}`}
-                  >
-                    {statusLabel}
-                  </span>
-                </div>
-
-                {/* Action Menu */}
-                <div className="relative">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setOpenActionMenu(
-                        openActionMenu === att.id ? null : att.id
-                      );
-                    }}
-                    className="p-2 rounded hover:bg-gray-200"
-                  >
-                    <MoreVertical size={18} />
-                  </button>
-
-                  {openActionMenu === att.id && (
-                    <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-xl shadow-xl z-50">
-                      <ul className="py-2 text-sm text-[#09182B] font-medium">
-                        <li
-                          onClick={() => navigate(`/edit-attendance/${att.id}`)}
-                          className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                        >
-                          <Edit className="w-4 h-4" />
-                          Edit
-                        </li>
-                        <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                          <Trash2 className="w-4 h-4" />
-                          Delete
-                        </li>
-                        <li
-                          onClick={() => navigate(`/export-attendance/${id}`)}
-                          className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                        >
-                          <Upload className="w-4 h-4" />
-                          Export
-                        </li>
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+      {/* ✅ Table using reusable component */}
+      <div className="px-[39px] pt-[26px]">
+        <Table columns={columns} data={attendance} renderRow={renderRow} />
       </div>
 
       {/* Pagination */}

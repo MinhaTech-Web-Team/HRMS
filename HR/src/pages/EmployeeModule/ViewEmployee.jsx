@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { dummyEmployees } from "../../assets/assets";
-import { Briefcase, FileText, Handbag, Lock, Pencil, User } from "lucide-react";
+import {
+  Briefcase,
+  FileText,
+  Handbag,
+  Lock,
+  Pencil,
+  PencilIcon,
+  User,
+} from "lucide-react";
 import { TfiEmail } from "react-icons/tfi";
 import PersonalInfo from "../../components/employee/viewEmployee/PersonalInfo";
 import ProfessionalInfo from "../../components/employee/viewEmployee/ProfessionalInfo";
 import Documents from "../../components/employee/viewEmployee/Documents";
 import AccountAccess from "../../components/employee/viewEmployee/AccountAccess";
+import Button from "../../components/Button";
 
 const ViewEmployee = () => {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
@@ -108,7 +117,7 @@ const ViewEmployee = () => {
   return (
     <div className="bg-white min-h-screen">
       {/* Header */}
-      <div className="border-b border-gray-200 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
+      <div className="border-b border-black/30 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
         <img
           src="/notifi.png"
           alt="back"
@@ -119,7 +128,7 @@ const ViewEmployee = () => {
       </div>
 
       {/* Profile Info */}
-      <div className="py-7 px-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+      <div className="px-[39px] pt-[26px] flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <img
             src={selectedEmployee.image}
@@ -142,10 +151,7 @@ const ViewEmployee = () => {
           </div>
         </div>
 
-        <button className="flex items-center gap-2 bg-[#0E9EE7] text-white font-medium text-base px-5 py-2.5 rounded-xl hover:bg-[#0a85c7] transition duration-150">
-          <Pencil size={18} />
-          Edit Profile
-        </button>
+        <Button label={"Edit Profile"} icon={PencilIcon} />
       </div>
 
       {/* Tabs */}

@@ -8,7 +8,7 @@ const EditCertificate = () => {
   return (
     <div className="flex flex-col">
       {/* Header */}
-      <div className="border-b border-gray-200 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
+      <div className="border-b border-black/30 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
         <img
           src="/notifi.png"
           alt="back"
@@ -18,14 +18,14 @@ const EditCertificate = () => {
         <h1>Edit Intern Certificate</h1>
       </div>
       <div className="flex flex-col w-full items-center justify-center ">
-        <h1 className="text-[40px] flex items-center gap-3 pt-[26px]">
+        <h1 className="text-[40px] flex items-center gap-3 px-[39px] pt-[26px]">
           {" "}
           <span>
             <FaBookOpen size={45} />
           </span>{" "}
           Intern Certificate
         </h1>
-        <div className="px-[85px] pt-[34px]">
+        <div className="px-[39px] pt-[26px]">
           <img src="/Certificate.png" alt="certificate" />
         </div>
       </div>

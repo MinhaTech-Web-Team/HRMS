@@ -32,7 +32,7 @@ const AllEmployees = () => {
   return (
     <div className="flex flex-col">
       {/* Header */}
-      <div className="border-b border-gray-200 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
+      <div className="border-b border-black/30 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
         <img
           src="/notifi.png"
           alt="back"
@@ -43,7 +43,7 @@ const AllEmployees = () => {
       </div>
 
       {/* Employee Grid */}
-      <div className="flex justify-center w-full pt-8">
+      <div className="flex justify-center w-full px-[39px] pt-[26px]">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">
           {employeesWithAttendance.map((emp) => (
             <AllEmployeesCard

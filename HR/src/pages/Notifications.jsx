@@ -45,7 +45,7 @@ const Notifications = () => {
 
   return (
     <div className="flex flex-col ">
-      <div className="flex items-center justify-between px-8 py-6 font-semibold text-3xl tracking-tighter border border-gray-300">
+      <div className="flex items-center justify-between px-8 py-6 font-semibold text-3xl tracking-tighter border border-b border-black/30">
         <div className="flex items-center gap-2">
           <img
             className="cursor-pointer"

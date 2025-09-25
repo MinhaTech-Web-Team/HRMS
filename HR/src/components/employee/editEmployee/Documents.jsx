@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import Button from "../../Button";
 
 const Documents = ({ data, setData }) => {
   const defaultImage = "/photo.png";
@@ -56,12 +57,10 @@ const Documents = ({ data, setData }) => {
 
       {/* Action Buttons */}
       <div className="flex justify-end gap-4 mt-10">
-        <button className="px-6 py-2 rounded border border-gray-300 text-gray-600">
+        <button className="px-4 py-2 rounded-lg border border-gray-300 text-gray-600">
           Cancel
         </button>
-        <button className="px-6 py-2 rounded bg-[#0E9EE7] text-white hover:bg-blue-600">
-          Next
-        </button>
+        <Button label={"Next"} />
       </div>
     </div>
   );

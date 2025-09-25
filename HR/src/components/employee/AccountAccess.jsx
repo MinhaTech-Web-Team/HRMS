@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../Button";
 
 const AccountAccess = ({ data, setData, onSubmit }) => {
   const inputClass =
@@ -52,15 +53,10 @@ const AccountAccess = ({ data, setData, onSubmit }) => {
       </div>
 
       <div className="flex justify-end gap-4 mt-10">
-        <button className="px-6 py-2 rounded border border-gray-300 text-gray-600">
+        <button className="px-4 py-2 rounded-lg border border-gray-300 text-gray-600">
           Cancel
         </button>
-        <button
-          onClick={onSubmit}
-          className="px-6 py-2 rounded bg-[#0E9EE7] text-white hover:bg-blue-600"
-        >
-          Save & Submit
-        </button>
+        <Button label={"Next"} />
       </div>
     </div>
   );

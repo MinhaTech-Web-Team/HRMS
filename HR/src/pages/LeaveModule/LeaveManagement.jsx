@@ -12,8 +12,11 @@ import { dummyAttendanceRecords } from "../../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { useToggle } from "../../context/Toggle";
 import { dummyLeaves } from "./../../assets/assets";
+import Button from "../../components/Button";
+import SearchBar from "../../components/SearchBar";
 
 const LeaveManagement = () => {
+  ``;
   const { toggleSidebar } = useToggle();
   const navigate = useNavigate();
   const [openActionMenu, setOpenActionMenu] = useState(null);
@@ -28,46 +31,45 @@ const LeaveManagement = () => {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
+  const columns = [
+    "Select",
+    "Employee Name",
+    "Employee ID",
+    "Department",
+    "Designation",
+    "Type",
+    "Status",
+    "Action",
+  ];
+
   return (
     <div className="bg-white w-full min-h-screen flex flex-col">
       {/* Header */}
       <div className="w-full border-b">
-        <div className="px-4 py-6 flex items-center gap-3 font-semibold text-3xl tracking-tighter">
+        <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl tracking-tighter">
           <img onClick={toggleSidebar} src="/toggle.png" alt="" />
           <h1 className="text-[#09182B]">Leave Management</h1>
         </div>
       </div>
 
       {/* Top Bar */}
-      <div className="px-[39px] py-7 flex justify-between items-center">
+      <div className="px-[39px] pt-[26px] flex justify-between items-center">
         {/* All Employees Button */}
-        <button
+
+        <Button
+          label={"All Employees"}
           onClick={() => navigate("/leaves-allemployees")}
-          className="bg-[#0E9EE7] px-6 py-3 rounded-lg cursor-pointer text-white text-base font-bold hover:bg-sky-600"
-        >
-          All Employees
-        </button>
+        />
 
         <div className="flex items-center gap-2">
           {/* Search Box */}
-          <div className="w-64 px-4 py-3 bg-neutral-200/30 rounded-[5px] inline-flex justify-start items-center gap-2.5">
-            <Search size={20} className="text-zinc-900 shrink-0 block" />
-            <input
-              type="text"
-              placeholder="Search"
-              className="flex-1 bg-transparent outline-none text-zinc-900/50 text-base placeholder:text-zinc-900/50"
-            />
-          </div>
-
-          <button className="bg-sky-500 hover:bg-sky-600 text-white text-sm font-medium rounded-lg px-5 py-3 flex items-center gap-2">
-            <Download size={16} />
-            Export
-          </button>
+          <SearchBar />
+          <Button label={"Export"} icon={Download} />
         </div>
       </div>
 
       {/* Table */}
-      <div className="px-[37px]">
+      <div className="px-[39px] pt-[26px]">
         <div className="bg-[#E3E3E3]/15 rounded-lg p-[37px] space-y-3 overflow-x-auto">
           <table className="w-full min-w-[1024px] text-left text-[#09182B] text-[15px] border-separate border-spacing-y-[13px]">
             {/* Table Head */}

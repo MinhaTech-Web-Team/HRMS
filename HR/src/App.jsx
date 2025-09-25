@@ -37,6 +37,17 @@ import ViewCertificate from "./pages/IternManagement/InternCertificate/ViewCerti
 import AddCertificate from "./pages/IternManagement/InternCertificate/AddCertificate";
 import EditCertificate from "./pages/IternManagement/InternCertificate/EditCertificate";
 import InternsProfile from "./pages/IternManagement/InternsProfile/InternsProfile";
+import AddIntern from "./components/Interns/AddIntern";
+import AddIntern2 from "./pages/IternManagement/InternsProfile/AddIntern";
+import EditIntern2 from "./pages/IternManagement/InternsProfile/EditIntern";
+import ViewIntern from "./pages/IternManagement/InternsProfile/ViewIntern";
+import InternAttendanceManagement from "./pages/IternManagement/InternAttendence/InternAttendenceManagement";
+import AllInterns from "./pages/IternManagement/InternAttendence/AllInterns";
+import ViewInternAttendance from "./pages/IternManagement/InternAttendence/ViewInternAttendence";
+import EditInternAttendence from "./pages/IternManagement/InternAttendence/EditInternAttendence";
+import InternPerformanceReview from "./pages/IternManagement/InternPerformanceReview/InternPerformanceReview";
+import InternAddFeedback from "./pages/IternManagement/InternPerformanceReview/InternAddFeedback";
+import InternViewFeedback from "./pages/IternManagement/InternPerformanceReview/InternViewFeedback";
 
 const App = () => {
   return (
@@ -54,7 +65,7 @@ const App = () => {
         <Route path="/view-attendance/:id" element={<ViewAttendence />} />
         <Route path="/edit-attendance/:id" element={<EditAttendence />} />
         <Route path="/export-attendance/:id" element={<ExportAttendence />} />
-        <Route path="/leaves" element={<LeaveManagement />} />
+        <Route path="/leaves" element={<LeaveManagement />} /> //errors
         <Route path="/leave-application" element={<LeaveApplication />} />
         <Route path="/leaves-allemployees" element={<AllEmployeesLeaves />} />
         <Route path="/view-leaves/:id" element={<ViewLeaves />} />
@@ -84,6 +95,34 @@ const App = () => {
           element={<EditCertificate />}
         />
         <Route path="/intern-profile" element={<InternsProfile />} />
+        <Route path="/intern-profile/add" element={<AddIntern2 />} />
+        <Route path="/intern-profile/edit/:id" element={<EditIntern2 />} />
+        <Route path="/intern-profile/view/:id" element={<ViewIntern />} />
+        <Route
+          path="/intern-attendence"
+          element={<InternAttendanceManagement />}
+        />
+        <Route path="/intern-attendence/allinterns" element={<AllInterns />} />
+        <Route
+          path="/intern-attendence/view/:id"
+          element={<ViewInternAttendance />}
+        />
+        <Route
+          path="/intern-attendence/edit/:id"
+          element={<EditInternAttendence />}
+        />
+        <Route
+          path="/intern-performance-review"
+          element={<InternPerformanceReview />}
+        />
+        <Route
+          path="/intern-performance-review/feedback/:id"
+          element={<InternAddFeedback />}
+        />
+        <Route
+          path="/intern-performance-review/feedback/view/:id"
+          element={<InternViewFeedback />}
+        />
       </Route>
     </Routes>
   );

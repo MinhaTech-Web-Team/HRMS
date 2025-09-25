@@ -103,7 +103,7 @@ const EditEmployee = () => {
   return (
     <div className="bg-white min-h-screen">
       {/* Header */}
-      <div className="border-b border-gray-200 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
+      <div className="border-b border-black/30 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
         <img
           src="/notifi.png"
           alt="back"
@@ -114,9 +114,9 @@ const EditEmployee = () => {
       </div>
 
       {/* Tabs */}
-      <div className="px-10">
-        <div className="bg-[#E3E3E3]/15 shadow-md rounded-lg mt-6 pb-10">
-          <div className="flex gap-6 mt-6 border-b border-gray-200 px-6">
+      <div className="px-[39px] pt-[26px]">
+        <div className="bg-[#E3E3E3]/15 shadow-md rounded-lg">
+          <div className="flex gap-6 border-b border-gray-200 ">
             {tabs.map((tab) => (
               <button
                 key={tab.key}
