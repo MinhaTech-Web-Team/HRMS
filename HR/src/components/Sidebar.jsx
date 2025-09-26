@@ -11,7 +11,7 @@ import {
   UserPlus,
   DollarSign,
   FileSpreadsheet,
-  LogOut, // ✅ use LogOut instead of DoorClosed for exact same icon
+  LogOut,
 } from "lucide-react";
 import { useToggle } from "../context/Toggle";
 
@@ -68,6 +68,7 @@ const Sidebar = () => {
   const { isSidebarOpen } = useToggle();
 
   if (!isSidebarOpen) return null;
+
   return (
     <div className="w-[270px] min-h-screen bg-[#0B1B2B] flex flex-col p-4 text-white">
       {/* Logo */}
@@ -76,13 +77,14 @@ const Sidebar = () => {
       </div>
 
       {/* Menu */}
-      <nav className="flex flex-col gap-1">
+      <nav className="flex flex-col gap-1 mt-4">
         {menuItems.map((item, index) => (
           <NavLink
             key={index}
             to={item.path}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200  ${
+              `flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 w-full
+              ${
                 isActive
                   ? "bg-[#0E9EE7] text-white"
                   : "text-gray-300 hover:bg-[#1a2b3c]"
@@ -90,13 +92,13 @@ const Sidebar = () => {
             }
           >
             {item.icon}
-            <span className="text-sm font-medium font-sans">{item.label}</span>
+            <span className="text-sm font-medium truncate">{item.label}</span>
           </NavLink>
         ))}
       </nav>
 
       {/* HR Profile */}
-      <div className=" p-3 h-full  flex items-end gap-4">
+      <div className="mt-auto flex items-center gap-4 px-3 py-4 border-t border-gray-700">
         <img src="/HR.jpeg" alt="hr" className="w-10 h-10 rounded-xl" />
         <div>
           <h1 className="font-bold text-[16px]">Namra</h1>
@@ -106,7 +108,7 @@ const Sidebar = () => {
 
       {/* Logout Button */}
       <div className="px-2">
-        <button className="mt-6 w-52 h-11 bg-[#0E9EE7] text-white rounded-lg flex items-center gap-2 font-semibold hover:bg-sky-600 transition p-3">
+        <button className="mt-4 w-full h-11 bg-[#0E9EE7] text-white rounded-lg flex items-center justify-center gap-2 font-semibold hover:bg-sky-600 transition">
           <LogOut size={20} />
           Logout
         </button>

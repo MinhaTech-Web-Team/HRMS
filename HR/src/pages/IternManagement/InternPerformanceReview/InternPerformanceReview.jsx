@@ -85,27 +85,25 @@ const InternPerformanceReview = () => {
         <Table
           columns={columns}
           data={dummyInternPerformanceReviews}
-          renderRow={(review, index) => (
-            <>
-              <input type="checkbox" className="w-5 h-5" />
-              <div className="font-medium">{review.name}</div>
-              <div className="font-medium">{review.internId}</div>
-              <div>{review.department || "-"}</div>
-              <div>{review.workingDays || "-"}</div>
-              <div>{review.projects || "-"}</div>
-              <div>{review.leaves || "-"}</div>
-              <button
-                onClick={() => handleStatusClick(review)}
-                className={`py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center cursor-pointer ${
-                  review.status === "Add Feedback"
-                    ? "bg-[#0E9EE7] hover:bg-sky-600"
-                    : "bg-[#00B172] hover:bg-green-600"
-                }`}
-              >
-                {review.status}
-              </button>
-            </>
-          )}
+          renderRow={(review, index) => [
+            <input type="checkbox" className="w-5 h-5" />,
+            <span className="font-medium">{review.name}</span>,
+            <span className="font-medium">{review.internId}</span>,
+            review.department || "-",
+            review.workingDays || "-",
+            review.projects || "-",
+            review.leaves || "-",
+            <button
+              onClick={() => handleStatusClick(review)}
+              className={`py-1 px-3 rounded-md text-sm text-white whitespace-nowrap inline-block text-center cursor-pointer ${
+                review.status === "Add Feedback"
+                  ? "bg-[#0E9EE7] hover:bg-sky-600"
+                  : "bg-[#00B172] hover:bg-green-600"
+              }`}
+            >
+              {review.status}
+            </button>,
+          ]}
         />
       </div>
 

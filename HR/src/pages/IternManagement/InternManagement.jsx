@@ -1,3 +1,4 @@
+// ✅ InternManagement.jsx
 import React, { useState, useEffect } from "react";
 import Cards from "../../components/Interns/Cards";
 import {
@@ -5,7 +6,6 @@ import {
   Award,
   LineChart,
   DollarSign,
-  Search,
   Download,
   Edit,
   Trash2,
@@ -46,51 +46,6 @@ const InternManagement = () => {
     "Type",
     "Action",
   ];
-
-  // ✅ Define how each row should render
-  const renderRow = (att) => (
-    <>
-      <div>
-        <input type="checkbox" className="w-4 h-4" />
-      </div>
-      <div>{att.startDate}</div>
-      <div>{att.internName}</div>
-      <div className="font-medium">{att.department}</div>
-      <div>{att.duration}</div>
-      <div>{att.type}</div>
-
-      {/* Action Dropdown */}
-      <div className="relative action-dropdown">
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setOpenActionMenu(openActionMenu === att.id ? null : att.id);
-          }}
-          className="p-1.5 rounded hover:bg-gray-200"
-        >
-          <MoreVertical size={18} />
-        </button>
-
-        {openActionMenu === att.id && (
-          <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-lg shadow-lg z-50">
-            <ul className="py-1 text-sm text-[#09182B] font-medium">
-              <li
-                onClick={() => navigate(`/edit-intern/${att.id}`)}
-                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-              >
-                <Edit className="w-4 h-4" />
-                Edit
-              </li>
-              <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                <Trash2 className="w-4 h-4" />
-                Delete
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>
-    </>
-  );
 
   return (
     <div className="bg-white w-full min-h-screen flex flex-col">
@@ -145,20 +100,56 @@ const InternManagement = () => {
           <SearchBar />
 
           {/* Buttons */}
-
           <Button
             icon={CgAdd}
             label={"New Intern"}
             onClick={() => setOpenAddModal(true)}
           />
-
           <Button icon={Download} label={"Export"} />
         </div>
       </div>
 
       {/* ✅ Table */}
       <div className="px-[39px] pt-[26px]">
-        <Table columns={columns} data={dummyInterns} renderRow={renderRow} />
+        <Table
+          columns={columns}
+          data={dummyInterns}
+          renderRow={(att) => [
+            <input type="checkbox" className="w-4 h-4" />,
+            att.startDate,
+            att.internName,
+            <span className="font-medium">{att.department}</span>,
+            att.duration,
+            att.type,
+            <div className="relative action-dropdown">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenActionMenu(openActionMenu === att.id ? null : att.id);
+                }}
+                className="p-1.5 rounded hover:bg-gray-200"
+              >
+                <MoreVertical size={18} />
+              </button>
+
+              {openActionMenu === att.id && (
+                <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-lg shadow-lg z-50">
+                  <ul className="py-1 text-sm text-[#09182B] font-medium">
+                    <li
+                      onClick={() => navigate(`/edit-intern/${att.id}`)}
+                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      <Edit className="w-4 h-4" /> Edit
+                    </li>
+                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                      <Trash2 className="w-4 h-4" /> Delete
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>,
+          ]}
+        />
       </div>
 
       {/* Add Intern Modal */}

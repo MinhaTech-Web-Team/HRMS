@@ -44,6 +44,58 @@ const InternCertificate = () => {
     "Action",
   ];
 
+  // ✅ RenderRow returns array of cells
+  const renderRow = (att) => {
+    return [
+      <input type="checkbox" className="w-4 h-4" />,
+      att.startDate,
+      att.internName,
+      <span className="font-medium">{att.department}</span>,
+      <span className="font-medium">{att.duration}</span>,
+      att.type,
+      <div className="relative">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpenActionMenu(openActionMenu === att.id ? null : att.id);
+          }}
+          className="p-1.5 rounded hover:bg-gray-200"
+        >
+          <MoreVertical size={18} />
+        </button>
+
+        {openActionMenu === att.id && (
+          <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-lg shadow-lg z-50">
+            <ul className="py-2 text-sm text-[#09182B] font-medium">
+              <li
+                onClick={() => navigate(`/intern-certificate/view/${att.id}`)}
+                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+              >
+                <Eye className="w-4 h-4" />
+                View
+              </li>
+              <li
+                onClick={() => navigate(`/intern-certificate/edit/${att.id}`)}
+                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+              >
+                <Edit className="w-4 h-4" />
+                Edit
+              </li>
+              <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                <Trash2 className="w-4 h-4" />
+                Delete
+              </li>
+              <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                <Upload className="w-4 h-4" />
+                Export
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>,
+    ];
+  };
+
   return (
     <div className="bg-white w-full min-h-screen flex flex-col">
       {/* Header */}
@@ -81,70 +133,7 @@ const InternCertificate = () => {
 
       {/* Table */}
       <div className="px-[39px] pt-[26px]">
-        <Table
-          columns={columns}
-          data={dummyInterns}
-          renderRow={(att, index) => (
-            <>
-              <div>
-                <input type="checkbox" className="w-4 h-4" />
-              </div>
-              <div>{att.startDate}</div>
-              <div>{att.internName}</div>
-              <div className="font-medium">{att.department}</div>
-              <div className="font-medium">{att.duration}</div>
-              <div>{att.type}</div>
-
-              {/* Action Dropdown */}
-              <div className="relative">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setOpenActionMenu(
-                      openActionMenu === att.id ? null : att.id
-                    );
-                  }}
-                  className="p-1.5 rounded hover:bg-gray-200"
-                >
-                  <MoreVertical size={18} />
-                </button>
-
-                {openActionMenu === att.id && (
-                  <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-lg shadow-lg z-50">
-                    <ul className="py-2 text-sm text-[#09182B] font-medium">
-                      <li
-                        onClick={() =>
-                          navigate(`/intern-certificate/view/${att.id}`)
-                        }
-                        className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
-                        <Eye className="w-4 h-4" />
-                        View
-                      </li>
-                      <li
-                        onClick={() =>
-                          navigate(`/intern-certificate/edit/${att.id}`)
-                        }
-                        className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
-                        <Edit className="w-4 h-4" />
-                        Edit
-                      </li>
-                      <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                        <Trash2 className="w-4 h-4" />
-                        Delete
-                      </li>
-                      <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                        <Upload className="w-4 h-4" />
-                        Export
-                      </li>
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </>
-          )}
-        />
+        <Table columns={columns} data={dummyInterns} renderRow={renderRow} />
       </div>
 
       {/* Pagination */}

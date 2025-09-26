@@ -24,7 +24,7 @@ const EditFeedback = () => {
   return (
     <div className="flex flex-col">
       {/* Header */}
-      <div className="border-b border-gray-200 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
+      <div className="border-b border-black/30 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
         <img
           src="/notifi.png"
           alt="back"
@@ -34,7 +34,7 @@ const EditFeedback = () => {
         <h1>Edit Feedback</h1>
       </div>
 
-      <div className="px-[39px] py-[37px]">
+      <div className="px-[39px] pt-[26px]">
         {review ? (
           <div className="flex items-center gap-4">
             <img
@@ -50,7 +50,7 @@ const EditFeedback = () => {
         ) : (
           <p className="text-gray-500">Loading employee data...</p>
         )}
-        <div className="pt-[39px]">
+        <div className="px-[39px] pt-[26px]">
           <div className="w-full bg-[#E3E3E3]/15  ">
             <div className="px-[38px] py-[28px] flex flex-col gap-[21px]">
               <h1 className="font-medium text-[34px]">FeedBack</h1>

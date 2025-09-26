@@ -1,3 +1,4 @@
+// src/pages/Attendance/ViewInternAttendence.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
@@ -14,7 +15,7 @@ import StatCard from "../../../components/Attendence/StatCard";
 import Table from "../../../components/Table";
 import Button from "../../../components/Button";
 
-const ViewInternAttendance = () => {
+const ViewInternAttendence = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -62,71 +63,68 @@ const ViewInternAttendance = () => {
     "Action",
   ];
 
-  // ✅ Render Row
+  // ✅ Render Row as array
   const renderRow = (att) => {
     const isLate = att.status === "Late";
-    const statusLabel = isLate ? "Late" : "On Time";
-    const statusColor = isLate ? "bg-red-600" : "bg-green-500";
+    const isAbsent = att.status === "Absent";
+    const statusLabel = isAbsent ? "Absent" : isLate ? "Late" : "On Time";
+    const statusColor = isAbsent
+      ? "bg-gray-500"
+      : isLate
+      ? "bg-red-600"
+      : "bg-green-500";
 
-    return (
-      <>
-        <div>
-          <input type="checkbox" className="w-5 h-5" />
-        </div>
-        <div>{format(new Date(att.date), "yy-MM-dd")}</div>
-        <div>{att.comments || "----------"}</div>
-        <div>{att.timeIn || "-"}</div>
-        <div>{att.timeOut || "-"}</div>
-        <div>{att.breakTime || "-"}</div>
-        <div>{att.idleTime || "-"}</div>
-        <div>{att.workHours || "-"}</div>
-        <div>
-          <span
-            className={`px-3 py-1 rounded-md text-sm text-white ${statusColor}`}
-          >
-            {statusLabel}
-          </span>
-        </div>
+    return [
+      <input type="checkbox" className="w-5 h-5" />,
+      format(new Date(att.date), "yy-MM-dd"),
+      att.comments || "----------",
+      att.timeIn || "-",
+      att.timeOut || "-",
+      att.breakTime || "-",
+      att.idleTime || "-",
+      att.workHours || "-",
+      <span
+        className={`px-3 py-1 rounded-md text-sm text-white ${statusColor}`}
+      >
+        {statusLabel}
+      </span>,
+      <div className="relative">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpenActionMenu(openActionMenu === att.id ? null : att.id);
+          }}
+          className="p-2 rounded hover:bg-gray-200"
+        >
+          <MoreVertical size={18} />
+        </button>
 
-        {/* Action Menu */}
-        <div className="relative">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setOpenActionMenu(openActionMenu === att.id ? null : att.id);
-            }}
-            className="p-2 rounded hover:bg-gray-200"
-          >
-            <MoreVertical size={18} />
-          </button>
-
-          {openActionMenu === att.id && (
-            <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-xl shadow-xl z-50">
-              <ul className="py-2 text-sm text-[#09182B] font-medium">
-                <li
-                  onClick={() => navigate(`/edit-intern-attendance/${att.id}`)}
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                >
-                  <Edit className="w-4 h-4" />
-                  Edit
-                </li>
-                <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                  <Trash2 className="w-4 h-4" />
-                  Delete
-                </li>
-                <li
-                  onClick={() => navigate(`/export-intern-attendance/${id}`)}
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                >
-                  <Upload className="w-4 h-4" />
-                  Export
-                </li>
-              </ul>
-            </div>
-          )}
-        </div>
-      </>
-    );
+        {openActionMenu === att.id && (
+          <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-xl shadow-xl z-50">
+            <ul className="py-2 text-sm text-[#09182B] font-medium">
+              <li
+                onClick={() => navigate(`/edit-intern-attendance/${att.id}`)}
+                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+              >
+                <Edit className="w-4 h-4" />
+                Edit
+              </li>
+              <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                <Trash2 className="w-4 h-4" />
+                Delete
+              </li>
+              <li
+                onClick={() => navigate(`/export-intern-attendance/${id}`)}
+                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+              >
+                <Upload className="w-4 h-4" />
+                Export
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>,
+    ];
   };
 
   return (
@@ -228,4 +226,4 @@ const ViewInternAttendance = () => {
   );
 };
 
-export default ViewInternAttendance;
+export default ViewInternAttendence;

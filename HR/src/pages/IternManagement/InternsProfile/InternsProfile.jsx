@@ -58,71 +58,53 @@ const InternsProfile = () => {
         <Table
           columns={columns}
           data={dummyInterns}
-          renderRow={(att, index) => (
-            <>
-              <div>
-                <input type="checkbox" className="w-4 h-4" />
-              </div>
-              <div>{att.startDate}</div>
-              <div>{att.internName}</div>
-              <div className="font-medium">{att.department}</div>
-              <div className="font-medium">{att.duration}</div>
-              <div>{att.type}</div>
-              <div>
-                <button className="bg-[#00B172] px-2 text-white rounded-sm text-[15px] font-medium">
-                  Intern
-                </button>
-              </div>
+          renderRow={(att) => [
+            <input type="checkbox" className="w-5 h-5" />,
+            att.startDate,
+            <span className="font-medium">{att.internName}</span>,
+            <span className="font-medium">{att.department}</span>,
+            att.duration,
+            att.type,
+            <span className="bg-[#00B172] px-3 py-1 rounded-sm text-white text-sm font-medium">
+              Intern
+            </span>,
+            <div className="relative action-dropdown">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenActionMenu(openActionMenu === att.id ? null : att.id);
+                }}
+                className="p-2 rounded hover:bg-gray-200"
+              >
+                <MoreVertical size={18} />
+              </button>
 
-              {/* Action Dropdown */}
-              <div className="relative">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setOpenActionMenu(
-                      openActionMenu === att.id ? null : att.id
-                    );
-                  }}
-                  className="p-1.5 rounded hover:bg-gray-200"
-                >
-                  <MoreVertical size={18} />
-                </button>
-
-                {openActionMenu === att.id && (
-                  <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-lg shadow-lg z-50">
-                    <ul className="py-2 text-sm text-[#09182B] font-medium">
-                      <li
-                        onClick={() =>
-                          navigate(`/intern-profile/view/${att.id}`)
-                        }
-                        className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
-                        <Eye className="w-4 h-4" />
-                        View
-                      </li>
-                      <li
-                        onClick={() =>
-                          navigate(`/intern-profile/edit/${att.id}`)
-                        }
-                        className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
-                        <Edit className="w-4 h-4" />
-                        Edit
-                      </li>
-                      <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                        <Trash2 className="w-4 h-4" />
-                        Delete
-                      </li>
-                      <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                        <Upload className="w-4 h-4" />
-                        Export
-                      </li>
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </>
-          )}
+              {openActionMenu === att.id && (
+                <div className="absolute top-full right-0 mt-2 w-40 bg-white rounded-xl shadow-xl z-50">
+                  <ul className="py-2 text-sm text-[#09182B] font-medium">
+                    <li
+                      onClick={() => navigate(`/intern-profile/view/${att.id}`)}
+                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      <Eye className="w-4 h-4" /> View
+                    </li>
+                    <li
+                      onClick={() => navigate(`/intern-profile/edit/${att.id}`)}
+                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      <Edit className="w-4 h-4" /> Edit
+                    </li>
+                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                      <Trash2 className="w-4 h-4" /> Delete
+                    </li>
+                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                      <Upload className="w-4 h-4" /> Export
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>,
+          ]}
         />
       </div>
 

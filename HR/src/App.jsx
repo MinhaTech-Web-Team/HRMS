@@ -48,6 +48,7 @@ import EditInternAttendence from "./pages/IternManagement/InternAttendence/EditI
 import InternPerformanceReview from "./pages/IternManagement/InternPerformanceReview/InternPerformanceReview";
 import InternAddFeedback from "./pages/IternManagement/InternPerformanceReview/InternAddFeedback";
 import InternViewFeedback from "./pages/IternManagement/InternPerformanceReview/InternViewFeedback";
+import EditExpense from "./pages/CompanyExpense/EditExpense";
 
 const App = () => {
   return (
@@ -82,6 +83,7 @@ const App = () => {
         <Route path="/edit-meeting/:id" element={<EditMeeting />} />
         <Route path="/edit-event/:id" element={<EditEvent />} />
         <Route path="/expenses" element={<CompanyExpense />} />
+        <Route path="/expenses-edit/:id" element={<EditExpense />} />
         <Route path="/interns" element={<InternManagement />} />
         <Route path="/edit-intern/:id" element={<EditIntern />} />
         <Route path="/intern-certificate" element={<InternCertificate />} />

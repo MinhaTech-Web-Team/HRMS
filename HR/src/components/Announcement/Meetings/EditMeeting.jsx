@@ -1,6 +1,10 @@
+// src/pages/Meetings/EditMeeting.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { meetings } from "../../../assets/assets";
+import Table from "../../../components/Table";
+import { FaMeetup } from "react-icons/fa";
+import { MdMeetingRoom } from "react-icons/md";
 
 const EditMeeting = () => {
   const { id } = useParams();
@@ -14,27 +18,20 @@ const EditMeeting = () => {
     }
   }, [id]);
 
-  if (!data) {
-    return (
-      <div className="flex flex-col">
-        <div className="border-b border-gray-200 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
-          <img
-            src="/notifi.png"
-            alt="back"
-            onClick={() => navigate("/announcements")}
-            className="cursor-pointer"
-          />
-          <h1>Edit Meeting</h1>
-        </div>
-        <div className="text-center py-6 text-gray-500">No meeting found.</div>
-      </div>
-    );
-  }
+  const columns = [
+    "Date",
+    "Day",
+    "Meeting Purpose",
+    "Time",
+    "Employee name",
+    "Description",
+    "Action",
+  ];
 
   return (
     <div className="flex flex-col">
       {/* Header */}
-      <div className="border-b border-gray-200 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
+      <div className="border-b border-black/30 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
         <img
           src="/notifi.png"
           alt="back"
@@ -44,44 +41,36 @@ const EditMeeting = () => {
         <h1>Edit Meeting</h1>
       </div>
 
+      <div className="px-[39px] pt-[26px] flex justify-between items-center">
+        <button className="flex items-center gap-2 text-[16px] font-semibold text-[#0E9EE7] border-b-3 border-[#0E9EE7] ">
+          <MdMeetingRoom size={22} />
+          Meetings
+        </button>
+      </div>
+
       {/* Table */}
-      <div className="p-6">
-        <div className="bg-[#E3E3E3]/15 rounded-lg p-[37px] overflow-x-auto">
-          <table className="w-full min-w-[1024px] text-left text-[#09182B] text-[15px] border-separate border-spacing-y-[13px]">
-            <thead>
-              <tr className="bg-[#EAEAEA] rounded-lg text-[16px] font-bold">
-                <th className="px-5 py-6">Date</th>
-                <th className="px-5 py-6">Day</th>
-                <th className="px-5 py-6">Meeting Purpose</th>
-                <th className="px-5 py-6">Time</th>
-
-                <th className="px-5 py-6">Employee name</th>
-                <th className="px-5 py-6">Description</th>
-                <th className="px-5 py-6">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="rounded-lg shadow-sm relative bg-white">
-                <td className="px-[18px] py-[21px]">{data.date}</td>
-                <td className="px-[18px] py-[21px]">{data.day}</td>
-                <td className="px-[18px] py-[21px] font-medium">
-                  {data.title}
-                </td>
-                <td className="px-[18px] py-[21px]">{data.time}</td>
-
-                <td className="px-[18px] py-[21px]">
-                  {data.employees.join(", ")}
-                </td>
-                <td className="px-[18px] py-[21px]">{data.description}</td>
-                <td className="px-[18px] py-[21px]">
-                  <button className="bg-[#0E9EE7] text-white px-5 py-1 rounded-lg">
-                    Save
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div className="px-[39px] pt-[26px]">
+        {data ? (
+          <Table
+            columns={columns}
+            data={[data]}
+            renderRow={(meeting) => [
+              meeting.date,
+              meeting.day,
+              <span className="font-medium">{meeting.title}</span>,
+              meeting.time,
+              meeting.employees.join(", "),
+              meeting.description,
+              <button className="bg-[#0E9EE7] text-white px-5 py-1 rounded-lg">
+                Save
+              </button>,
+            ]}
+          />
+        ) : (
+          <div className="text-center py-6 text-gray-500">
+            No meeting found.
+          </div>
+        )}
       </div>
     </div>
   );

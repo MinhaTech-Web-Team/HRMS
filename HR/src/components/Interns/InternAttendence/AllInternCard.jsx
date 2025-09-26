@@ -5,7 +5,7 @@ const AllInternCard = ({ name, image, id }) => {
   const navigate = useNavigate();
   return (
     <div
-      onClick={() => navigate(`/view-attendance/${id}`)}
+      onClick={() => navigate(`/intern-attendence/view/${id}`)}
       className="w-72 max-w-full h-auto bg-stone-50 rounded-xl outline outline-1 outline-zinc-400/20 p-4 flex flex-col items-center"
     >
       <img

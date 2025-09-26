@@ -7,7 +7,7 @@ const LeaveApplication = () => {
   return (
     <div className="flex flex-col">
       {/* Header */}
-      <div className="border-b border-gray-200 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
+      <div className="border-b border-black/30 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
         <img
           src="/notifi.png"
           alt="back"
@@ -16,7 +16,7 @@ const LeaveApplication = () => {
         />
         <h1> Leave Application</h1>
       </div>
-      <div className="px-[42px] py-[55px]">
+      <div className="px-[39px] pt-[26px]">
         <div className="flex flex-col items-center justify-center bg-[#FCFCFC] shadow rounded-lg gap-8 ">
           <div className="pt-[30px]">
             <h1 className="flex items-center gap-2 text-[#1D1D1D] text-2xl font-semibold">

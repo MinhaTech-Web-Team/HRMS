@@ -1,10 +1,11 @@
+// src/pages/Performance/PerformanceReview.jsx
 import React, { useState } from "react";
-import { Search, Download, CalendarDays } from "lucide-react";
+import { Download, CalendarDays } from "lucide-react";
 import { dummyPerformanceReviews } from "../../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { useToggle } from "../../context/Toggle";
 import { format } from "date-fns";
-import Table from "./../../components/Table";
+import Table from "../../components/Table";
 import SearchBar from "../../components/SearchBar";
 import Button from "../../components/Button";
 
@@ -31,7 +32,6 @@ const PerformanceReview = () => {
     }
   };
 
-  // Define columns
   const columns = [
     "Select",
     "Employee Name",
@@ -48,7 +48,7 @@ const PerformanceReview = () => {
       {/* Header */}
       <div className="w-full border-b border-black/30">
         <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl tracking-tighter">
-          <img onClick={toggleSidebar} src="/toggle.png" alt="" />
+          <img onClick={toggleSidebar} src="/toggle.png" alt="Toggle Sidebar" />
           <h1 className="text-[#09182B]">Performance Review</h1>
         </div>
       </div>
@@ -68,9 +68,7 @@ const PerformanceReview = () => {
         </button>
 
         <div className="flex items-center gap-2">
-          {/* Search Box */}
           <SearchBar />
-
           <Button label={"Export"} icon={Download} />
         </div>
       </div>
@@ -80,41 +78,38 @@ const PerformanceReview = () => {
         <Table
           columns={columns}
           data={dummyPerformanceReviews}
-          renderRow={(att, index) => (
-            <>
-              <input type="checkbox" className="w-5 h-5" />
-              <div className="font-medium">{att.name}</div>
-              <div className="font-medium">{att.employeeId}</div>
-              <div>{att.department || "-"}</div>
-              <div>{att.workingDays || "-"}</div>
-              <div>{att.projects || "-"}</div>
-              <div>{att.leaves || "-"}</div>
-              <button
-                onClick={() => handleStatusClick(att)}
-                className={` py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center cursor-pointer ${
-                  att.status === "Add Feedback"
-                    ? "bg-[#0E9EE7] hover:bg-sky-600"
-                    : "bg-[#00B172] hover:bg-green-600"
-                }`}
-              >
-                {att.status}
-              </button>
-            </>
-          )}
+          renderRow={(att) => [
+            <input type="checkbox" className="w-5 h-5" />,
+            <span className="font-medium">{att.name}</span>,
+            <span className="font-medium">{att.employeeId}</span>,
+            att.department || "-",
+            att.workingDays || "-",
+            att.projects || "-",
+            att.leaves || "-",
+            <button
+              onClick={() => handleStatusClick(att)}
+              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center cursor-pointer ${
+                att.status === "Add Feedback"
+                  ? "bg-[#0E9EE7] hover:bg-sky-600"
+                  : "bg-[#00B172] hover:bg-green-600"
+              }`}
+            >
+              {att.status}
+            </button>,
+          ]}
         />
       </div>
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[37px] py-6">
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          1
-        </button>
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          2
-        </button>
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          3
-        </button>
+        {[1, 2, 3].map((page) => (
+          <button
+            key={page}
+            className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100"
+          >
+            {page}
+          </button>
+        ))}
       </div>
     </div>
   );

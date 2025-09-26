@@ -64,20 +64,16 @@ const EditIntern = () => {
         <Table
           columns={columns}
           data={data}
-          renderRow={(row) => (
-            <>
-              <div>{row.startDate}</div>
-              <div>{row.internName}</div>
-              <div className="font-medium">{row.department}</div>
-              <div className="font-medium">{row.duration}</div>
-              <div>{row.type}</div>
-              <div>
-                <button className="bg-[#0E9EE7] text-white px-5 py-1 rounded-lg">
-                  Save
-                </button>
-              </div>
-            </>
-          )}
+          renderRow={(row) => [
+            row.startDate,
+            row.internName,
+            <div className="font-medium">{row.department}</div>,
+            <div className="font-medium">{row.duration}</div>,
+            row.type,
+            <button className="bg-[#0E9EE7] text-white px-5 py-1 rounded-lg">
+              Save
+            </button>,
+          ]}
         />
       </div>
     </div>

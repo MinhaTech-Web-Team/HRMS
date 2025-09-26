@@ -10,6 +10,8 @@ import Meeting from "../../components/Announcement/Meetings/Meeting";
 import AddMeeting from "../../components/Announcement/Meetings/AddMeeting";
 import Event from "../../components/Announcement/Events/Events";
 import AddEvent from "../../components/Announcement/Events/AddEvent";
+import Button from "../../components/Button";
+import SearchBar from "../../components/SearchBar";
 
 const Announcements = () => {
   const { toggleSidebar } = useToggle();
@@ -22,15 +24,15 @@ const Announcements = () => {
   return (
     <div className="bg-white w-full min-h-screen flex flex-col">
       {/* Header */}
-      <div className="w-full border-b">
-        <div className="px-4 py-6 flex items-center gap-3 font-semibold text-3xl tracking-tighter">
+      <div className="w-full border-b border-black/30">
+        <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl tracking-tighter">
           <img onClick={toggleSidebar} src="/toggle.png" alt="toggle" />
           <h1 className="text-[#09182B]">Announcement Board</h1>
         </div>
       </div>
 
       {/* Top Bar with Tabs + Search + Export */}
-      <div className="px-6 py-4 flex justify-between items-center ">
+      <div className="px-[39px] pt-[26px] flex justify-between items-center ">
         {/* Tabs */}
         <div className="flex gap-6">
           <button
@@ -73,41 +75,28 @@ const Announcements = () => {
         {/* Search + Export */}
         <div className="flex items-center gap-2">
           {/* Search Box */}
-          <div className="w-64 px-4 py-3 bg-neutral-200/30 rounded-[5px] inline-flex justify-start items-center gap-2.5">
-            <Search size={20} className="text-zinc-900 shrink-0 block" />
-            <input
-              type="text"
-              placeholder="Search"
-              className="flex-1 bg-transparent outline-none text-zinc-900/50 text-base placeholder:text-zinc-900/50"
-            />
-          </div>
+          <SearchBar />
 
           {activeTab === "Holidays" && (
-            <button
+            <Button
+              icon={CgAdd}
+              label={"New Holiday"}
               onClick={() => setHolidayModalOpen(true)}
-              className="bg-sky-500 hover:bg-sky-600 text-white text-sm font-medium rounded-lg px-5 py-3 flex items-center gap-2"
-            >
-              <CgAdd size={22} />
-              New Holiday
-            </button>
+            />
           )}
           {activeTab === "Meetings" && (
-            <button
+            <Button
+              icon={CgAdd}
+              label={"New Meeting"}
               onClick={() => setMeetingModalOpen(true)}
-              className="bg-sky-500 hover:bg-sky-600 text-white text-sm font-medium rounded-lg px-5 py-3 flex items-center gap-2"
-            >
-              <CgAdd size={22} />
-              New Meeting
-            </button>
+            />
           )}
           {activeTab === "Events" && (
-            <button
+            <Button
+              icon={CgAdd}
+              label={"New Event"}
               onClick={() => setEventModalOpen(true)}
-              className="bg-sky-500 hover:bg-sky-600 text-white text-sm font-medium rounded-lg px-5 py-3 flex items-center gap-2"
-            >
-              <CgAdd size={22} />
-              New Event
-            </button>
+            />
           )}
         </div>
       </div>
@@ -122,7 +111,7 @@ const Announcements = () => {
       </div>
 
       {/* Content */}
-      <div className="p-6">
+      <div className="">
         {activeTab === "Holidays" && <Holiday />}
         {activeTab === "Meetings" && <Meeting />}
         {activeTab === "Events" && <Event />}

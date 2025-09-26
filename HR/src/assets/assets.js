@@ -408,7 +408,7 @@ export const dummyAttendanceRecords = {
 export const dummyLeaves = [
   {
     id: 1,
-    date: "10-09-25 to 12-09-25",
+    date: "10-09-25",
     employeeId: "EMP001",
     name: "Namra Sajjad",
     department: "HR",
@@ -430,7 +430,7 @@ export const dummyLeaves = [
   },
   {
     id: 3,
-    date: "15-09-25 to 17-09-25",
+    date: "15-09-25",
     employeeId: "EMP003",
     name: "Syeda Simrah",
     department: "Design",
@@ -452,7 +452,7 @@ export const dummyLeaves = [
   },
   {
     id: 5,
-    date: "09-09-25 to 10-09-25",
+    date: "09-09-25",
     employeeId: "EMP005",
     name: "Abdul Wasay",
     department: "Web Development",
@@ -463,7 +463,7 @@ export const dummyLeaves = [
   },
   {
     id: 6,
-    date: "18-09-25 to 22-09-25",
+    date: "18-09-25",
     employeeId: "EMP006",
     name: "Areeb Shah",
     department: "Mobile",
@@ -474,7 +474,7 @@ export const dummyLeaves = [
   },
   {
     id: 7,
-    date: "11-09-25 to 12-09-25",
+    date: "11-09-25",
     employeeId: "EMP007",
     name: "Hamza Parvaiz",
     department: "Mobile",

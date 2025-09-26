@@ -8,6 +8,7 @@ import Table from "../../components/Table";
 const EditAttendence = () => {
   const [employee, setEmployee] = useState(null);
   const [attendance, setAttendance] = useState([]);
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -28,7 +29,7 @@ const EditAttendence = () => {
     getEmployeesData();
   }, [id]);
 
-  // ✅ Table columns
+  // ✅ Same columns as AttendanceManagement (without Employee Name)
   const columns = [
     "Select",
     "Date",
@@ -39,41 +40,12 @@ const EditAttendence = () => {
     "IDLE Time",
     "Work Hrs",
     "Status",
-    "Action",
+    "Save",
   ];
 
-  // ✅ Render each row
-  const renderRow = (att) => {
-    const isLate = att.status === "Late";
-    const statusLabel = isLate ? "Late" : "On Time";
-    const statusColor = isLate ? "bg-red-600" : "bg-green-500";
-
-    return (
-      <>
-        <div>
-          <input type="checkbox" className="w-5 h-5" />
-        </div>
-        <div>{format(new Date(att.date), "yy-MM-dd")}</div>
-        <div>{att.comments || "----------"}</div>
-        <div>{att.timeIn || "-"}</div>
-        <div>{att.timeOut || "-"}</div>
-        <div>{att.breakTime || "-"}</div>
-        <div>{att.idleTime || "-"}</div>
-        <div>{att.workHours || "-"}</div>
-        <div>
-          <span
-            className={`px-3 py-1 rounded-md text-sm text-white ${statusColor}`}
-          >
-            {statusLabel}
-          </span>
-        </div>
-        <div>
-          <button className="px-3 py-1 rounded bg-[#0E9EE7] text-white text-sm">
-            Save
-          </button>
-        </div>
-      </>
-    );
+  const handleSave = (att) => {
+    alert(`Saved changes for record ID: ${att.id}`);
+    // later you can update backend or state here
   };
 
   return (
@@ -104,7 +76,35 @@ const EditAttendence = () => {
 
       {/* ✅ Table */}
       <div className="px-[39px] pt-[26px]">
-        <Table columns={columns} data={attendance} renderRow={renderRow} />
+        <Table
+          columns={columns}
+          data={attendance}
+          renderRow={(att) => [
+            <input key={`chk-${att.id}`} type="checkbox" className="w-5 h-5" />,
+            format(new Date(att.date), "yy-MM-dd"),
+            att.comments || "----------",
+            att.timeIn || "-",
+            att.timeOut || "-",
+            att.breakTime || "-",
+            att.idleTime || "-",
+            att.workHours || "-",
+            <span
+              key={`status-${att.id}`}
+              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center ${
+                att.status === "Late" ? "bg-[#EB0016]" : "bg-[#00B172]"
+              }`}
+            >
+              {att.status}
+            </span>,
+            <button
+              key={`save-${att.id}`}
+              onClick={() => handleSave(att)}
+              className="px-4  bg-[#0E9EE7] text-white rounded-md "
+            >
+              Save
+            </button>,
+          ]}
+        />
       </div>
     </div>
   );

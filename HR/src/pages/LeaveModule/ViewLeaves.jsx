@@ -1,8 +1,10 @@
+// src/pages/Leaves/ViewLeaves.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { dummyLeaves, dummyEmployees } from "../../assets/assets";
 import { CalendarDays, Download } from "lucide-react";
+import Table from "../../components/Table";
 
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -35,21 +37,30 @@ const ViewLeaves = () => {
     }
   }, [id]);
 
+  const columns = [
+    "Select",
+    "Date",
+    "Leave Type",
+    "Reason",
+    "Application",
+    "Status",
+  ];
+
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-white min-h-screen">
       {/* Header */}
-      <div className="border-b border-gray-200 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
+      <div className="border-b border-black/30 px-4 py-6 flex items-center gap-3 text-2xl font-semibold">
         <img
           src="/notifi.png"
           alt="back"
-          onClick={() => navigate("/attendance")}
+          onClick={() => navigate("/leaves")}
           className="cursor-pointer"
         />
         <h1>Leave Management</h1>
       </div>
 
       {/* Top bar */}
-      <div className="pt-5 px-8 flex items-center justify-between">
+      <div className="px-[39px] pt-[26px] flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img
             src={employee?.image || "/default-avatar.png"}
@@ -85,71 +96,34 @@ const ViewLeaves = () => {
       </div>
 
       {/* Table */}
-      <div className="px-[37px] pt-6">
-        <div className="bg-[#E3E3E3]/15 rounded-lg p-[37px] space-y-3 overflow-x-auto">
-          <table className="w-full min-w-[1024px] text-left text-[#09182B] text-[15px] border-separate border-spacing-y-[13px]">
-            <thead>
-              <tr className="bg-[#EAEAEA] rounded-lg text-[16px] font-bold">
-                <th className="px-5 py-6">Select</th>
-                <th className="px-5 py-6">Date</th>
-                <th className="px-5 py-6">Leave Type</th>
-                <th className="px-5 py-6">Reason</th>
-                <th className="px-5 py-6">Application</th>
-                <th className="px-5 py-6">Status</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {leaves.length === 0 ? (
-                <tr>
-                  <td
-                    colSpan="6"
-                    className="text-center py-6 text-gray-500 italic"
-                  >
-                    No leave records found for this employee.
-                  </td>
-                </tr>
-              ) : (
-                leaves.map((leave, index) => (
-                  <tr
-                    key={leave.id}
-                    className={`rounded-lg shadow-sm relative ${
-                      index % 2 === 1 ? "bg-[#EAEAEA]/50" : "bg-white"
-                    }`}
-                  >
-                    <td className="px-[18px] py-[21px]">
-                      <input type="checkbox" className="w-5 h-5" />
-                    </td>
-                    <td className="px-[18px] py-[21px]">{leave.date}</td>
-                    <td className="px-[18px] py-[21px]">
-                      {leave.leaveType || "-"}
-                    </td>
-                    <td className="px-[18px] py-[21px]">
-                      {leave.reason || "-"}
-                    </td>
-                    <td
-                      onClick={() => navigate("/leave-application")}
-                      className="px-[18px] py-[21px] cursor-pointer"
-                    >
-                      <span className="text-[#0E9EE7] border-b-2">Read</span>
-                    </td>
-                    <td className="px-[18px] py-[21px]">
-                      <span
-                        className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center ${
-                          leave.status === "Waiting"
-                            ? "bg-[#0E9EE7]"
-                            : "bg-[#00B172]"
-                        }`}
-                      >
-                        {leave.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+      <div className="px-[39px] pt-[26px]">
+        <Table
+          columns={columns}
+          data={leaves}
+          renderRow={(leave) => [
+            <input type="checkbox" className="w-5 h-5" />,
+            leave.date,
+            leave.leaveType || "-",
+            leave.reason || "-",
+            <span
+              onClick={() => navigate("/leave-application")}
+              className="text-[#0E9EE7] border-b-2 cursor-pointer"
+            >
+              Read
+            </span>,
+            <span
+              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center ${
+                leave.status === "Waiting"
+                  ? "bg-[#0E9EE7]"
+                  : leave.status === "Approved"
+                  ? "bg-[#00B172]"
+                  : "bg-[#EB0016]"
+              }`}
+            >
+              {leave.status}
+            </span>,
+          ]}
+        />
       </div>
 
       {/* Pagination */}

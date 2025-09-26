@@ -46,7 +46,7 @@ const EditInternAttendence = () => {
     "Action",
   ];
 
-  // ✅ Render each row
+  // ✅ Render each row (array of cells, same as InternAttendanceManagement)
   const renderRow = (att) => {
     const isLate = att.status === "Late";
     const isAbsent = att.status === "Absent";
@@ -57,32 +57,35 @@ const EditInternAttendence = () => {
       ? "bg-red-600"
       : "bg-green-500";
 
-    return (
-      <>
-        <div>
-          <input type="checkbox" className="w-5 h-5" />
-        </div>
-        <div>{format(new Date(att.date), "yy-MM-dd")}</div>
-        <div>{att.comments || "----------"}</div>
-        <div>{att.timeIn || "-"}</div>
-        <div>{att.timeOut || "-"}</div>
-        <div>{att.breakTime || "-"}</div>
-        <div>{att.idleTime || "-"}</div>
-        <div>{att.workHours || "-"}</div>
-        <div>
-          <span
-            className={`px-3 py-1 rounded-md text-sm text-white ${statusColor}`}
-          >
-            {statusLabel}
-          </span>
-        </div>
-        <div>
-          <button className="px-3 py-1 rounded bg-[#0E9EE7] text-white text-sm">
-            Save
-          </button>
-        </div>
-      </>
-    );
+    return [
+      // Select
+      <input type="checkbox" className="w-5 h-5" />,
+
+      // Date
+      format(new Date(att.date), "yy-MM-dd"),
+
+      // Comments
+      att.comments || "----------",
+
+      // Times
+      att.timeIn || "-",
+      att.timeOut || "-",
+      att.breakTime || "-",
+      att.idleTime || "-",
+      att.workHours || "-",
+
+      // Status
+      <span
+        className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center ${statusColor}`}
+      >
+        {statusLabel}
+      </span>,
+
+      // Action (Save button)
+      <button className="px-3 py-1 rounded bg-[#0E9EE7] text-white text-sm">
+        Save
+      </button>,
+    ];
   };
 
   return (

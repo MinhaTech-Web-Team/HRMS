@@ -1,10 +1,11 @@
+// src/pages/Attendance/ViewAttendence.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import {
   CalendarDays,
-  Download,
+  Eye,
   Edit,
   MoreVertical,
   Trash2,
@@ -16,8 +17,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
 import StatCard from "../../components/Attendence/StatCard";
-
-import Table from "./../../components/Table";
+import Table from "../../components/Table";
 import Button from "../../components/Button";
 
 const ViewAttendence = () => {
@@ -38,23 +38,27 @@ const ViewAttendence = () => {
   ]);
 
   useEffect(() => {
-    const getEmployeesData = () => {
-      const emp = dummyEmployees.find((e) => e.id === parseInt(id));
-
-      if (emp) {
-        setEmployee(emp);
-
-        const records = dummyAttendanceRecords.records.filter(
-          (att) => att.employeeId === emp.employeeId
-        );
-        setAttendance(records);
-      }
-    };
-
-    getEmployeesData();
+    const emp = dummyEmployees.find((e) => e.id === parseInt(id));
+    if (emp) {
+      setEmployee(emp);
+      const records = dummyAttendanceRecords.records.filter(
+        (att) => att.employeeId === emp.employeeId
+      );
+      setAttendance(records);
+    }
   }, [id]);
 
-  // ✅ Define table columns
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest(".action-dropdown")) {
+        setOpenActionMenu(null);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
+  // Table columns
   const columns = [
     "Select",
     "Date",
@@ -67,73 +71,6 @@ const ViewAttendence = () => {
     "Status",
     "Action",
   ];
-
-  // ✅ Define renderRow function
-  const renderRow = (att, index) => {
-    const isLate = att.status === "Late";
-    const statusLabel = isLate ? "Late" : "On Time";
-    const statusColor = isLate ? "bg-red-600" : "bg-green-500";
-
-    return (
-      <>
-        <div>
-          <input type="checkbox" className="w-5 h-5" />
-        </div>
-        <div>{format(new Date(att.date), "yy-MM-dd")}</div>
-        <div>{att.comments || "----------"}</div>
-        <div>{att.timeIn || "-"}</div>
-        <div>{att.timeOut || "-"}</div>
-        <div>{att.breakTime || "-"}</div>
-        <div>{att.idleTime || "-"}</div>
-        <div>{att.workHours || "-"}</div>
-        <div>
-          <span
-            className={`px-3 py-1 rounded-md text-sm text-white ${statusColor}`}
-          >
-            {statusLabel}
-          </span>
-        </div>
-
-        {/* Action Menu */}
-        <div className="relative">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setOpenActionMenu(openActionMenu === att.id ? null : att.id);
-            }}
-            className="p-2 rounded hover:bg-gray-200"
-          >
-            <MoreVertical size={18} />
-          </button>
-
-          {openActionMenu === att.id && (
-            <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-xl shadow-xl z-50">
-              <ul className="py-2 text-sm text-[#09182B] font-medium">
-                <li
-                  onClick={() => navigate(`/edit-attendance/${att.id}`)}
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                >
-                  <Edit className="w-4 h-4" />
-                  Edit
-                </li>
-                <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                  <Trash2 className="w-4 h-4" />
-                  Delete
-                </li>
-                <li
-                  onClick={() => navigate(`/export-attendance/${id}`)}
-                  className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                >
-                  <Upload className="w-4 h-4" />
-                  Export
-                </li>
-              </ul>
-            </div>
-          )}
-        </div>
-      </>
-    );
-  };
 
   return (
     <div className="flex flex-col">
@@ -213,9 +150,65 @@ const ViewAttendence = () => {
         />
       </div>
 
-      {/* ✅ Table using reusable component */}
+      {/* Table */}
       <div className="px-[39px] pt-[26px]">
-        <Table columns={columns} data={attendance} renderRow={renderRow} />
+        <Table
+          columns={columns}
+          data={attendance}
+          renderRow={(att) => [
+            <input type="checkbox" className="w-5 h-5" />,
+            format(new Date(att.date), "yy-MM-dd"),
+            att.comments || "----------",
+            att.timeIn || "-",
+            att.timeOut || "-",
+            att.breakTime || "-",
+            att.idleTime || "-",
+            att.workHours || "-",
+            <span
+              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center ${
+                att.status === "Late" ? "bg-[#EB0016]" : "bg-[#00B172]"
+              }`}
+            >
+              {att.status}
+            </span>,
+            <div className="relative action-dropdown">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenActionMenu(openActionMenu === att.id ? null : att.id);
+                }}
+                className="p-2 rounded hover:bg-gray-200"
+              >
+                <MoreVertical size={18} />
+              </button>
+
+              {openActionMenu === att.id && (
+                <div className="absolute top-full right-0 mt-2 w-40 bg-white rounded-xl shadow-xl z-50">
+                  <ul className="py-2 text-sm text-[#09182B] font-medium">
+                    <li
+                      onClick={() => navigate(`/view-attendance/${att.id}`)}
+                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      <Eye className="w-4 h-4" /> View
+                    </li>
+                    <li
+                      onClick={() => navigate(`/edit-attendance/${att.id}`)}
+                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      <Edit className="w-4 h-4" /> Edit
+                    </li>
+                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                      <Trash2 className="w-4 h-4" /> Delete
+                    </li>
+                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                      <Upload className="w-4 h-4" /> Export
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>,
+          ]}
+        />
       </div>
 
       {/* Pagination */}

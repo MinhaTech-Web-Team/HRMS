@@ -62,14 +62,14 @@ const EmployeeManagement = () => {
       </div>
 
       {/* Top Bar */}
-      <div className="px-[39px] pt-[26px] flex flex-col md:flex-row justify-between gap-4 items-start md:items-center">
+      <div className="px-[39px] pt-[26px] flex justify-between items-center">
         <Button
           label="New Employees"
           icon={PlusCircle}
           onClick={() => navigate("/addemployee")}
         />
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+        <div className="flex items-center gap-2">
           <SearchBar
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -87,69 +87,56 @@ const EmployeeManagement = () => {
         </div>
       </div>
 
-      {/* ✅ Reusable Table */}
       <div className="px-[39px] pt-[26px]">
         <Table
           columns={columns}
           data={filteredEmployees}
-          renderRow={(emp) => (
-            <>
-              <div>
-                <input type="checkbox" />
-              </div>
-              <div className="font-medium whitespace-nowrap">{emp.name}</div>
-              <div>{emp.employeeId}</div>
-              <div>{emp.department}</div>
-              <div>{emp.designation}</div>
-              <div>{emp.type}</div>
-              <div>
-                <span className="bg-[#00B172] text-white px-3 py-1 rounded-md text-xs md:text-sm">
-                  {emp.status}
-                </span>
-              </div>
-              <div className="relative action-dropdown">
-                <button
-                  onClick={() =>
-                    setOpenActionMenu((prev) =>
-                      prev === emp.id ? null : emp.id
-                    )
-                  }
-                  className="p-2 rounded hover:bg-gray-200"
-                >
-                  <MoreVertical size={18} />
-                </button>
+          renderRow={(emp) => [
+            <input type="checkbox" className="w-5 h-5" />,
+            <span className="font-medium">{emp.name}</span>,
+            emp.employeeId,
+            emp.department,
+            emp.designation,
+            emp.type,
+            <span className="bg-[#00B172] text-white px-3 py-1 rounded-md text-xs md:text-sm">
+              {emp.status}
+            </span>,
+            <div className="relative action-dropdown">
+              <button
+                onClick={() =>
+                  setOpenActionMenu((prev) => (prev === emp.id ? null : emp.id))
+                }
+                className="p-2 rounded hover:bg-gray-200"
+              >
+                <MoreVertical size={18} />
+              </button>
 
-                {openActionMenu === emp.id && (
-                  <div className="absolute top-full right-0 mt-2 w-40 md:w-44 bg-white rounded-xl shadow-xl z-50">
-                    <ul className="py-2 text-sm text-[#09182B] font-medium">
-                      <li
-                        onClick={() => navigate(`/viewemployee/${emp.id}`)}
-                        className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
-                        <Eye className="w-4 h-4" />
-                        View
-                      </li>
-                      <li
-                        onClick={() => navigate(`/editemployee/${emp.id}`)}
-                        className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                      >
-                        <Edit className="w-4 h-4" />
-                        Edit
-                      </li>
-                      <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                        <Trash2 className="w-4 h-4" />
-                        Delete
-                      </li>
-                      <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                        <Upload className="w-4 h-4" />
-                        Export
-                      </li>
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </>
-          )}
+              {openActionMenu === emp.id && (
+                <div className="absolute top-full right-0 mt-2 w-40 md:w-44 bg-white rounded-xl shadow-xl z-50">
+                  <ul className="py-2 text-sm text-[#09182B] font-medium">
+                    <li
+                      onClick={() => navigate(`/viewemployee/${emp.id}`)}
+                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      <Eye className="w-4 h-4" /> View
+                    </li>
+                    <li
+                      onClick={() => navigate(`/editemployee/${emp.id}`)}
+                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      <Edit className="w-4 h-4" /> Edit
+                    </li>
+                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                      <Trash2 className="w-4 h-4" /> Delete
+                    </li>
+                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                      <Upload className="w-4 h-4" /> Export
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>,
+          ]}
         />
       </div>
     </div>
