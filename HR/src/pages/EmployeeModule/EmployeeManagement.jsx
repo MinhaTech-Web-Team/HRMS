@@ -6,6 +6,7 @@ import {
   Edit,
   Trash2,
   Upload,
+  Download,
 } from "lucide-react";
 import { BiExport } from "react-icons/bi";
 import { dummyEmployees } from "../../assets/assets";
@@ -16,11 +17,12 @@ import SearchBar from "../../components/SearchBar";
 import Button from "../../components/Button";
 import FilterButton from "../../components/FilterButton";
 import Table from "./../../components/Table";
+import ToggleButton from "../../components/ToggleButton";
 
 const EmployeeManagement = () => {
   const [OpenFilter, setOpenFilter] = useState(false);
   const [openActionMenu, setOpenActionMenu] = useState(null);
-  const { toggleSidebar } = useToggle();
+  const { toggleSidebar, isSidebarOpen } = useToggle();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -56,7 +58,11 @@ const EmployeeManagement = () => {
       {/* Header */}
       <div className="w-full border-b border-black/30">
         <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl  tracking-tighter">
-          <img onClick={toggleSidebar} src="/toggle.png" alt="Toggle Sidebar" />
+          <ToggleButton
+            checked={isSidebarOpen}
+            onChange={toggleSidebar}
+            label=""
+          />
           <h1>Employee Management</h1>
         </div>
       </div>
@@ -83,7 +89,7 @@ const EmployeeManagement = () => {
             {OpenFilter && <FilterModal />}
           </div>
 
-          <Button label="Export" icon={BiExport} />
+          <Button label="Export" icon={Download} />
         </div>
       </div>
 
@@ -92,7 +98,7 @@ const EmployeeManagement = () => {
           columns={columns}
           data={filteredEmployees}
           renderRow={(emp) => [
-            <input type="checkbox" className="w-5 h-5" />,
+            <input type="checkbox" className="w-4 h-4" />,
             <span className="font-medium">{emp.name}</span>,
             emp.employeeId,
             emp.department,

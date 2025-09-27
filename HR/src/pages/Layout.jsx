@@ -9,16 +9,12 @@ const Layout = () => {
   const { isSidebarOpen } = useToggle();
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex ">
       {/* Sidebar */}
       {isSidebarOpen ? <Sidebar /> : <SidebarCollapsed />}
 
       {/* Main Content */}
-      <div
-        className={`flex-1 min-h-screen ${
-          isSidebarOpen ? "ml-0" : "ml-[70px]"
-        }`}
-      >
+      <div className={`flex-1    ${isSidebarOpen ? "ml-0" : "ml-0"}`}>
         <Outlet />
       </div>
     </div>

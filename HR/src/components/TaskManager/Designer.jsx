@@ -45,7 +45,7 @@ const Designer = () => {
           columns={columns}
           data={dummyTasks}
           renderRow={(task) => [
-            <input type="checkbox" className="w-5 h-5" />,
+            <input type="checkbox" className="w-4 h-4" />,
             <span className="font-medium">{task.title}</span>,
             <div className="max-w-[300px]">
               <p className="truncate">This App packs Your...</p>

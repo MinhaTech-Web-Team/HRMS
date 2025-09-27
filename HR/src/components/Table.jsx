@@ -45,13 +45,17 @@ import React from "react";
 
 const Table = ({ columns, data, renderRow }) => {
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-white">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-700 ">
+    <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-white whitespace-nowrap">
+      <table className="w-full text-sm text-left rtl:text-right text-black   ">
         {/* Header */}
-        <thead className="text-xs uppercase bg-white border-b border-gray-200">
+        <thead className=" uppercase bg-gray-200 border-b border-gray-400 ">
           <tr>
             {columns.map((col, i) => (
-              <th key={i} scope="col" className="px-6 py-3 font-semibold">
+              <th
+                key={i}
+                scope="col"
+                className="px-6 py-3 font-semibold text-sm"
+              >
                 {col}
               </th>
             ))}
@@ -63,7 +67,7 @@ const Table = ({ columns, data, renderRow }) => {
           {data.map((row, index) => (
             <tr
               key={row.id || index}
-              className="bg-white border-b border-gray-200"
+              className="bg-white border-b border-gray-300"
             >
               {renderRow(row, index).map((cell, i) => (
                 <td key={i} className="px-6 py-4">

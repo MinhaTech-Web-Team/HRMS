@@ -29,7 +29,7 @@ const Meeting = () => {
           columns={columns}
           data={meetings}
           renderRow={(meeting) => [
-            <input type="checkbox" className="w-5 h-5" />,
+            <input type="checkbox" className="w-4 h-4" />,
             meeting.date,
             meeting.day,
             <span className="font-medium">{meeting.title}</span>,

@@ -1,4 +1,3 @@
-// src/components/SidebarCollapsed.jsx
 import React from "react";
 import { NavLink } from "react-router-dom";
 import {
@@ -30,14 +29,13 @@ const menuItems = [
 
 const SidebarCollapsed = () => {
   return (
-    <div className="w-[70px] min-h-screen bg-[#0B1B2B] flex flex-col justify-between items-center py-4 fixed left-0 top-0">
+    <div className="w-[70px] min-h-screen bg-[#0B1B2B] flex flex-col justify-between items-center py-4 ">
       {/* Top Section - Logo */}
-      <div className="flex flex-col items-center">
-        <img src="/minha.png" alt="Logo" className="w-8 h-8 mb-8" />
+      <div className="flex flex-col items-center mb-8">
+        <img src="/minha.png" alt="Logo" className="w-8 h-8" />
       </div>
-
       {/* Middle Section - Menu Icons */}
-      <nav className="flex flex-col items-center gap-6 flex-1 justify-center">
+      <nav className="flex flex-col items-center gap-6 flex-1">
         {menuItems.map((item, index) => (
           <NavLink
             key={index}
@@ -54,9 +52,9 @@ const SidebarCollapsed = () => {
           </NavLink>
         ))}
       </nav>
-
-      {/* Bottom Section - HR + Logout */}
-      <div className="flex flex-col items-center gap-6">
+      {/* Bottom Section - HR Profile + Logout */}{" "}
+      {/* Adjusted gap and margin */}
+      <div className="pt-10 flex flex-col items-center justify-center gap-4">
         <img src="/HR.jpeg" alt="HR" className="w-10 h-10 rounded-xl" />
         <button className="text-white hover:text-[#0E9EE7]">
           <LogOut size={20} />

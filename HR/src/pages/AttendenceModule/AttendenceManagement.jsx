@@ -6,9 +6,10 @@ import { useToggle } from "../../context/Toggle";
 import Table from "./../../components/Table";
 import SearchBar from "../../components/SearchBar";
 import Button from "../../components/Button";
+import ToggleButton from "../../components/ToggleButton";
 
 const AttendanceManagement = () => {
-  const { toggleSidebar } = useToggle();
+  const { toggleSidebar, isSidebarOpen } = useToggle();
   const navigate = useNavigate();
   const [openActionMenu, setOpenActionMenu] = useState(null);
 
@@ -41,7 +42,11 @@ const AttendanceManagement = () => {
       {/* Header */}
       <div className="w-full border-b border-black/30">
         <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl tracking-tighter">
-          <img onClick={toggleSidebar} src="/toggle.png" alt="Toggle Sidebar" />
+          <ToggleButton
+            checked={isSidebarOpen}
+            onChange={toggleSidebar}
+            label=""
+          />
           <h1 className="text-[#09182B]">Attendance Management</h1>
         </div>
       </div>
@@ -68,7 +73,7 @@ const AttendanceManagement = () => {
           columns={columns}
           data={dummyAttendanceRecords.records}
           renderRow={(att) => [
-            <input type="checkbox" className="w-5 h-5" />,
+            <input type="checkbox" className="w-4 h-4 border-4" />,
             att.date,
             <span className="font-medium">{att.name}</span>,
             att.timeIn,
@@ -77,7 +82,7 @@ const AttendanceManagement = () => {
             att.idleTime,
             att.workHours,
             <span
-              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center ${
+              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center w-20 ${
                 att.status === "Late" ? "bg-[#EB0016]" : "bg-[#00B172]"
               }`}
             >

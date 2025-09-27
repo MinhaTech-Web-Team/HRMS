@@ -19,11 +19,12 @@ import AddIntern from "../../components/Interns/AddIntern";
 import Table from "./../../components/Table";
 import Button from "../../components/Button";
 import SearchBar from "../../components/SearchBar";
+import ToggleButton from "../../components/ToggleButton";
 
 const InternManagement = () => {
   const navigate = useNavigate();
   const [openActionMenu, setOpenActionMenu] = useState(null);
-  const { toggleSidebar } = useToggle();
+  const { toggleSidebar, isSidebarOpen } = useToggle();
   const [openAddModal, setOpenAddModal] = useState(false);
 
   useEffect(() => {
@@ -52,11 +53,10 @@ const InternManagement = () => {
       {/* Header */}
       <div className="w-full border-b border-black/30">
         <div className="px-6 py-6 flex items-center gap-4 font-semibold text-2xl tracking-tight">
-          <img
-            onClick={toggleSidebar}
-            src="/toggle.png"
-            alt="menu"
-            className="cursor-pointer"
+          <ToggleButton
+            checked={isSidebarOpen}
+            onChange={toggleSidebar}
+            label=""
           />
           <h1 className="text-[#09182B]">Intern Management</h1>
         </div>

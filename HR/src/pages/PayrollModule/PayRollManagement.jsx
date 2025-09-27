@@ -6,9 +6,10 @@ import { useToggle } from "../../context/Toggle";
 import Table from "../../components/Table";
 import SearchBar from "../../components/SearchBar";
 import Button from "../../components/Button";
+import ToggleButton from "../../components/ToggleButton";
 
 const PayRollManagement = () => {
-  const { toggleSidebar } = useToggle();
+  const { toggleSidebar, isSidebarOpen } = useToggle();
   const navigate = useNavigate();
 
   // Table columns (no Action column now)
@@ -28,7 +29,11 @@ const PayRollManagement = () => {
       {/* Header */}
       <div className="w-full border-b border-black/30">
         <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl tracking-tighter">
-          <img onClick={toggleSidebar} src="/toggle.png" alt="Toggle Sidebar" />
+          <ToggleButton
+            checked={isSidebarOpen}
+            onChange={toggleSidebar}
+            label=""
+          />
           <h1 className="text-[#09182B]">Payroll Management</h1>
         </div>
       </div>
@@ -65,7 +70,7 @@ const PayRollManagement = () => {
             )[0];
 
             return [
-              <input type="checkbox" className="w-5 h-5" />,
+              <input type="checkbox" className="w-4 h-4" />,
               <span className="font-medium">{employee.name}</span>,
               employee.employeeId,
               employee.designation,

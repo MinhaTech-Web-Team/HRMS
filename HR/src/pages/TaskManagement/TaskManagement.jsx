@@ -9,9 +9,10 @@ import Designer from "../../components/TaskManager/Designer";
 import Developer from "../../components/TaskManager/Developer";
 import SearchBar from "../../components/SearchBar";
 import Button from "../../components/Button";
+import ToggleButton from "../../components/ToggleButton";
 
 const TaskManagement = () => {
-  const { toggleSidebar } = useToggle();
+  const { toggleSidebar, isSidebarOpen } = useToggle();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("designer");
 
@@ -20,7 +21,11 @@ const TaskManagement = () => {
       {/* Header */}
       <div className="w-full border-b border-black/30">
         <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl tracking-tighter">
-          <img onClick={toggleSidebar} src="/toggle.png" alt="" />
+          <ToggleButton
+            checked={isSidebarOpen}
+            onChange={toggleSidebar}
+            label=""
+          />
           <h1 className="text-[#09182B]">Task Management</h1>
         </div>
       </div>

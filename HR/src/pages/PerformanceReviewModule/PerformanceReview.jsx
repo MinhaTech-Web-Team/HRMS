@@ -8,9 +8,11 @@ import { format } from "date-fns";
 import Table from "../../components/Table";
 import SearchBar from "../../components/SearchBar";
 import Button from "../../components/Button";
+import DateRangePicker from "../../components/DateRangePicker";
+import ToggleButton from "../../components/ToggleButton";
 
 const PerformanceReview = () => {
-  const { toggleSidebar } = useToggle();
+  const { toggleSidebar, isSidebarOpen } = useToggle();
   const navigate = useNavigate();
 
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -48,7 +50,11 @@ const PerformanceReview = () => {
       {/* Header */}
       <div className="w-full border-b border-black/30">
         <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl tracking-tighter">
-          <img onClick={toggleSidebar} src="/toggle.png" alt="Toggle Sidebar" />
+          <ToggleButton
+            checked={isSidebarOpen}
+            onChange={toggleSidebar}
+            label=""
+          />
           <h1 className="text-[#09182B]">Performance Review</h1>
         </div>
       </div>
@@ -56,16 +62,10 @@ const PerformanceReview = () => {
       {/* Top Bar */}
       <div className="px-[39px] pt-[26px] flex justify-between items-center">
         {/* Date Button */}
-        <button
-          className="border border-gray-300 rounded-lg px-3 py-2 text-sm flex items-center gap-2"
-          onClick={() => setShowDatePicker((prev) => !prev)}
-        >
-          {`${format(dateRange[0].startDate, "MMM dd")} - ${format(
-            dateRange[0].endDate,
-            "MMM dd"
-          )}`}
-          <CalendarDays size={16} />
-        </button>
+        <DateRangePicker
+          range={dateRange}
+          onToggle={() => setShowDatePicker((prev) => !prev)}
+        />
 
         <div className="flex items-center gap-2">
           <SearchBar />
@@ -79,7 +79,7 @@ const PerformanceReview = () => {
           columns={columns}
           data={dummyPerformanceReviews}
           renderRow={(att) => [
-            <input type="checkbox" className="w-5 h-5" />,
+            <input type="checkbox" className="w-4 h-4" />,
             <span className="font-medium">{att.name}</span>,
             <span className="font-medium">{att.employeeId}</span>,
             att.department || "-",
@@ -88,7 +88,7 @@ const PerformanceReview = () => {
             att.leaves || "-",
             <button
               onClick={() => handleStatusClick(att)}
-              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center cursor-pointer ${
+              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-flex justify-center items-center text-center cursor-pointer w-28 ${
                 att.status === "Add Feedback"
                   ? "bg-[#0E9EE7] hover:bg-sky-600"
                   : "bg-[#00B172] hover:bg-green-600"

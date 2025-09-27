@@ -19,7 +19,7 @@ const Event = () => {
           columns={columns}
           data={events}
           renderRow={(event) => [
-            <input type="checkbox" className="w-5 h-5" />,
+            <input type="checkbox" className="w-4 h-4" />,
             event.date,
             event.day,
             <span className="font-medium">{event.name}</span>,

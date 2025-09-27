@@ -22,9 +22,10 @@ import EmployeeApplications from "./../components/dashboard/EmployeeApplications
 import ProjectListCard from "./../components/dashboard/ProjectListCard";
 import EmployeePerformanceChart from "./../components/dashboard/EmployeePerformanceCard";
 import { useNavigate } from "react-router-dom";
+import ToggleButton from "../components/ToggleButton";
 
 const Dashboard = () => {
-  const { toggleSidebar } = useToggle();
+  const { toggleSidebar, isSidebarOpen } = useToggle();
   const navigate = useNavigate();
 
   return (
@@ -32,11 +33,10 @@ const Dashboard = () => {
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center gap-3">
-          <img
-            onClick={toggleSidebar}
-            src="/toggle.png"
-            alt="Toggle sidebar"
-            className="w-6 h-6 cursor-pointer"
+          <ToggleButton
+            checked={isSidebarOpen}
+            onChange={toggleSidebar}
+            label=""
           />
           <div className="flex flex-col">
             <h1 className="text-xl font-semibold text-gray-800">Hello Namra</h1>

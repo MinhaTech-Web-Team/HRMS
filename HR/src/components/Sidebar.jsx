@@ -98,7 +98,7 @@ const Sidebar = () => {
       </nav>
 
       {/* HR Profile */}
-      <div className="mt-auto flex items-center gap-4 px-3 py-4 border-t border-gray-700">
+      <div className="mt-auto flex items-center gap-4 px-3 pt-10 ">
         <img src="/HR.jpeg" alt="hr" className="w-10 h-10 rounded-xl" />
         <div>
           <h1 className="font-bold text-[16px]">Namra</h1>

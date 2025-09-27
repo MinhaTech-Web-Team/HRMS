@@ -12,9 +12,10 @@ import Event from "../../components/Announcement/Events/Events";
 import AddEvent from "../../components/Announcement/Events/AddEvent";
 import Button from "../../components/Button";
 import SearchBar from "../../components/SearchBar";
+import ToggleButton from "../../components/ToggleButton";
 
 const Announcements = () => {
-  const { toggleSidebar } = useToggle();
+  const { toggleSidebar, isSidebarOpen } = useToggle();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Holidays");
   const [holidayModalOpen, setHolidayModalOpen] = useState(false);
@@ -26,7 +27,11 @@ const Announcements = () => {
       {/* Header */}
       <div className="w-full border-b border-black/30">
         <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl tracking-tighter">
-          <img onClick={toggleSidebar} src="/toggle.png" alt="toggle" />
+          <ToggleButton
+            checked={isSidebarOpen}
+            onChange={toggleSidebar}
+            label=""
+          />
           <h1 className="text-[#09182B]">Announcement Board</h1>
         </div>
       </div>

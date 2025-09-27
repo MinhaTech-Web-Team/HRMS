@@ -28,7 +28,7 @@ const Holiday = () => {
           columns={columns}
           data={holidays}
           renderRow={(att) => [
-            <input type="checkbox" className="w-5 h-5" />,
+            <input type="checkbox" className="w-4 h-4" />,
             att.date,
             att.day,
             <span className="font-medium">{att.name}</span>,

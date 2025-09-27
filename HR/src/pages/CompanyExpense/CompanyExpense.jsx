@@ -18,11 +18,12 @@ import AddExpense from "../../components/CompanyExpense/AddExpense";
 import Button from "../../components/Button";
 import SearchBar from "../../components/SearchBar";
 import FilterButton from "../../components/FilterButton";
+import ToggleButton from "../../components/ToggleButton";
 
 const CompanyExpense = () => {
   const navigate = useNavigate();
   const [openFilter, setOpenFilter] = useState(false);
-  const { toggleSidebar } = useToggle();
+  const { toggleSidebar, isSidebarOpen } = useToggle();
   const [openActionMenu, setOpenActionMenu] = useState(null);
   const [openAddModal, setOpenAddModal] = useState(false);
 
@@ -54,11 +55,10 @@ const CompanyExpense = () => {
       {/* Header */}
       <div className="w-full border-b border-black/30">
         <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl  tracking-tighter">
-          <img
-            onClick={toggleSidebar}
-            src="/toggle.png"
-            alt="Toggle Sidebar"
-            className="w-6 h-6 cursor-pointer"
+          <ToggleButton
+            checked={isSidebarOpen}
+            onChange={toggleSidebar}
+            label=""
           />
           <h1>Company Expense</h1>
         </div>
@@ -75,7 +75,7 @@ const CompanyExpense = () => {
         />
 
         {/* Search & Export */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full md:w-auto">
           {/* Search */}
           <SearchBar />
 
@@ -120,7 +120,7 @@ const CompanyExpense = () => {
           columns={columns}
           data={dummyExpenses}
           renderRow={(att) => [
-            <input type="checkbox" className="w-5 h-5" />,
+            <input type="checkbox" className="w-4 h-4" />,
             att.date,
             att.category,
             <span className="font-medium">{att.name}</span>,
@@ -128,7 +128,7 @@ const CompanyExpense = () => {
             att.taker,
             att.amount,
             <span
-              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center ${
+              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center  ${
                 att.status === "Pending" ? "bg-[#09182B]" : "bg-[#00B172]"
               }`}
             >
