@@ -11,7 +11,7 @@ export default function EmployeeApplications() {
   const { isSidebarOpen } = useToggle();
 
   return (
-    <div className="flex-1 min-w-[280px] h-[384px] bg-white border border-gray-200 rounded-2xl p-6 shadow-sm font-sans">
+    <div className="flex-[1] min-w-[260px] h-[384px] bg-white border border-gray-200 rounded-2xl p-6 shadow-sm font-sans">
       {/* Header */}
       <h2 className="text-lg font-semibold text-gray-900 mb-1">
         Employee Applications
