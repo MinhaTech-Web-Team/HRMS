@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "../../../components/Button";
 import Table from "../../../components/Table";
+import Pagination from "../../../components/Pagination";
 
 const InternCertificate = () => {
   const { toggleSidebar } = useToggle();
@@ -44,6 +45,15 @@ const InternCertificate = () => {
     "Action",
   ];
 
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(dummyInterns.length / rowsPerPage);
+  const paginatedData = dummyInterns.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
+
   // ✅ RenderRow returns array of cells
   const renderRow = (att) => {
     return [
@@ -59,7 +69,7 @@ const InternCertificate = () => {
             e.stopPropagation();
             setOpenActionMenu(openActionMenu === att.id ? null : att.id);
           }}
-          className="p-1.5 rounded hover:bg-gray-200"
+          className=" rounded hover:bg-gray-200"
         >
           <MoreVertical size={18} />
         </button>
@@ -133,20 +143,16 @@ const InternCertificate = () => {
 
       {/* Table */}
       <div className="px-[39px] pt-[26px]">
-        <Table columns={columns} data={dummyInterns} renderRow={renderRow} />
+        <Table columns={columns} data={paginatedData} renderRow={renderRow} />
       </div>
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[34px] py-6">
-        <button className="px-3 py-1.5 rounded-md border border-gray-300 hover:bg-gray-100 text-sm">
-          1
-        </button>
-        <button className="px-3 py-1.5 rounded-md border border-gray-300 hover:bg-gray-100 text-sm">
-          2
-        </button>
-        <button className="px-3 py-1.5 rounded-md border border-gray-300 hover:bg-gray-100 text-sm">
-          3
-        </button>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

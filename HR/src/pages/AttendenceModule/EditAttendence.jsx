@@ -80,7 +80,7 @@ const EditAttendence = () => {
           columns={columns}
           data={attendance}
           renderRow={(att) => [
-            <input key={`chk-${att.id}`} type="checkbox" className="w-5 h-5" />,
+            <input type="checkbox" className="w-4 h-4" />,
             format(new Date(att.date), "yy-MM-dd"),
             att.comments || "----------",
             att.timeIn || "-",
@@ -90,7 +90,7 @@ const EditAttendence = () => {
             att.workHours || "-",
             <span
               key={`status-${att.id}`}
-              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center ${
+              className={` text-sm text-white whitespace-nowrap  text-center  px-3 py-1 rounded-md  w-20 flex items-center justify-center ${
                 att.status === "Late" ? "bg-[#EB0016]" : "bg-[#00B172]"
               }`}
             >
@@ -99,7 +99,7 @@ const EditAttendence = () => {
             <button
               key={`save-${att.id}`}
               onClick={() => handleSave(att)}
-              className="px-4  bg-[#0E9EE7] text-white rounded-md "
+              className="  bg-[#0E9EE7] text-sm text-white whitespace-nowrap  text-center  px-3 py-1 rounded-md  w-20 flex items-center justify-center "
             >
               Save
             </button>,

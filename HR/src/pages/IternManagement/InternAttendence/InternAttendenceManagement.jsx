@@ -6,6 +6,7 @@ import SearchBar from "../../../components/SearchBar";
 import Button from "../../../components/Button";
 import Table from "../../../components/Table";
 import { dummyInternAttendanceRecords } from "../../../assets/assets";
+import Pagination from "../../../components/Pagination";
 
 const InternAttendanceManagement = () => {
   const { toggleSidebar } = useToggle();
@@ -21,6 +22,17 @@ const InternAttendanceManagement = () => {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(
+    dummyInternAttendanceRecords.records.length / rowsPerPage
+  );
+  const paginatedData = dummyInternAttendanceRecords.records.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   // Table columns
   const columns = [
@@ -39,7 +51,7 @@ const InternAttendanceManagement = () => {
   // Render each row
   const renderRow = (att) => [
     // Select
-    <input type="checkbox" className="w-5 h-5" />,
+    <input type="checkbox" className="w-4 h-4" />,
 
     // Date
     att.date,
@@ -70,7 +82,7 @@ const InternAttendanceManagement = () => {
           e.stopPropagation();
           setOpenActionMenu(openActionMenu === att.id ? null : att.id);
         }}
-        className="p-2 rounded hover:bg-gray-200"
+        className=" rounded hover:bg-gray-200"
       >
         <MoreVertical size={18} />
       </button>
@@ -134,24 +146,16 @@ const InternAttendanceManagement = () => {
 
       {/* Table */}
       <div className="px-[39px] pt-[26px]">
-        <Table
-          columns={columns}
-          data={dummyInternAttendanceRecords.records}
-          renderRow={renderRow}
-        />
+        <Table columns={columns} data={paginatedData} renderRow={renderRow} />
       </div>
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[37px] py-6">
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          1
-        </button>
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          2
-        </button>
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          3
-        </button>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

@@ -19,6 +19,7 @@ import Button from "../../components/Button";
 import SearchBar from "../../components/SearchBar";
 import FilterButton from "../../components/FilterButton";
 import ToggleButton from "../../components/ToggleButton";
+import Pagination from "../../components/Pagination";
 
 const CompanyExpense = () => {
   const navigate = useNavigate();
@@ -36,6 +37,15 @@ const CompanyExpense = () => {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(dummyExpenses.length / rowsPerPage);
+  const paginatedData = dummyExpenses.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   // ✅ Table columns (same structure as Attendance)
   const columns = [
@@ -118,7 +128,7 @@ const CompanyExpense = () => {
       <div className="px-[37px] pt-[26px]">
         <Table
           columns={columns}
-          data={dummyExpenses}
+          data={paginatedData}
           renderRow={(att) => [
             <input type="checkbox" className="w-4 h-4" />,
             att.date,
@@ -170,15 +180,11 @@ const CompanyExpense = () => {
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[37px] py-6">
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          1
-        </button>
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          2
-        </button>
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          3
-        </button>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

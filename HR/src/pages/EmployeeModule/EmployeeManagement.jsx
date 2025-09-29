@@ -18,6 +18,7 @@ import Button from "../../components/Button";
 import FilterButton from "../../components/FilterButton";
 import Table from "./../../components/Table";
 import ToggleButton from "../../components/ToggleButton";
+import Pagination from "../../components/Pagination";
 
 const EmployeeManagement = () => {
   const [OpenFilter, setOpenFilter] = useState(false);
@@ -52,6 +53,15 @@ const EmployeeManagement = () => {
     "Status",
     "Action",
   ];
+
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(filteredEmployees.length / rowsPerPage);
+  const paginatedData = filteredEmployees.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   return (
     <div className="bg-white w-full min-h-screen flex flex-col">
@@ -96,7 +106,7 @@ const EmployeeManagement = () => {
       <div className="px-[39px] pt-[26px]">
         <Table
           columns={columns}
-          data={filteredEmployees}
+          data={paginatedData}
           renderRow={(emp) => [
             <input type="checkbox" className="w-4 h-4" />,
             <span className="font-medium">{emp.name}</span>,
@@ -104,7 +114,7 @@ const EmployeeManagement = () => {
             emp.department,
             emp.designation,
             emp.type,
-            <span className="bg-[#00B172] text-white px-3 py-1 rounded-md text-xs md:text-sm">
+            <span className="bg-[#00B172] text-white px-3 py-1 rounded-md text-sm w-20 flex items-center justify-center">
               {emp.status}
             </span>,
             <div className="relative action-dropdown">
@@ -112,7 +122,7 @@ const EmployeeManagement = () => {
                 onClick={() =>
                   setOpenActionMenu((prev) => (prev === emp.id ? null : emp.id))
                 }
-                className="p-2 rounded hover:bg-gray-200"
+                className=" rounded hover:bg-gray-200"
               >
                 <MoreVertical size={18} />
               </button>
@@ -143,6 +153,13 @@ const EmployeeManagement = () => {
               )}
             </div>,
           ]}
+        />
+      </div>
+      <div className="flex justify-end items-center gap-2 px-[37px] py-6">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
         />
       </div>
     </div>

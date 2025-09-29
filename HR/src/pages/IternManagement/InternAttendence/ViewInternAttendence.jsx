@@ -14,6 +14,7 @@ import "react-date-range/dist/theme/default.css";
 import StatCard from "../../../components/Attendence/StatCard";
 import Table from "../../../components/Table";
 import Button from "../../../components/Button";
+import Pagination from "../../../components/Pagination";
 
 const ViewInternAttendence = () => {
   const navigate = useNavigate();
@@ -49,6 +50,15 @@ const ViewInternAttendence = () => {
     getInternData();
   }, [id]);
 
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(attendance.length / rowsPerPage);
+  const paginatedData = attendance.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
+
   // ✅ Table columns
   const columns = [
     "Select",
@@ -75,7 +85,7 @@ const ViewInternAttendence = () => {
       : "bg-green-500";
 
     return [
-      <input type="checkbox" className="w-5 h-5" />,
+      <input type="checkbox" className="w-4 h-4" />,
       format(new Date(att.date), "yy-MM-dd"),
       att.comments || "----------",
       att.timeIn || "-",
@@ -94,7 +104,7 @@ const ViewInternAttendence = () => {
             e.stopPropagation();
             setOpenActionMenu(openActionMenu === att.id ? null : att.id);
           }}
-          className="p-2 rounded hover:bg-gray-200"
+          className=" rounded hover:bg-gray-200"
         >
           <MoreVertical size={18} />
         </button>
@@ -207,20 +217,16 @@ const ViewInternAttendence = () => {
 
       {/* ✅ Table */}
       <div className="px-[39px] pt-[26px]">
-        <Table columns={columns} data={attendance} renderRow={renderRow} />
+        <Table columns={columns} data={paginatedData} renderRow={renderRow} />
       </div>
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[37px] py-6">
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          1
-        </button>
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          2
-        </button>
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          3
-        </button>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

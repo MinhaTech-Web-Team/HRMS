@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { dummyTasks, dummyEmployees } from "../../assets/assets";
 import { Flag } from "lucide-react";
 import Table from "../../components/Table";
+import Pagination from "../Pagination";
 
 const Designer = () => {
   const [selectedDescription, setSelectedDescription] = useState("");
@@ -17,6 +18,15 @@ const Designer = () => {
     setIsModalOpen(false);
     setSelectedDescription("");
   };
+
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(dummyTasks.length / rowsPerPage);
+  const paginatedData = dummyTasks.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   // Helper: Get employee details by IDs
   const getEmployeesByIds = (ids) => {
@@ -38,26 +48,28 @@ const Designer = () => {
   ];
 
   return (
-    <div className="bg-white w-full min-h-screen flex flex-col px-[39px] pt-[26px]">
+    <div className="bg-white w-full  flex flex-col ">
       {/* Table */}
-      <div className="">
+      <div className="px-[39px] pt-[26px]">
         <Table
           columns={columns}
-          data={dummyTasks}
+          data={paginatedData}
           renderRow={(task) => [
             <input type="checkbox" className="w-4 h-4" />,
             <span className="font-medium">{task.title}</span>,
-            <div className="max-w-[300px]">
-              <p className="truncate">This App packs Your...</p>
-              <span
-                onClick={() => openModal(task.description)}
-                className="text-[#0E9EE7] cursor-pointer"
-              >
-                (more)
-              </span>
+            <div className="">
+              <p className="truncate">
+                This App packs Your{" "}
+                <span
+                  onClick={() => openModal(task.description)}
+                  className="text-[#0E9EE7] cursor-pointer"
+                >
+                  (more)
+                </span>
+              </p>
             </div>,
             task.deadline,
-            <div className="flex items-center gap-2 min-w-[120px]">
+            <div className="flex items-center gap-2 ">
               <Flag
                 size={18}
                 className={
@@ -76,14 +88,14 @@ const Designer = () => {
                       src={emp.image}
                       alt={emp.name}
                       title={emp.name}
-                      className="w-9 h-9 rounded-full border-2 border-white"
+                      className="w-7 h-7 rounded-full border-2 border-white"
                     />
                   )
               )}
             </div>,
             <button
               onClick={() => handleStatusClick(task)}
-              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center cursor-pointer ${
+              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap  text-center cursor-pointer flex justify-center items-center w-20 ${
                 task.status === "In Progress"
                   ? "bg-[#0E9EE7] hover:bg-sky-600"
                   : task.status === "Completed"
@@ -117,14 +129,11 @@ const Designer = () => {
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[37px] py-6">
-        {[1, 2, 3].map((page) => (
-          <button
-            key={page}
-            className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100"
-          >
-            {page}
-          </button>
-        ))}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

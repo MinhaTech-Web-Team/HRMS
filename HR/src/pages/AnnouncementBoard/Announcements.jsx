@@ -23,7 +23,7 @@ const Announcements = () => {
   const [eventModalOpen, setEventModalOpen] = useState(false);
 
   return (
-    <div className="bg-white w-full min-h-screen flex flex-col">
+    <div className="bg-white  flex flex-col">
       {/* Header */}
       <div className="w-full border-b border-black/30">
         <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl tracking-tighter">
@@ -44,7 +44,7 @@ const Announcements = () => {
             onClick={() => setActiveTab("Holidays")}
             className={`flex items-center gap-2 text-[16px] font-semibold ${
               activeTab === "Holidays"
-                ? "text-[#0E9EE7] border-b-[3px] border-[#0E9EE7]"
+                ? "text-[#0E9EE7] border-b-3 border-[#0E9EE7]"
                 : "text-gray-500 hover:text-[#0E9EE7]"
             }`}
           >

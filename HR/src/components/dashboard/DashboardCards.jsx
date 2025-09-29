@@ -9,7 +9,7 @@ const DashboardCards = ({
   arrowIcon,
 }) => {
   return (
-    <div className="w-64 h-32 bg-white border border-zinc-200 rounded-lg p-4 flex flex-col justify-between shadow-sm">
+    <div className="flex-1 min-w-[220px] h-32 bg-white border border-zinc-200 rounded-lg p-4 flex flex-col justify-between shadow-sm">
       {/* Top Section */}
       <div className="flex items-center gap-3">
         {/* Icon */}

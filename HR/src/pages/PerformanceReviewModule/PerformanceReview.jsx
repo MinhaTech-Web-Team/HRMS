@@ -10,6 +10,7 @@ import SearchBar from "../../components/SearchBar";
 import Button from "../../components/Button";
 import DateRangePicker from "../../components/DateRangePicker";
 import ToggleButton from "../../components/ToggleButton";
+import Pagination from "../../components/Pagination";
 
 const PerformanceReview = () => {
   const { toggleSidebar, isSidebarOpen } = useToggle();
@@ -33,6 +34,15 @@ const PerformanceReview = () => {
       navigate(`/add-feedback/${att.id}`, { state: { review: att } });
     }
   };
+
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(dummyPerformanceReviews.length / rowsPerPage);
+  const paginatedData = dummyPerformanceReviews.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   const columns = [
     "Select",
@@ -77,18 +87,18 @@ const PerformanceReview = () => {
       <div className="px-[39px] pt-[26px]">
         <Table
           columns={columns}
-          data={dummyPerformanceReviews}
+          data={paginatedData}
           renderRow={(att) => [
             <input type="checkbox" className="w-4 h-4" />,
             <span className="font-medium">{att.name}</span>,
-            <span className="font-medium">{att.employeeId}</span>,
+            <span className="">{att.employeeId}</span>,
             att.department || "-",
             att.workingDays || "-",
             att.projects || "-",
             att.leaves || "-",
             <button
               onClick={() => handleStatusClick(att)}
-              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-flex justify-center items-center text-center cursor-pointer w-28 ${
+              className={`text-sm text-white whitespace-nowrap  text-center  px-3 py-1 rounded-md  w-28 flex items-center justify-center ${
                 att.status === "Add Feedback"
                   ? "bg-[#0E9EE7] hover:bg-sky-600"
                   : "bg-[#00B172] hover:bg-green-600"
@@ -102,14 +112,11 @@ const PerformanceReview = () => {
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[37px] py-6">
-        {[1, 2, 3].map((page) => (
-          <button
-            key={page}
-            className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100"
-          >
-            {page}
-          </button>
-        ))}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

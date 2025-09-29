@@ -4,6 +4,7 @@ import { dummyEmployees, dummyPayrollData } from "../../assets/assets";
 import { Download, Handbag } from "lucide-react";
 import { TfiEmail } from "react-icons/tfi";
 import Table from "../../components/Table";
+import Pagination from "../../components/Pagination";
 
 const ViewPayroll = () => {
   const navigate = useNavigate();
@@ -22,6 +23,15 @@ const ViewPayroll = () => {
       setPayrollRecords(payrollData?.records || []);
     }
   }, [id]);
+
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(payrollRecords.length / rowsPerPage);
+  const paginatedData = payrollRecords.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   if (!employee) {
     return <div>Loading...</div>;
@@ -96,14 +106,11 @@ const ViewPayroll = () => {
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[37px] py-6">
-        {[1, 2, 3].map((page) => (
-          <button
-            key={page}
-            className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100"
-          >
-            {page}
-          </button>
-        ))}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

@@ -59,7 +59,7 @@ const EditInternAttendence = () => {
 
     return [
       // Select
-      <input type="checkbox" className="w-5 h-5" />,
+      <input type="checkbox" className="w-4 h-4" />,
 
       // Date
       format(new Date(att.date), "yy-MM-dd"),

@@ -14,6 +14,7 @@ import Button from "../../components/Button";
 import SearchBar from "../../components/SearchBar";
 import Table from "../../components/Table";
 import ToggleButton from "../../components/ToggleButton";
+import Pagination from "../../components/Pagination";
 
 const LeaveManagement = () => {
   const { toggleSidebar, isSidebarOpen } = useToggle();
@@ -29,6 +30,15 @@ const LeaveManagement = () => {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(dummyLeaves.length / rowsPerPage);
+  const paginatedData = dummyLeaves.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   const columns = [
     "Select",
@@ -75,7 +85,7 @@ const LeaveManagement = () => {
       <div className="px-[39px] pt-[26px]">
         <Table
           columns={columns}
-          data={dummyLeaves}
+          data={paginatedData}
           renderRow={(leave) => [
             <input type="checkbox" className="w-4 h-4" />,
             leave.date,
@@ -91,7 +101,7 @@ const LeaveManagement = () => {
               Read
             </span>,
             <span
-              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center ${
+              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap  text-center w-20 flex items-center justify-center ${
                 leave.status === "Waiting"
                   ? "bg-[#0E9EE7]"
                   : leave.status === "Approved"
@@ -107,15 +117,11 @@ const LeaveManagement = () => {
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[37px] py-6">
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          1
-        </button>
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          2
-        </button>
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          3
-        </button>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

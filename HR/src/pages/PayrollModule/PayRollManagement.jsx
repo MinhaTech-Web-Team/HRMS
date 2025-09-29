@@ -7,6 +7,7 @@ import Table from "../../components/Table";
 import SearchBar from "../../components/SearchBar";
 import Button from "../../components/Button";
 import ToggleButton from "../../components/ToggleButton";
+import Pagination from "../../components/Pagination";
 
 const PayRollManagement = () => {
   const { toggleSidebar, isSidebarOpen } = useToggle();
@@ -23,6 +24,15 @@ const PayRollManagement = () => {
     "Bonus",
     "Total",
   ];
+
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(dummyPayrollData.length / rowsPerPage);
+  const paginatedData = dummyPayrollData.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   return (
     <div className="bg-white w-full min-h-screen flex flex-col">
@@ -85,15 +95,11 @@ const PayRollManagement = () => {
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[37px] py-6">
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          1
-        </button>
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          2
-        </button>
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          3
-        </button>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

@@ -20,6 +20,7 @@ import Table from "./../../components/Table";
 import Button from "../../components/Button";
 import SearchBar from "../../components/SearchBar";
 import ToggleButton from "../../components/ToggleButton";
+import Pagination from "../../components/Pagination";
 
 const InternManagement = () => {
   const navigate = useNavigate();
@@ -36,6 +37,15 @@ const InternManagement = () => {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(dummyInterns.length / rowsPerPage);
+  const paginatedData = dummyInterns.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   // ✅ Define table columns
   const columns = [
@@ -127,7 +137,7 @@ const InternManagement = () => {
                   e.stopPropagation();
                   setOpenActionMenu(openActionMenu === att.id ? null : att.id);
                 }}
-                className="p-1.5 rounded hover:bg-gray-200"
+                className=" rounded hover:bg-gray-200"
               >
                 <MoreVertical size={18} />
               </button>
@@ -161,15 +171,11 @@ const InternManagement = () => {
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[34px] py-6">
-        <button className="px-3 py-1.5 rounded-md border border-gray-300 hover:bg-gray-100 text-sm">
-          1
-        </button>
-        <button className="px-3 py-1.5 rounded-md border border-gray-300 hover:bg-gray-100 text-sm">
-          2
-        </button>
-        <button className="px-3 py-1.5 rounded-md border border-gray-300 hover:bg-gray-100 text-sm">
-          3
-        </button>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

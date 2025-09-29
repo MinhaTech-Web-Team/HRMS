@@ -8,6 +8,7 @@ import Table from "../../components/Table";
 
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import Pagination from "../../components/Pagination";
 
 const ViewLeaves = () => {
   const navigate = useNavigate();
@@ -24,6 +25,15 @@ const ViewLeaves = () => {
       key: "selection",
     },
   ]);
+
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(leaves.length / rowsPerPage);
+  const paginatedData = leaves.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   useEffect(() => {
     const emp = dummyEmployees.find((e) => e.id === parseInt(id));
@@ -99,9 +109,9 @@ const ViewLeaves = () => {
       <div className="px-[39px] pt-[26px]">
         <Table
           columns={columns}
-          data={leaves}
+          data={paginatedData}
           renderRow={(leave) => [
-            <input type="checkbox" className="w-5 h-5" />,
+            <input type="checkbox" className="w-4 h-4" />,
             leave.date,
             leave.leaveType || "-",
             leave.reason || "-",
@@ -128,14 +138,11 @@ const ViewLeaves = () => {
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[37px] py-6">
-        {[1, 2, 3].map((page) => (
-          <button
-            key={page}
-            className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100"
-          >
-            {page}
-          </button>
-        ))}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

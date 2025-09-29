@@ -7,7 +7,7 @@ export const dummyEmployees = [
     designation: "HR",
     type: "Remote",
     status: "Permanent",
-    image: "https://randomuser.me/api/portraits/women/45.jpg",
+    image: "https://i.pravatar.cc/150?img=45",
     personalInfo: {
       email: "namra.sajjad@example.com",
       contactNumber: "+92 300 1234567",
@@ -259,7 +259,7 @@ export const dummyEmployees = [
     designation: "Android Developer",
     type: "Remote",
     status: "Permanent",
-    image: "https://randomuser.me/api/portraits/men/52.jpg",
+    image: "https://i.pravatar.cc/150?img=56",
     personalInfo: {
       email: "hamza.parvaiz@example.com",
       contactNumber: "+92 341 1122556",

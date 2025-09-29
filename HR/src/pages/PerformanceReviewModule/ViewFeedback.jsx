@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { dummyEmployees, dummyPerformanceReviews } from "../../assets/assets";
 import { Pencil } from "lucide-react";
+import Button from "../../components/Button";
 
 const ViewFeedback = () => {
   const navigate = useNavigate();
@@ -54,13 +55,11 @@ const ViewFeedback = () => {
               </div>
             </div>
 
-            {/* Edit Button */}
-            <button
+            <Button
+              icon={Pencil}
               onClick={() => navigate(`/edit-feedback/${review.id}`)}
-              className="flex items-center gap-2 px-4 py-2 bg-[#0E9EE7] text-white rounded-lg shadow hover:bg-[#0c8ac6] transition"
-            >
-              <Pencil size={18} /> Edit
-            </button>
+              label={"Edit"}
+            />
           </div>
         ) : (
           <p className="text-gray-500">Loading employee data...</p>

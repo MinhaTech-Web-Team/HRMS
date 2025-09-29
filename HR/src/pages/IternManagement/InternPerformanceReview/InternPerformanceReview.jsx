@@ -8,6 +8,7 @@ import Table from "../../../components/Table";
 import SearchBar from "../../../components/SearchBar";
 import Button from "../../../components/Button";
 import { useToggle } from "../../../context/Toggle";
+import Pagination from "../../../components/Pagination";
 
 const InternPerformanceReview = () => {
   const { toggleSidebar } = useToggle();
@@ -35,6 +36,17 @@ const InternPerformanceReview = () => {
       });
     }
   };
+
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(
+    dummyInternPerformanceReviews.length / rowsPerPage
+  );
+  const paginatedData = dummyInternPerformanceReviews.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   // Define columns
   const columns = [
@@ -84,9 +96,9 @@ const InternPerformanceReview = () => {
       <div className="px-[39px] pt-[26px]">
         <Table
           columns={columns}
-          data={dummyInternPerformanceReviews}
+          data={paginatedData}
           renderRow={(review, index) => [
-            <input type="checkbox" className="w-5 h-5" />,
+            <input type="checkbox" className="w-4 h-4" />,
             <span className="font-medium">{review.name}</span>,
             <span className="font-medium">{review.internId}</span>,
             review.department || "-",
@@ -95,7 +107,7 @@ const InternPerformanceReview = () => {
             review.leaves || "-",
             <button
               onClick={() => handleStatusClick(review)}
-              className={`py-1 px-3 rounded-md text-sm text-white whitespace-nowrap inline-block text-center cursor-pointer ${
+              className={`py-1 px-3 rounded-md text-sm text-white whitespace-nowrap  text-center cursor-pointer w-28 flex items-center justify-center ${
                 review.status === "Add Feedback"
                   ? "bg-[#0E9EE7] hover:bg-sky-600"
                   : "bg-[#00B172] hover:bg-green-600"
@@ -109,15 +121,11 @@ const InternPerformanceReview = () => {
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[37px] py-6">
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          1
-        </button>
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          2
-        </button>
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
-          3
-        </button>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

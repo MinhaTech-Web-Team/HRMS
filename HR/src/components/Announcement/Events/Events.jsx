@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { MoreVertical, Edit, Trash2 } from "lucide-react";
 import { events } from "../../../assets/assets";
 import Table from "../../../components/Table";
+import Pagination from "../../Pagination";
 
 const Event = () => {
   const navigate = useNavigate();
@@ -11,13 +12,20 @@ const Event = () => {
 
   const columns = ["Select", "Date", "Day", "Event", "Description", "Action"];
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(events.length / rowsPerPage);
+  const paginatedData = events.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
   return (
     <div>
       {/* Table */}
       <div className="px-[39px] pt-[26px]">
         <Table
           columns={columns}
-          data={events}
+          data={paginatedData}
           renderRow={(event) => [
             <input type="checkbox" className="w-4 h-4" />,
             event.date,
@@ -32,7 +40,7 @@ const Event = () => {
                     openActionMenu === event.id ? null : event.id
                   );
                 }}
-                className="p-2 rounded hover:bg-gray-200"
+                className=" rounded hover:bg-gray-200"
               >
                 <MoreVertical size={18} />
               </button>
@@ -59,14 +67,11 @@ const Event = () => {
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[37px] py-6">
-        {[1, 2, 3].map((page) => (
-          <button
-            key={page}
-            className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100"
-          >
-            {page}
-          </button>
-        ))}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

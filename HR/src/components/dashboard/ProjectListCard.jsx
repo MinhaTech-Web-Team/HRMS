@@ -54,11 +54,7 @@ const projects = [
 export default function ProjectListCard() {
   const { isSidebarOpen } = useToggle();
   return (
-    <div
-      className={`${
-        !isSidebarOpen ? "w-[631px]" : "w-[539px]"
-      } h-[320px] bg-white rounded-[10px] border border-gray-200 px-4 py-3 font-sans shadow-sm flex flex-col`}
-    >
+    <div className="flex-1 min-w-[320px] h-[320px] bg-white rounded-[10px] border border-gray-200 px-4 py-3 font-sans shadow-sm flex flex-col">
       {/* Header */}
       <h2 className="text-base font-semibold text-slate-900 mb-2">Project</h2>
 

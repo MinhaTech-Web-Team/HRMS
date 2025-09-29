@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { dummyInterns } from "../../../assets/assets";
 import Table from "../../../components/Table";
+import Pagination from "../../../components/Pagination";
 
 const InternsProfile = () => {
   // Table columns
@@ -26,6 +27,15 @@ const InternsProfile = () => {
     "Status",
     "Action",
   ];
+
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
+  const totalPages = Math.ceil(dummyInterns.length / rowsPerPage);
+  const paginatedData = dummyInterns.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   const navigate = useNavigate();
   const [openActionMenu, setOpenActionMenu] = useState(null);
@@ -57,9 +67,9 @@ const InternsProfile = () => {
       <div className="px-[39px] pt-[26px]">
         <Table
           columns={columns}
-          data={dummyInterns}
+          data={paginatedData}
           renderRow={(att) => [
-            <input type="checkbox" className="w-5 h-5" />,
+            <input type="checkbox" className="w-4 h-4" />,
             att.startDate,
             <span className="font-medium">{att.internName}</span>,
             <span className="font-medium">{att.department}</span>,
@@ -74,7 +84,7 @@ const InternsProfile = () => {
                   e.stopPropagation();
                   setOpenActionMenu(openActionMenu === att.id ? null : att.id);
                 }}
-                className="p-2 rounded hover:bg-gray-200"
+                className=" rounded hover:bg-gray-200"
               >
                 <MoreVertical size={18} />
               </button>
@@ -110,15 +120,11 @@ const InternsProfile = () => {
 
       {/* Pagination */}
       <div className="flex justify-end items-center gap-2 px-[34px] py-6">
-        <button className="px-3 py-1.5 rounded-md border border-gray-300 hover:bg-gray-100 text-sm">
-          1
-        </button>
-        <button className="px-3 py-1.5 rounded-md border border-gray-300 hover:bg-gray-100 text-sm">
-          2
-        </button>
-        <button className="px-3 py-1.5 rounded-md border border-gray-300 hover:bg-gray-100 text-sm">
-          3
-        </button>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

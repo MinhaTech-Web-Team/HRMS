@@ -102,7 +102,7 @@ const Dashboard = () => {
       </div>
 
       {/* Charts Row */}
-      <div className="flex items-center gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="">
           <AttendanceChart />
         </div>
@@ -112,7 +112,7 @@ const Dashboard = () => {
       </div>
 
       {/* Bottom Row */}
-      <div className="flex items-center gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="">
           <ProjectListCard />
         </div>

@@ -52,11 +52,7 @@ export default function AttendanceChart() {
   };
   const { isSidebarOpen } = useToggle();
   return (
-    <div
-      className={` h-[384px] ${
-        !isSidebarOpen ? "w-[778px]" : "w-[666px]"
-      } bg-white border border-gray-200 rounded-2xl p-6 shadow-sm font-sans`}
-    >
+    <div className="flex-1 min-w-[300px] h-[384px] bg-white border border-gray-200 rounded-2xl p-6 shadow-sm font-sans">
       {/* Header */}
       <div className="flex justify-between items-start mb-4">
         <h2 className="text-xl font-semibold text-gray-800">Attendance</h2>

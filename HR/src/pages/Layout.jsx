@@ -14,7 +14,11 @@ const Layout = () => {
       {isSidebarOpen ? <Sidebar /> : <SidebarCollapsed />}
 
       {/* Main Content */}
-      <div className={`flex-1    ${isSidebarOpen ? "ml-0" : "ml-0"}`}>
+      <div
+        className={`flex-1 h-screen overflow-y-scroll    ${
+          isSidebarOpen ? "ml-0" : "ml-0"
+        }`}
+      >
         <Outlet />
       </div>
     </div>

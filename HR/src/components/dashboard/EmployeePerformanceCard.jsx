@@ -55,11 +55,7 @@ export default function EmployeePerformanceChart() {
   const [endDate, setEndDate] = useState(new Date("2024-07-01"));
   const { isSidebarOpen } = useToggle();
   return (
-    <div
-      className={`${
-        !isSidebarOpen ? "w-[631px]" : "w-[539px]"
-      }   h-[320px] bg-white rounded-[20px] border border-gray-200 p-5 font-sans`}
-    >
+    <div className="flex-1 min-w-[320px] h-[320px] bg-white rounded-[20px] border border-gray-200 p-5 font-sans">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-sm font-bold text-gray-800">
