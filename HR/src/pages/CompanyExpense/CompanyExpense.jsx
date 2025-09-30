@@ -138,7 +138,7 @@ const CompanyExpense = () => {
             att.taker,
             att.amount,
             <span
-              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap inline-block text-center  ${
+              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap text-center w-28 flex items-center justify-center  ${
                 att.status === "Pending" ? "bg-[#09182B]" : "bg-[#00B172]"
               }`}
             >

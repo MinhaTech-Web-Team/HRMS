@@ -18,7 +18,7 @@ const DashboardCards = ({
         </div>
 
         {/* Title */}
-        <p className="text-sm text-slate-600 font-medium">{title}</p>
+        <p className="text-lg text-black font-medium">{title}</p>
       </div>
 
       {/* Bottom Section */}

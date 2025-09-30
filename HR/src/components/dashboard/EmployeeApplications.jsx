@@ -11,10 +11,10 @@ export default function EmployeeApplications() {
   const { isSidebarOpen } = useToggle();
 
   return (
-    <div className="flex-[1] min-w-[260px] h-[384px] bg-white border border-gray-200 rounded-2xl p-6 shadow-sm font-sans">
+    <div className="w-full h-[384px] bg-white border border-gray-200 rounded-2xl p-6 shadow-sm font-sans">
       {/* Header */}
-      <h2 className="text-lg font-semibold text-gray-900 mb-1">
-        Employee Applications
+      <h2 className="text-xl font-semibold text-gray-800">
+        Employee Application
       </h2>
 
       {/* Total */}
@@ -48,8 +48,8 @@ export default function EmployeeApplications() {
                 cx="50%"
                 cy="50%"
                 innerRadius="60%"
-                outerRadius="90%"
-                paddingAngle={2}
+                outerRadius="100%"
+                paddingAngle={0}
                 dataKey="value"
                 stroke="none"
               >

@@ -114,7 +114,7 @@ const EmployeeManagement = () => {
             emp.department,
             emp.designation,
             emp.type,
-            <span className="bg-[#00B172] text-white px-3 py-1 rounded-md text-sm w-20 flex items-center justify-center">
+            <span className="bg-[#00B172] text-white px-3 py-1 rounded-md text-sm w-28 flex items-center justify-center">
               {emp.status}
             </span>,
             <div className="relative action-dropdown">

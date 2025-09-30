@@ -974,7 +974,7 @@ export const dummyExpenses = [
     date: "2-03-25",
     category: "Internet Expense",
     name: "HR Internet",
-    description: "Monthly internet bill for HR dept",
+    description: "Monthly internet bill for HR",
     taker: "Talha Tariq",
     amount: 2500,
     status: "Completed"

@@ -8,12 +8,9 @@ import {
   ResponsiveContainer,
   Area,
 } from "recharts";
-import { useState, forwardRef } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns";
-import { FaRegCalendarAlt } from "react-icons/fa"; // for calendar icon
+import { useState } from "react";
 import { useToggle } from "../../context/Toggle";
+import DateRangePicker from "./../DateRangePicker";
 
 const data = [
   { month: "Jan", onTime: 30, late: 15, absent: 8 },
@@ -30,65 +27,46 @@ const data = [
   { month: "Dec", onTime: 50, late: 10, absent: 40 },
 ];
 
-// Custom input component for react-datepicker
-const CustomDateInput = forwardRef(({ value, onClick }, ref) => (
-  <button
-    onClick={onClick}
-    ref={ref}
-    className="flex items-center gap-2 px-4 py-2 border border-blue-400 text-gray-500 rounded-md bg-white hover:cursor-pointer text-sm shadow-sm"
-  >
-    {value}
-    <FaRegCalendarAlt className="text-gray-500" />
-  </button>
-));
-
 export default function AttendanceChart() {
-  const [startDate, setStartDate] = useState(new Date("2024-06-16"));
-  const [endDate, setEndDate] = useState(new Date("2024-07-01"));
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const formatRange = (start, end) => {
-    if (!start || !end) return "";
-    return `${format(start, "MMM dd")} - ${format(end, "MMM dd")}`;
-  };
+  // default range: today → today
+  const [dateRange, setDateRange] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
   const { isSidebarOpen } = useToggle();
+
   return (
     <div className="flex-[2] min-w-[500px] h-[384px] bg-white border border-gray-200 rounded-2xl p-6 shadow-sm font-sans">
       {/* Header */}
-      <div className="flex justify-between items-start mb-4">
+      <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold text-gray-800">Attendance</h2>
 
-        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+        <div className="flex items-center gap-6">
           {/* Custom Legend */}
           <div className="flex gap-4 text-sm font-medium">
             <span className="flex items-center gap-2 text-gray-700">
-              <span className="w-3 h-3 rounded-full bg-[#248cd8]"></span> On
-              Time
+              <span className="w-3 h-3 rounded-full bg-[#248cd8]"></span>
+              On Time
             </span>
             <span className="flex items-center gap-2 text-gray-700">
-              <span className="w-3 h-3 rounded-full bg-[#00b172]"></span> Late
+              <span className="w-3 h-3 rounded-full bg-[#00b172]"></span>
+              Late
             </span>
             <span className="flex items-center gap-2 text-gray-700">
-              <span className="w-3 h-3 rounded-full bg-[#09182b]"></span>{" "}
-              Absents
+              <span className="w-3 h-3 rounded-full bg-[#ee2400]"></span>
+              Absent
             </span>
           </div>
-
-          {/* Date Range Picker */}
-          <DatePicker
-            selected={startDate}
-            onChange={(dates) => {
-              const [start, end] = dates;
-              setStartDate(start);
-              setEndDate(end);
-            }}
-            startDate={startDate}
-            endDate={endDate}
-            selectsRange
-            customInput={
-              <CustomDateInput value={formatRange(startDate, endDate)} />
-            }
-          />
         </div>
+        <DateRangePicker
+          range={dateRange}
+          onToggle={() => setShowDatePicker((prev) => !prev)}
+        />
       </div>
 
       {/* Chart */}
@@ -97,11 +75,7 @@ export default function AttendanceChart() {
           data={data}
           margin={{ top: 0, right: 20, bottom: 0, left: 0 }}
         >
-          <CartesianGrid
-            strokeDasharray="3 3"
-            vertical={false}
-            stroke="#e5e7eb"
-          />
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
           <XAxis
             dataKey="month"
             tick={{ fontSize: 12, fill: "#6b7280" }}
@@ -147,7 +121,7 @@ export default function AttendanceChart() {
             type="monotone"
             dataKey="absent"
             stroke={false}
-            fill="rgba(9, 24, 43, 0.1)"
+            fill="rgba(238, 36, 0, 0.1)"
             activeDot={false}
           />
 
@@ -169,9 +143,9 @@ export default function AttendanceChart() {
           <Line
             type="monotone"
             dataKey="absent"
-            stroke="#09182b"
+            stroke="#ee2400"
             strokeWidth={2}
-            dot={{ r: 4, stroke: "#fff", strokeWidth: 2, fill: "#09182b" }}
+            dot={{ r: 4, stroke: "#fff", strokeWidth: 2, fill: "#ee2400" }}
           />
         </LineChart>
       </ResponsiveContainer>

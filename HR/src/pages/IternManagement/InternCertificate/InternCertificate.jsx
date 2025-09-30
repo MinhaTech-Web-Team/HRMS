@@ -18,11 +18,12 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
 import Table from "../../../components/Table";
 import Pagination from "../../../components/Pagination";
+import ToggleButton from "../../../components/ToggleButton";
 
 const InternCertificate = () => {
-  const { toggleSidebar } = useToggle();
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [openActionMenu, setOpenActionMenu] = useState(null);
+  const { toggleSidebar, isSidebarOpen } = useToggle();
   const navigate = useNavigate();
 
   // Dummy date range
@@ -111,7 +112,11 @@ const InternCertificate = () => {
       {/* Header */}
       <div className="w-full border-b border-black/30">
         <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl tracking-tighter">
-          <img onClick={toggleSidebar} src="/toggle.png" alt="toggle sidebar" />
+          <ToggleButton
+            checked={isSidebarOpen}
+            onChange={toggleSidebar}
+            label=""
+          />
           <h1 className="text-[#09182B]">Intern Certificate</h1>
         </div>
       </div>

@@ -23,6 +23,7 @@ import ProjectListCard from "./../components/dashboard/ProjectListCard";
 import EmployeePerformanceChart from "./../components/dashboard/EmployeePerformanceCard";
 import { useNavigate } from "react-router-dom";
 import ToggleButton from "../components/ToggleButton";
+import SearchBar from "../components/SearchBar";
 
 const Dashboard = () => {
   const { toggleSidebar, isSidebarOpen } = useToggle();
@@ -44,18 +45,8 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search"
-              className="pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:outline-none w-64"
-            />
-            <Search
-              className="absolute left-3 top-2.5 text-gray-400"
-              size={18}
-            />
-          </div>
-          <div className="bg-gray-100 h-12 w-12 flex items-center justify-center rounded-lg cursor-pointer hover:bg-gray-200 transition-colors">
+          <SearchBar />
+          <div className="bg-gray-100 h-9 w-9 flex items-center justify-center rounded-lg cursor-pointer hover:bg-gray-200 transition-colors">
             <Bell
               onClick={() => navigate("/notifications")}
               className="text-gray-500"
@@ -66,13 +57,13 @@ const Dashboard = () => {
       </div>
 
       {/* Stats Cards Row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         <DashboardCards
           title="Total Employee"
           value="560"
           percentage="12%"
           percentageColor="bg-emerald-500"
-          icon={<Users size={16} className="text-blue-500" />}
+          icon={<Users size={22} className="text-blue-500" />}
           arrowIcon={<ArrowUp size={10} className="text-white" />}
         />
         <DashboardCards
@@ -80,7 +71,7 @@ const Dashboard = () => {
           value="1050"
           percentage="5%"
           percentageColor="bg-emerald-500"
-          icon={<DollarSign size={16} className="text-blue-500" />}
+          icon={<DollarSign size={22} className="text-blue-500" />}
           arrowIcon={<ArrowDown size={10} className="text-white" />}
         />
         <DashboardCards
@@ -88,7 +79,7 @@ const Dashboard = () => {
           value="470"
           percentage="8%"
           percentageColor="bg-emerald-500"
-          icon={<ClipboardList size={16} className="text-blue-500" />}
+          icon={<ClipboardList size={22} className="text-blue-500" />}
           arrowIcon={<ArrowUp size={10} className="text-white" />}
         />
         <DashboardCards
@@ -96,7 +87,7 @@ const Dashboard = () => {
           value="250"
           percentage="12%"
           percentageColor="bg-emerald-500"
-          icon={<PenSquare size={16} className="text-blue-500" />}
+          icon={<PenSquare size={22} className="text-blue-500" />}
           arrowIcon={<ArrowUp size={10} className="text-white" />}
         />
       </div>
