@@ -12,9 +12,7 @@ const Table = ({ columns, data, renderRow }) => {
               <th
                 key={i}
                 scope="col"
-                className={`px-6 py-3 font-semibold text-sm truncate w-[${
-                  100 / columns.length
-                }%]`}
+                className="px-6 py-3 font-semibold text-sm truncate w-[100px]"
               >
                 {col}
               </th>
@@ -32,7 +30,9 @@ const Table = ({ columns, data, renderRow }) => {
               {renderRow(row, index).map((cell, i) => (
                 <td
                   key={i}
-                  className={`px-6 py-2 truncate w-[${100 / columns.length}%]`}
+                  className={`px-6 py-2 align-middle ${
+                    columns[i] === "Action" ? "w-auto" : "truncate w-[100px]"
+                  }`}
                 >
                   {cell}
                 </td>
