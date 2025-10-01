@@ -9,7 +9,6 @@ import {
   Download,
   Edit,
   Trash2,
-  MoreVertical,
 } from "lucide-react";
 import { CgAdd, CgProfile } from "react-icons/cg";
 import { useToggle } from "../../context/Toggle";
@@ -21,22 +20,15 @@ import Button from "../../components/Button";
 import SearchBar from "../../components/SearchBar";
 import ToggleButton from "../../components/ToggleButton";
 import Pagination from "../../components/Pagination";
+import ActionMenu from "./../../components/ActionMenu";
 
 const InternManagement = () => {
   const navigate = useNavigate();
-  const [openActionMenu, setOpenActionMenu] = useState(null);
   const { toggleSidebar, isSidebarOpen } = useToggle();
   const [openAddModal, setOpenAddModal] = useState(false);
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (!e.target.closest(".action-dropdown")) {
-        setOpenActionMenu(null);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
+  // ✅ for ActionMenu
+  const [openActionMenu, setOpenActionMenu] = useState(null);
 
   // Pagination Logic
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,6 +48,20 @@ const InternManagement = () => {
     "Duration",
     "Type",
     "Action",
+  ];
+
+  // ✅ Define actions for ActionMenu
+  const internActions = [
+    {
+      title: "Edit",
+      icon: Edit,
+      onClick: (intern) => navigate(`/edit-intern/${intern.id}`),
+    },
+    {
+      title: "Delete",
+      icon: Trash2,
+      onClick: (intern) => console.log("Delete intern", intern.id),
+    },
   ];
 
   return (
@@ -106,10 +112,7 @@ const InternManagement = () => {
 
         {/* Right */}
         <div className="flex items-center gap-3">
-          {/* Search */}
           <SearchBar />
-
-          {/* Buttons */}
           <Button
             icon={CgAdd}
             label={"New Intern"}
@@ -119,45 +122,25 @@ const InternManagement = () => {
         </div>
       </div>
 
-      {/* ✅ Table */}
+      {/* ✅ Table with ActionMenu */}
       <div className="px-[39px] pt-[26px]">
         <Table
           columns={columns}
-          data={dummyInterns}
-          renderRow={(att) => [
+          data={paginatedData}
+          renderRow={(intern) => [
             <input type="checkbox" className="w-4 h-4" />,
-            att.startDate,
-            att.internName,
-            <span className="font-medium">{att.department}</span>,
-            att.duration,
-            att.type,
-            <div className="relative action-dropdown">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setOpenActionMenu(openActionMenu === att.id ? null : att.id);
-                }}
-                className=" rounded hover:bg-gray-200"
-              >
-                <MoreVertical size={18} />
-              </button>
+            intern.startDate,
+            intern.internName,
+            <span className="font-medium">{intern.department}</span>,
+            intern.duration,
+            intern.type,
 
-              {openActionMenu === att.id && (
-                <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-lg shadow-lg z-50">
-                  <ul className="py-1 text-sm text-[#09182B] font-medium">
-                    <li
-                      onClick={() => navigate(`/edit-intern/${att.id}`)}
-                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                    >
-                      <Edit className="w-4 h-4" /> Edit
-                    </li>
-                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <Trash2 className="w-4 h-4" /> Delete
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div>,
+            <ActionMenu
+              emp={intern}
+              openActionMenu={openActionMenu}
+              setOpenActionMenu={setOpenActionMenu}
+              actions={internActions}
+            />,
           ]}
         />
       </div>

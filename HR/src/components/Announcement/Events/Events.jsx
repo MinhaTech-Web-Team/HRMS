@@ -1,10 +1,11 @@
 // src/pages/Events/Event.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MoreVertical, Edit, Trash2 } from "lucide-react";
+import { Edit, Trash2 } from "lucide-react";
 import { events } from "../../../assets/assets";
 import Table from "../../../components/Table";
 import Pagination from "../../Pagination";
+import ActionMenu from "../../ActionMenu";
 
 const Event = () => {
   const navigate = useNavigate();
@@ -12,6 +13,21 @@ const Event = () => {
 
   const columns = ["Select", "Date", "Day", "Event", "Description", "Action"];
 
+  // Dynamic ActionMenu items for events
+  const eventActions = [
+    {
+      title: "Edit",
+      icon: Edit,
+      onClick: (event) => navigate(`/edit-event/${event.id}`),
+    },
+    {
+      title: "Delete",
+      icon: Trash2,
+      onClick: (event) => console.log("Delete event", event.id),
+    },
+  ];
+
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 7;
   const totalPages = Math.ceil(events.length / rowsPerPage);
@@ -19,6 +35,7 @@ const Event = () => {
     (currentPage - 1) * rowsPerPage,
     currentPage * rowsPerPage
   );
+
   return (
     <div>
       {/* Table */}
@@ -32,35 +49,12 @@ const Event = () => {
             event.day,
             <span className="font-medium">{event.name}</span>,
             event.description || "-",
-            <div className="relative">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setOpenActionMenu(
-                    openActionMenu === event.id ? null : event.id
-                  );
-                }}
-                className=" rounded hover:bg-gray-200"
-              >
-                <MoreVertical size={18} />
-              </button>
-
-              {openActionMenu === event.id && (
-                <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-xl shadow-xl z-50">
-                  <ul className="py-2 text-sm text-[#09182B] font-medium">
-                    <li
-                      onClick={() => navigate(`/edit-event/${event.id}`)}
-                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                    >
-                      <Edit className="w-4 h-4" /> Edit
-                    </li>
-                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <Trash2 className="w-4 h-4" /> Delete
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div>,
+            <ActionMenu
+              emp={event}
+              openActionMenu={openActionMenu}
+              setOpenActionMenu={setOpenActionMenu}
+              actions={eventActions}
+            />,
           ]}
         />
       </div>

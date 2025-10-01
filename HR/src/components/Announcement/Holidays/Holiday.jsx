@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useToggle } from "../../../context/Toggle";
 import Table from "../../../components/Table";
 import Pagination from "../../Pagination";
+import ActionMenu from "../../ActionMenu";
 
 const Holiday = () => {
   const { toggleSidebar } = useToggle();
@@ -19,6 +20,20 @@ const Holiday = () => {
     "Holiday Name",
     "Description",
     "Action",
+  ];
+
+  // Dynamic ActionMenu items
+  const holiday = [
+    {
+      title: "Edit",
+      icon: Edit,
+      onClick: (att) => navigate(`/edit-holiday/${att.id}`),
+    },
+    {
+      title: "Delete",
+      icon: Trash2,
+      onClick: (att) => console.log("Delete", att.id),
+    },
   ];
 
   // Pagination Logic
@@ -43,33 +58,12 @@ const Holiday = () => {
             att.day,
             <span className="font-medium">{att.name}</span>,
             att.description || "-",
-            <div className="relative">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setOpenActionMenu(openActionMenu === att.id ? null : att.id);
-                }}
-                className=" rounded hover:bg-gray-200"
-              >
-                <MoreVertical size={18} />
-              </button>
-
-              {openActionMenu === att.id && (
-                <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-xl shadow-xl z-50">
-                  <ul className="py-2 text-sm text-[#09182B] font-medium">
-                    <li
-                      onClick={() => navigate(`/edit-holiday/${att.id}`)}
-                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                    >
-                      <Edit className="w-4 h-4" /> Edit
-                    </li>
-                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <Trash2 className="w-4 h-4" /> Delete
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div>,
+            <ActionMenu
+              emp={att}
+              openActionMenu={openActionMenu}
+              setOpenActionMenu={setOpenActionMenu}
+              actions={holiday}
+            />,
           ]}
         />
       </div>

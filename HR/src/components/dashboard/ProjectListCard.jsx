@@ -73,7 +73,7 @@ export default function ProjectListCard() {
   return (
     <div className="flex-1 min-w-[320px] h-[384px] bg-white rounded-2xl border border-gray-200 px-4 py-5 font-sans shadow-sm flex flex-col">
       {/* Header */}
-      <h2 className="text-xl font-semibold text-gray-800">Projects</h2>
+      <h2 className="text-xl font-semibold text-gray-800 mb-4">Projects</h2>
 
       {/* Table Header */}
       <div className="grid grid-cols-4 text-sm font-medium text-gray-500 px-2 mb-1">
@@ -100,7 +100,7 @@ export default function ProjectListCard() {
 
             {/* Popularity Bar */}
             <div className="flex items-center">
-              <div className="w-full max-w-[180px] h-3 bg-gray-200 rounded-full overflow-hidden">
+              <div className="w-full max-w-[120px] h-3 bg-gray-200 rounded-full overflow-hidden">
                 <div
                   className={`${project.barColor} h-full rounded-full`}
                   style={{ width: `${project.popularity}%` }}

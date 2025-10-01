@@ -8,6 +8,7 @@ import SearchBar from "../../components/SearchBar";
 import Button from "../../components/Button";
 import ToggleButton from "../../components/ToggleButton";
 import Pagination from "../../components/Pagination";
+import ActionMenu from "../../components/ActionMenu";
 
 const AttendanceManagement = () => {
   const { toggleSidebar, isSidebarOpen } = useToggle();
@@ -23,6 +24,31 @@ const AttendanceManagement = () => {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
+  //Action Menu items
+
+  const attendanceActions = [
+    {
+      title: "View",
+      icon: Eye,
+      onClick: (att) => navigate(`/view-attendance/${att.id}`),
+    },
+    {
+      title: "Edit",
+      icon: Edit,
+      onClick: (att) => navigate(`/edit-attendance/${att.id}`),
+    },
+    {
+      title: "Delete",
+      icon: Trash2,
+      onClick: (att) => console.log("Delete", att.id),
+    },
+    {
+      title: "Export",
+      icon: Upload,
+      onClick: (att) => console.log("Export", att.id),
+    },
+  ];
 
   // Pagination Logic
   const [currentPage, setCurrentPage] = useState(1);
@@ -100,42 +126,12 @@ const AttendanceManagement = () => {
             >
               {att.status}
             </span>,
-            <div className="relative action-dropdown">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setOpenActionMenu(openActionMenu === att.id ? null : att.id);
-                }}
-                className=" rounded hover:bg-gray-200"
-              >
-                <MoreVertical size={18} />
-              </button>
-
-              {openActionMenu === att.id && (
-                <div className="absolute top-full right-0 mt-2 w-40 bg-white rounded-xl shadow-xl z-50">
-                  <ul className="py-2 text-sm text-[#09182B] font-medium">
-                    <li
-                      onClick={() => navigate(`/view-attendance/${att.id}`)}
-                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                    >
-                      <Eye className="w-4 h-4" /> View
-                    </li>
-                    <li
-                      onClick={() => navigate(`/edit-attendance/${att.id}`)}
-                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                    >
-                      <Edit className="w-4 h-4" /> Edit
-                    </li>
-                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <Trash2 className="w-4 h-4" /> Delete
-                    </li>
-                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <Upload className="w-4 h-4" /> Export
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div>,
+            <ActionMenu
+              emp={att}
+              openActionMenu={openActionMenu}
+              setOpenActionMenu={setOpenActionMenu}
+              actions={attendanceActions}
+            />,
           ]}
         />
       </div>

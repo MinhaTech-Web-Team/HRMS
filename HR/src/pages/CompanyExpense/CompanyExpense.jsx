@@ -1,25 +1,26 @@
+// src/pages/CompanyExpense/CompanyExpense.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Download,
-  Filter,
   MoreVertical,
   PlusCircle,
-  Search,
+  Edit,
+  Trash2,
+  Upload,
 } from "lucide-react";
-import { Eye, Edit, Trash2, Upload } from "lucide-react";
-import { BiExport } from "react-icons/bi";
 
 import FilterModal from "../../components/CompanyExpense/FilterModal";
 import { useToggle } from "../../context/Toggle";
 import { dummyExpenses } from "../../assets/assets";
-import Table from "../../components/Table"; // ✅ using same Table component
+import Table from "../../components/Table"; // ✅ reusable table
 import AddExpense from "../../components/CompanyExpense/AddExpense";
 import Button from "../../components/Button";
 import SearchBar from "../../components/SearchBar";
 import FilterButton from "../../components/FilterButton";
 import ToggleButton from "../../components/ToggleButton";
 import Pagination from "../../components/Pagination";
+import ActionMenu from "../../components/ActionMenu"; // ✅ reusable action dropdown
 
 const CompanyExpense = () => {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const CompanyExpense = () => {
     currentPage * rowsPerPage
   );
 
-  // ✅ Table columns (same structure as Attendance)
+  // ✅ Table columns
   const columns = [
     "Select",
     "Date",
@@ -60,11 +61,30 @@ const CompanyExpense = () => {
     "Action",
   ];
 
+  // ✅ Actions for ActionMenu
+  const actions = [
+    {
+      title: "Edit",
+      icon: Edit,
+      onClick: (row) => navigate(`/expenses-edit/${row.id}`),
+    },
+    {
+      title: "Delete",
+      icon: Trash2,
+      onClick: (row) => console.log("Delete", row.id),
+    },
+    {
+      title: "Export",
+      icon: Upload,
+      onClick: (row) => console.log("Export", row.id),
+    },
+  ];
+
   return (
     <div className="bg-white w-full min-h-screen flex flex-col">
       {/* Header */}
       <div className="w-full border-b border-black/30">
-        <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl  tracking-tighter">
+        <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl tracking-tighter">
           <ToggleButton
             checked={isSidebarOpen}
             onChange={toggleSidebar}
@@ -76,8 +96,6 @@ const CompanyExpense = () => {
 
       {/* Top Bar */}
       <div className="px-[39px] pt-[26px] flex flex-col md:flex-row justify-between gap-4 items-start md:items-center">
-        {/* Add New Employee Button */}
-
         <Button
           icon={PlusCircle}
           label="New Expenses"
@@ -86,14 +104,8 @@ const CompanyExpense = () => {
 
         {/* Search & Export */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full md:w-auto">
-          {/* Search */}
           <SearchBar />
-
-          {/* Filter Button */}
-
           <FilterButton onClick={() => setOpenFilter(true)} />
-
-          {/* Export */}
           <Button icon={Download} label="Export" />
         </div>
       </div>
@@ -124,7 +136,7 @@ const CompanyExpense = () => {
         </div>
       )}
 
-      {/* ✅ Reusable Table */}
+      {/* ✅ Table */}
       <div className="px-[37px] pt-[26px]">
         <Table
           columns={columns}
@@ -138,42 +150,18 @@ const CompanyExpense = () => {
             att.taker,
             att.amount,
             <span
-              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap text-center w-28 flex items-center justify-center  ${
+              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap text-center w-28 flex items-center justify-center ${
                 att.status === "Pending" ? "bg-[#09182B]" : "bg-[#00B172]"
               }`}
             >
               {att.status}
             </span>,
-            <div className="relative action-dropdown">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setOpenActionMenu(openActionMenu === att.id ? null : att.id);
-                }}
-                className="p-2 rounded hover:bg-gray-200"
-              >
-                <MoreVertical size={18} />
-              </button>
-
-              {openActionMenu === att.id && (
-                <div className="absolute top-full right-0 mt-2 w-40 bg-white rounded-xl shadow-xl z-50">
-                  <ul className="py-2 text-sm text-[#09182B] font-medium">
-                    <li
-                      onClick={() => navigate(`/expenses-edit/${att.id}`)}
-                      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                    >
-                      <Edit className="w-4 h-4" /> Edit
-                    </li>
-                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <Trash2 className="w-4 h-4" /> Delete
-                    </li>
-                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <Upload className="w-4 h-4" /> Export
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div>,
+            <ActionMenu
+              emp={att}
+              openActionMenu={openActionMenu}
+              setOpenActionMenu={setOpenActionMenu}
+              actions={actions}
+            />,
           ]}
         />
       </div>

@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
-import { CalendarDays, Edit, MoreVertical, Trash2, Upload } from "lucide-react";
+import { CalendarDays, Edit, Trash2, Upload, Eye } from "lucide-react";
+
 import {
   dummyInternAttendanceRecords,
   dummyInterns,
@@ -15,6 +16,7 @@ import StatCard from "../../../components/Attendence/StatCard";
 import Table from "../../../components/Table";
 import Button from "../../../components/Button";
 import Pagination from "../../../components/Pagination";
+import ActionMenu from "../../../components/ActionMenu"; // ✅ Import reusable menu
 
 const ViewInternAttendence = () => {
   const navigate = useNavigate();
@@ -50,7 +52,7 @@ const ViewInternAttendence = () => {
     getInternData();
   }, [id]);
 
-  // Pagination Logic
+  // ✅ Pagination Logic
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 7;
   const totalPages = Math.ceil(attendance.length / rowsPerPage);
@@ -73,7 +75,31 @@ const ViewInternAttendence = () => {
     "Action",
   ];
 
-  // ✅ Render Row as array
+  // ✅ Define ActionMenu items
+  const internActions = [
+    {
+      title: "View",
+      icon: Eye,
+      onClick: (att) => navigate(`/intern-attendance/view/${att.id}`),
+    },
+    {
+      title: "Edit",
+      icon: Edit,
+      onClick: (att) => navigate(`/edit-intern-attendance/${att.id}`),
+    },
+    {
+      title: "Delete",
+      icon: Trash2,
+      onClick: (att) => console.log("Delete", att.id),
+    },
+    {
+      title: "Export",
+      icon: Upload,
+      onClick: (att) => navigate(`/export-intern-attendance/${id}`),
+    },
+  ];
+
+  // ✅ Render Row
   const renderRow = (att) => {
     const isLate = att.status === "Late";
     const isAbsent = att.status === "Absent";
@@ -85,7 +111,7 @@ const ViewInternAttendence = () => {
       : "bg-green-500";
 
     return [
-      <input type="checkbox" className="w-4 h-4" />,
+      <input key={`select-${att.id}`} type="checkbox" className="w-4 h-4" />,
       format(new Date(att.date), "yy-MM-dd"),
       att.comments || "----------",
       att.timeIn || "-",
@@ -94,46 +120,19 @@ const ViewInternAttendence = () => {
       att.idleTime || "-",
       att.workHours || "-",
       <span
+        key={`status-${att.id}`}
         className={`px-3 py-1 rounded-md text-sm text-white ${statusColor}`}
       >
         {statusLabel}
       </span>,
-      <div className="relative">
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setOpenActionMenu(openActionMenu === att.id ? null : att.id);
-          }}
-          className=" rounded hover:bg-gray-200"
-        >
-          <MoreVertical size={18} />
-        </button>
-
-        {openActionMenu === att.id && (
-          <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-xl shadow-xl z-50">
-            <ul className="py-2 text-sm text-[#09182B] font-medium">
-              <li
-                onClick={() => navigate(`/edit-intern-attendance/${att.id}`)}
-                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-              >
-                <Edit className="w-4 h-4" />
-                Edit
-              </li>
-              <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                <Trash2 className="w-4 h-4" />
-                Delete
-              </li>
-              <li
-                onClick={() => navigate(`/export-intern-attendance/${id}`)}
-                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-              >
-                <Upload className="w-4 h-4" />
-                Export
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>,
+      // ✅ Use reusable ActionMenu instead of manual dropdown
+      <ActionMenu
+        key={`actions-${att.id}`}
+        emp={att}
+        openActionMenu={openActionMenu}
+        setOpenActionMenu={setOpenActionMenu}
+        actions={internActions}
+      />,
     ];
   };
 
@@ -215,7 +214,7 @@ const ViewInternAttendence = () => {
         />
       </div>
 
-      {/* ✅ Table */}
+      {/* Table */}
       <div className="px-[39px] pt-[26px]">
         <Table columns={columns} data={paginatedData} renderRow={renderRow} />
       </div>

@@ -4,7 +4,6 @@ import { useToggle } from "../../../context/Toggle";
 import {
   CalendarDays,
   Download,
-  MoreVertical,
   Edit,
   Trash2,
   Eye,
@@ -19,6 +18,7 @@ import Button from "../../../components/Button";
 import Table from "../../../components/Table";
 import Pagination from "../../../components/Pagination";
 import ToggleButton from "../../../components/ToggleButton";
+import ActionMenu from "../../../components/ActionMenu"; // ✅ reusable dropdown
 
 const InternCertificate = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -55,6 +55,30 @@ const InternCertificate = () => {
     currentPage * rowsPerPage
   );
 
+  // ✅ Actions for ActionMenu
+  const actions = [
+    {
+      title: "View",
+      icon: Eye,
+      onClick: (emp) => navigate(`/intern-certificate/view/${emp.id}`),
+    },
+    {
+      title: "Edit",
+      icon: Edit,
+      onClick: (emp) => navigate(`/intern-certificate/edit/${emp.id}`),
+    },
+    {
+      title: "Delete",
+      icon: Trash2,
+      onClick: (emp) => console.log("Delete", emp), // replace with delete logic
+    },
+    {
+      title: "Export",
+      icon: Upload,
+      onClick: (emp) => console.log("Export", emp), // replace with export logic
+    },
+  ];
+
   // ✅ RenderRow returns array of cells
   const renderRow = (att) => {
     return [
@@ -64,46 +88,12 @@ const InternCertificate = () => {
       <span className="font-medium">{att.department}</span>,
       <span className="font-medium">{att.duration}</span>,
       att.type,
-      <div className="relative">
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setOpenActionMenu(openActionMenu === att.id ? null : att.id);
-          }}
-          className=" rounded hover:bg-gray-200"
-        >
-          <MoreVertical size={18} />
-        </button>
-
-        {openActionMenu === att.id && (
-          <div className="absolute top-full right-0 mt-2 w-32 bg-white rounded-lg shadow-lg z-50">
-            <ul className="py-2 text-sm text-[#09182B] font-medium">
-              <li
-                onClick={() => navigate(`/intern-certificate/view/${att.id}`)}
-                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-              >
-                <Eye className="w-4 h-4" />
-                View
-              </li>
-              <li
-                onClick={() => navigate(`/intern-certificate/edit/${att.id}`)}
-                className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-              >
-                <Edit className="w-4 h-4" />
-                Edit
-              </li>
-              <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                <Trash2 className="w-4 h-4" />
-                Delete
-              </li>
-              <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                <Upload className="w-4 h-4" />
-                Export
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>,
+      <ActionMenu
+        emp={att}
+        openActionMenu={openActionMenu}
+        setOpenActionMenu={setOpenActionMenu}
+        actions={actions}
+      />,
     ];
   };
 
@@ -141,7 +131,6 @@ const InternCertificate = () => {
             icon={CgAdd}
             label="New Certificate"
           />
-
           <Button label={"Export"} icon={Download} />
         </div>
       </div>
