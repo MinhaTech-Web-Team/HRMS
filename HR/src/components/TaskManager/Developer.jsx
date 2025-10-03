@@ -95,7 +95,7 @@ const Developer = () => {
             </div>,
             <button
               onClick={() => handleStatusClick(task)}
-              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap  text-center cursor-pointer flex justify-center items-center w-20 ${
+              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap  text-center cursor-pointer flex justify-center items-center w-28 ${
                 task.status === "In Progress"
                   ? "bg-[#0E9EE7] hover:bg-sky-600"
                   : task.status === "Completed"

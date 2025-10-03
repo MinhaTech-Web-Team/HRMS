@@ -1,6 +1,7 @@
 import React from "react";
 
 const FilterModal = ({ setHolidayModalOpen }) => {
+    
   return (
     <div className="w-96 h-80 relative bg-white rounded-[20px] outline outline-2 outline-offset-[-2px] outline-sky-500 overflow-hidden p-5">
       {/* Header */}

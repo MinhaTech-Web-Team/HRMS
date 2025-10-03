@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Search,
   Bell,
   Users,
   DollarSign,
@@ -10,11 +9,6 @@ import {
   PenSquare,
 } from "lucide-react";
 
-// import DashboardCards from "../components/DashboardCards";
-// import AttendanceChart from "../components/AttendernceChart";
-// import EmployeeApplications from "../components/EmployeeApplications";
-// import ProjectListCard from "../components/ProjectListCard";
-// import EmployeePerformanceChart from "../components/EmployeePerformanceCard";
 import { useToggle } from "../context/Toggle";
 import DashboardCards from "./../components/dashboard/DashboardCards";
 import AttendanceChart from "../components/dashboard/AttendernceChart";
@@ -30,34 +24,42 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen p-6 flex flex-col gap-5">
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center gap-3">
+    <div className="bg-white w-full min-h-screen flex flex-col">
+      {/* Header (same as Employee) */}
+      <div className="w-full border-b border-black/30">
+        <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl tracking-tighter">
           <ToggleButton
             checked={isSidebarOpen}
             onChange={toggleSidebar}
             label=""
           />
-          <div className="flex flex-col">
-            <h1 className="text-xl font-semibold text-gray-800">Hello Namra</h1>
-            <p className="text-gray-500 text-sm">Good Morning</p>
-          </div>
+          <h1>Dashboard</h1>
         </div>
-        <div className="flex items-center gap-4">
+      </div>
+
+      {/* Top Bar (same alignment as Employee top bar) */}
+      <div className="px-[39px] pt-[26px] flex justify-between items-center">
+        {/* Left: Greeting */}
+        <div className="flex flex-col">
+          <h1 className="text-xl font-semibold text-gray-800">Hello Namra</h1>
+          <p className="text-gray-500 text-sm">Good Morning</p>
+        </div>
+
+        {/* Right: Search + Bell */}
+        <div className="flex items-center gap-3">
           <SearchBar />
-          <div className="bg-gray-100 h-9 w-9 flex items-center justify-center rounded-lg cursor-pointer hover:bg-gray-200 transition-colors">
-            <Bell
-              onClick={() => navigate("/notifications")}
-              className="text-gray-500"
-              size={22}
-            />
+          <div
+            className="bg-gray-100 h-9 w-9 flex items-center justify-center 
+              rounded-lg cursor-pointer hover:bg-gray-200 transition-colors"
+            onClick={() => navigate("/notifications")}
+          >
+            <Bell className="text-gray-500" size={22} />
           </div>
         </div>
       </div>
 
-      {/* Stats Cards Row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      {/* Stats Cards */}
+      <div className="px-[39px] pt-[26px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         <DashboardCards
           title="Total Employee"
           value="560"
@@ -93,23 +95,15 @@ const Dashboard = () => {
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="">
-          <AttendanceChart />
-        </div>
-        <div className="">
-          <EmployeeApplications />
-        </div>
+      <div className="px-[39px] pt-[26px] grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <AttendanceChart />
+        <EmployeeApplications />
       </div>
 
       {/* Bottom Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="">
-          <ProjectListCard />
-        </div>
-        <div className="">
-          <EmployeePerformanceChart />
-        </div>
+      <div className="px-[39px] py-[26px] grid grid-cols-1 lg:grid-cols-2 gap-5  ">
+        <ProjectListCard />
+        <EmployeePerformanceChart />
       </div>
     </div>
   );

@@ -9,6 +9,9 @@ const Designer = () => {
   const [selectedDescription, setSelectedDescription] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [isDragging, setIsDragging] = useState(false);
+
   const openModal = (description) => {
     setSelectedDescription(description);
     setIsModalOpen(true);
@@ -37,6 +40,28 @@ const Designer = () => {
     console.log("Clicked task:", task);
   };
 
+  // ---- Selection Logic ----
+  const handleMouseDown = (id) => {
+    setIsDragging(true);
+    selectRow(id);
+  };
+
+  const handleMouseEnter = (id) => {
+    if (isDragging) {
+      selectRow(id);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const selectRow = (id) => {
+    setSelectedRows(
+      (prev) => (prev.includes(id) ? prev : [...prev, id]) // Excel-style: only add
+    );
+  };
+
   const columns = [
     "Select",
     "Task Title",
@@ -48,14 +73,24 @@ const Designer = () => {
   ];
 
   return (
-    <div className="bg-white w-full  flex flex-col ">
+    <div
+      className="bg-white w-full flex flex-col select-none"
+      onMouseUp={handleMouseUp}
+    >
       {/* Table */}
       <div className="px-[39px] pt-[26px]">
         <Table
           columns={columns}
           data={paginatedData}
           renderRow={(task) => [
-            <input type="checkbox" className="w-4 h-4" />,
+            <input
+              type="checkbox"
+              checked={selectedRows.includes(task.id)}
+              onMouseDown={() => handleMouseDown(task.id)}
+              onMouseEnter={() => handleMouseEnter(task.id)}
+              readOnly
+              className="w-4 h-4 cursor-pointer"
+            />,
             <span className="font-medium">{task.title}</span>,
             <div className="">
               <p className="truncate">
@@ -95,7 +130,7 @@ const Designer = () => {
             </div>,
             <button
               onClick={() => handleStatusClick(task)}
-              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap  text-center cursor-pointer flex justify-center items-center w-28 ${
+              className={`px-3 py-1 rounded-md text-sm text-white whitespace-nowrap text-center cursor-pointer flex justify-center items-center w-28 ${
                 task.status === "In Progress"
                   ? "bg-[#0E9EE7] hover:bg-sky-600"
                   : task.status === "Completed"

@@ -137,7 +137,7 @@ const CompanyExpense = () => {
       )}
 
       {/* ✅ Table */}
-      <div className="px-[37px] pt-[26px]">
+      <div className="px-[39px] pt-[26px]">
         <Table
           columns={columns}
           data={paginatedData}

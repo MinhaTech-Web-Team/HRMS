@@ -1,9 +1,10 @@
 // src/components/ActionMenu.jsx
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MoreVertical } from "lucide-react";
 
 const ActionMenu = ({ emp, openActionMenu, setOpenActionMenu, actions }) => {
   const menuRef = useRef(null);
+  const [openUpward, setOpenUpward] = useState(false);
 
   // ✅ Close on outside click
   useEffect(() => {
@@ -15,6 +16,16 @@ const ActionMenu = ({ emp, openActionMenu, setOpenActionMenu, actions }) => {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, [setOpenActionMenu]);
+
+  // ✅ Check if menu is near bottom
+  useEffect(() => {
+    if (openActionMenu === emp.id && menuRef.current) {
+      const rect = menuRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      // If not enough space below (less than 150px), open upward
+      setOpenUpward(viewportHeight - rect.bottom < 150);
+    }
+  }, [openActionMenu, emp.id]);
 
   return (
     <div ref={menuRef} className="relative inline-block">
@@ -31,7 +42,11 @@ const ActionMenu = ({ emp, openActionMenu, setOpenActionMenu, actions }) => {
 
       {/* Dropdown Menu */}
       {openActionMenu === emp.id && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-30 bg-white rounded-xl shadow-xl z-50">
+        <div
+          className={`absolute ${
+            openUpward ? "bottom-full mb-2" : "top-full mt-2"
+          } left-1/2 -translate-x-1/2 w-32 bg-white rounded-xl shadow-xl z-50`}
+        >
           <ul className="py-2 text-sm text-[#09182B] font-medium">
             {actions.map((action, index) => (
               <li

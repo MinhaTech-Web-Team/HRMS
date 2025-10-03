@@ -1,6 +1,8 @@
+// src/components/Notifications.jsx
 import { Search } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
 
 const notifications = [
   {
@@ -44,9 +46,10 @@ const Notifications = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col ">
-      <div className="flex items-center justify-between px-8 py-6 font-semibold text-3xl tracking-tighter border border-b border-black/30">
-        <div className="flex items-center gap-2">
+    <div className="bg-white w-full min-h-screen flex flex-col">
+      {/* Header */}
+      <div className="w-full border-b border-black/30">
+        <div className="px-4 py-6 flex items-center gap-3 font-semibold text-2xl tracking-tighter">
           <img
             className="cursor-pointer"
             onClick={() => navigate("/")}
@@ -55,24 +58,19 @@ const Notifications = () => {
           />
           <h1>Notifications</h1>
         </div>
-
-        <div className="w-64 px-4 py-3 bg-neutral-200/30 rounded-[5px] inline-flex flex-col justify-center items-start gap-2.5">
-          <div className="self-stretch inline-flex justify-start items-center gap-2.5">
-            <Search size={20} className="text-zinc-900 shrink-0 block" />
-            <input
-              type="text"
-              placeholder="Search"
-              className="flex-1 bg-transparent outline-none text-zinc-900/50 text-base font-normal leading-normal placeholder:text-zinc-900/50"
-            />
-          </div>
-        </div>
       </div>
 
-      <div className="py-7 px-14">
-        <div className="rounded-xl border border-[#A2A1A8]/20 p-5">
+      {/* Top Bar (Search) */}
+      <div className="px-[39px] pt-[26px] flex justify-start items-center">
+        <SearchBar />
+      </div>
+
+      {/* Notifications List */}
+      <div className="px-[39px] pt-[26px]">
+        <div className="rounded-xl border border-[#A2A1A8]/20 bg-white">
           {notifications.map((item, index) => (
             <div key={item.id}>
-              <div className="flex items-start justify-between py-3">
+              <div className="flex items-start justify-between px-6 py-4">
                 {/* Left: image + text */}
                 <div className="flex items-start gap-3">
                   <img
@@ -81,7 +79,7 @@ const Notifications = () => {
                     className="w-10 h-10 rounded-full object-cover"
                   />
                   <div>
-                    <h3 className="text-[17px] font-semibold text-gray-900 ">
+                    <h3 className="text-[17px] font-semibold text-gray-900">
                       {item.title}
                     </h3>
                     <p className="text-sm text-[#A2A1A8]">{item.message}</p>
@@ -96,7 +94,7 @@ const Notifications = () => {
 
               {/* Divider (not after last item) */}
               {index < notifications.length - 1 && (
-                <div className="border-b border-gray-200" />
+                <div className="border-b border-gray-200 mx-6" />
               )}
             </div>
           ))}
